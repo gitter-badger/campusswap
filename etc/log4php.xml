@@ -1,0 +1,26 @@
+
+<configuration xmlns="http://logging.apache.org/log4php/">
+ 
+    <appender name="echo" class="LoggerAppenderEcho">
+        <layout class="LoggerLayoutSimple" />
+        <param name="htmlLineBreaks" value="true" />
+    </appender>
+    
+    <appender name="console" class="LoggerAppenderConsole">
+        <layout class="LoggerLayoutSimple" />
+    </appender>
+    
+    <appender name="file" class="LoggerAppenderFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date [%logger] %message%newline" />
+        </layout>
+        <param name="file" value="var/log/main.log" />
+    </appender>
+    
+    <root>
+        <level value="DEBUG" />
+        <appender_ref ref="console" />
+        <appender_ref ref="file" />
+    </root>
+
+</configuration>

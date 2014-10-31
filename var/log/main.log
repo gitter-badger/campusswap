@@ -1,0 +1,90 @@
+2014-10-24T16:38:49-06:00 [main] ::1 - Incorrect Password attempt, user kaloidis@hartford.edu
+2014-10-24T16:39:26-06:00 [main] ::1 - Incorrect Password attempt, user kaloidis@hartford.edu
+2014-10-24T16:39:50-06:00 [main] ::1 - Incorrect Password attempt, user kaloidis@hartford.edu
+2014-10-24T16:42:56-06:00 [main] ::1 - Incorrect Password attempt, user kaloidis@hartford.edu
+2014-10-24T16:44:04-06:00 [main] kaloidis@hartford.edu - logged in successfully
+2014-10-27T23:02:36-06:00 [main] kaloidis@hartford.edu - logged in successfully
+2014-10-29T16:02:13-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-29T16:03:07-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-29T16:12:35-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-29T16:12:36-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'wcsu.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-29T16:12:37-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'ccsu.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-29T16:12:37-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-29T16:12:44-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY price DESC LIMIT 0, 40
+2014-10-29T16:12:45-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY price ASC LIMIT 0, 40
+2014-10-29T16:12:47-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits ASC LIMIT 0, 40
+2014-10-29T16:12:48-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits DESC LIMIT 0, 40
+2014-10-29T16:14:21-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits DESC LIMIT 0, 40
+2014-10-29T16:14:23-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created ASC LIMIT 0, 40
+2014-10-29T16:14:24-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits DESC LIMIT 0, 40
+2014-10-29T16:14:27-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY price DESC LIMIT 0, 40
+2014-10-29T16:14:27-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY price ASC LIMIT 0, 40
+2014-10-29T16:14:28-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits ASC LIMIT 0, 40
+2014-10-30T16:46:35-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-30T17:00:19-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-30T17:01:50-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-30T15:02:02-06:00 [main] kaloidis@hartford.edu - logged in successfully
+2014-10-30T17:02:03-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-30T18:39:43-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-30T18:41:48-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-30T18:42:25-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T02:57:18-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:03:22-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:06:53-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:06:58-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:08:13-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:10:53-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:11:29-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:27:07-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:30:18-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:31:43-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:32:04-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:33:24-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:34:53-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:41:59-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:42:25-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:43:48-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:44:47-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:46:29-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:49:40-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:52:52-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:53:10-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:53:16-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:53:26-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:53:28-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:54:01-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:54:14-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:54:22-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:54:23-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:54:46-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:54:53-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:55:23-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:57:04-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:57:06-04:00 [main] We are loading multiple (0) posts: SELECT * FROM posts WHERE domain = 'farfield.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:57:07-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:57:10-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY hits ASC LIMIT 0, 40
+2014-10-31T03:57:11-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY price ASC LIMIT 0, 40
+2014-10-31T03:57:12-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY price DESC LIMIT 0, 40
+2014-10-31T03:57:13-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY hits ASC LIMIT 0, 40
+2014-10-31T03:57:18-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created ASC LIMIT 0, 40
+2014-10-31T03:57:45-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created ASC LIMIT 0, 40
+2014-10-31T03:57:47-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created ASC LIMIT 0, 40
+2014-10-31T03:59:43-04:00 [main] We are loading multiple (1) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' AND item LIKE '%vas%' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:59:46-04:00 [main] We are loading multiple (1) posts: SELECT * FROM posts WHERE domain = 'hartford.edu' AND item LIKE '%mac%' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:59:51-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T03:59:56-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits ASC LIMIT 0, 40
+2014-10-31T03:59:57-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY price DESC LIMIT 0, 40
+2014-10-31T03:59:58-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits DESC LIMIT 0, 40
+2014-10-31T03:59:59-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits ASC LIMIT 0, 40
+2014-10-31T04:00:12-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY price DESC LIMIT 0, 40
+2014-10-31T04:00:13-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY hits DESC LIMIT 0, 40
+2014-10-31T04:00:14-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:00:15-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'ccsu.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:00:18-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'ccsu.edu' ORDER BY price ASC LIMIT 0, 40
+2014-10-31T04:00:19-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'ccsu.edu' ORDER BY hits ASC LIMIT 0, 40
+2014-10-31T04:00:20-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts WHERE domain = 'ccsu.edu' ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:00:21-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:07:02-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:08:42-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:09:13-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+2014-10-31T04:10:13-04:00 [main] We are loading multiple (40) posts: SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40

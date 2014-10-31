@@ -1,0 +1,19 @@
+#adminContent {
+	margin-left:5%;
+	margin-right:5%;
+}
+
+body {
+	color:black;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+a {
+	color:black;
+}
+h1 {
+	color:black;
+}
