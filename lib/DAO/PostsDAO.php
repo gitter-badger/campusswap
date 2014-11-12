@@ -8,17 +8,24 @@
 
 class PostsDAO {
 
-    public static $conn, $sql, $row_count;
+    public static $conn, $sql, $limit_sql, $total_count, $fp_count, $log, $dir;
 
-    public function __construct($connection) {
+    public function __construct($connection, $config, $log) {
         self::$conn = $connection;
+        self::$log = $log; //TODO:bug :this creates a dir "var" in lib so it has to go, or we meed to make it work
+
+
+        $dir = Config::get('dir');
+        self::$dir = $dir;
+        include $dir . 'lib/Post.php';
+
     }
 
-    public static function updatePosts($field, $update, $id){
+    public function updatePosts($field, $update, $id){
 
-        self::$sql = "UPDATE posts SET " . $field . " = '" . $update . "' WHERE id = '" . $id . "' ";
+        $sql = "UPDATE posts SET " . $field . " = '" . $update . "' WHERE id = '" . $id . "' ";
 
-        $result = mysqli_query(self::$conn, self::$sql);
+        $result = mysqli_query(self::$conn, $sql);
 
         if($result){
             return TRUE;
@@ -26,6 +33,32 @@ class PostsDAO {
             return FALSE;
         }
 
+    }
+
+    public function deleteItem($id){
+        $sql = "DELETE FROM posts WHERE id='$id'";
+
+        $result = mysqli_query(self::$conn, $sql);
+
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function likeItem($user, $id) {
+
+        $result = mysqli_query(self::$conn, "UPDATE posts SET hits = hits +1 WHERE id = '$id'");
+
+        $update = '/' . $id;
+        $result2 = mysqli_query(self::$conn, "UPDATE users SET likes = CONCAT(likes, '$update') WHERE id = '$user'");
+
+        if($result && $result2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -49,7 +82,8 @@ class PostsDAO {
         $image){
 
         if(!$image){
-            $sql = "                INSERT INTO posts
+            $sql = "
+                INSERT INTO posts
                     (item,
                     description,
                     username,
@@ -98,6 +132,9 @@ class PostsDAO {
                     '$image')";
         }
 
+//        self::$log->log(AuthenticationDAO::liFullName(), "info", "created post: " . mysqli_insert_id(self::$conn), 'post create');
+
+        //TODO: Sanitize
         $query = mysqli_query(self::$conn, $sql);
 
         if($query){
@@ -115,7 +152,7 @@ class PostsDAO {
 
         self::$sql = 'SELECT * FROM posts ';
 
-        if($college != 'all'){
+        if($college != 'all' && $college != false){
             self::$sql .= "WHERE domain = '" . $college . "' ";
         } else if(!Parser::isFalse($search)) {
             self::$sql .= "WHERE ";
@@ -136,8 +173,10 @@ class PostsDAO {
 
     }
 
-    public static function getSql() {
-        return self::$sql;
+    public function getTotalRows($sql){
+        $query = mysqli_query(self::$conn, $sql);
+        self::$total_count = mysqli_num_rows($query);
+        return self::$total_count;
     }
 
     public function getPosts(
@@ -149,21 +188,33 @@ class PostsDAO {
 
         self::$sql = $this->setSql($college, $search, $sort);
 
+        self::$limit_sql = self::$sql;
+
         if($first_limit >= 0){
-            self::$sql .= "LIMIT ";
+            self::$limit_sql .= "LIMIT ";
             if($second_limit >= 0){
-                self::$sql .= $first_limit . ", " . $second_limit;
+                self::$limit_sql .= $first_limit . ", " . $second_limit;
             } else {
-                $second_limit = $first_limit + 10;
-                self::$sql .= $first_limit . ", " . $second_limit;
+                $second_limit = 10;
+                self::$limit_sql .= $first_limit . ", " . $second_limit;
             }
         }
 
-        return $this->createObject(self::$sql);
+        $return = $this->createObject(self::$limit_sql);
+
+        if($return) {
+            return $return;
+        } else {
+//            self::$log->log(AuthenticationDAO::liFullName(), "fatal", "There was an error loading the posts from the Posts DAO");
+            return false;
+        }
     }
 
     public function getSortSql($sort) {
         switch($sort){
+            case 'none':
+                return "";
+            break;
             case 'dateAsc':
                 return "ORDER BY created ASC ";
             break;
@@ -190,7 +241,9 @@ class PostsDAO {
 
     public function getSortText($sort) {
         $navSort = '';
-        if($sort == 'priceHighLow'){
+        if($sort == 'none'){
+            $navSort = '';
+        } else if($sort == 'priceHighLow'){
             $navSort = 'Price Sorted High to Low';
         } else if($sort=='priceLowHigh'){
             $navSort = 'Price Sorted Low to High';
@@ -209,7 +262,7 @@ class PostsDAO {
     }
 
     public function getPostsUser($username, $domain) {
-        $query = "GET * FROM posts WHERE username = '" . $username . "' AND domain = '" . $domain . "' ";
+        $query = "SELECT * FROM posts WHERE username = '" . $username . "' AND domain = '" . $domain . "' ";
 
         $results = $this->createObject($query);
 
@@ -217,14 +270,15 @@ class PostsDAO {
     }
 
     public function createObject($sql){
+//        self::$log->log(AuthenticationDAO::liFullName(), "debug", "Attempting to create Posts Object from " . $sql);
+
         $result = mysqli_query(self::$conn, $sql);
 
-        self::$row_count = mysqli_num_rows($result);
+        self::$fp_count = mysqli_num_rows($result);
 
-        if(self::$row_count > 0){
-
+        if(self::$fp_count > 1){
             while($row = mysqli_fetch_array($result)){
-                $Post = new Posts();
+                $Post = new Post();
                 $Post->setId($row['id']);
                 $Post->setUsername($row['username']);
                 $Post->setDomain($row['domain']);
@@ -240,6 +294,24 @@ class PostsDAO {
                 $results[] = $Post;
             }
             return $results;
+        } else if(self::$fp_count == 1) {
+            while($row = mysqli_fetch_array($result)){
+                $Post = new Post();
+                $Post->setId($row['id']);
+                $Post->setUsername($row['username']);
+                $Post->setDomain($row['domain']);
+                $Post->setItem($row['item']);
+                $Post->setDescription($row['description']);
+                $Post->setPrice($row['price']);
+                $Post->setHits($row['hits']);
+                $Post->setViews($row['views']);
+                $Post->setImg($row['img']);
+                $Post->setModified($row['modified']);
+                $Post->setCreated($row['created']);
+                $Post->setCreatedSince($row['createdSince']);
+                $Posts[0] = $Post;
+                return $Posts;
+            }
         } else {
             return false;
         }
@@ -251,8 +323,10 @@ class PostsDAO {
 
         return $this->createObject($sql);
 
-        mysqli_free_result($query); //TODO: Implement this everywhere
+        //mysqli_free_result($query); //TODO: Implement this everywhere, I think?
 
     }
 
-} 
+}
+
+?>

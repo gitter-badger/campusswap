@@ -12,13 +12,13 @@
     
     <appender name="file" class="LoggerAppenderFile">
         <layout class="LoggerLayoutPattern">
-            <param name="conversionPattern" value="%date [%logger] %message%newline" />
+            <param name="conversionPattern" value="%date{d.m H:i:s}%-5level %msg%n" />
         </layout>
         <param name="file" value="var/log/main.log" />
     </appender>
     
     <root>
-        <level value="DEBUG" />
+        <level value="trace" />
         <appender_ref ref="console" />
         <appender_ref ref="file" />
     </root>

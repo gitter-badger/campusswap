@@ -7,12 +7,12 @@ $config = new Config('../etc/config.ini');
 $dir = Config::get('dir');
 
 include($dir . 'functions.php');
-include($dir . 'lib/Domains.php');
-include($dir . 'lib/Users.php');
+
+
 include($dir . 'lib/vers.php');
 include($dir . 'lib/Posts.php');
 include($dir . 'lib/Database.php');
-include($dir . 'lib/Authentication.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
 
 
 ?>
@@ -20,7 +20,7 @@ include($dir . 'lib/Authentication.php');
 <?php if($debug){ ?>
 	<div style="background-color:#d0ddcf;border: 1px solid #9CAA9C; margin-top:0px;">
 		<b>DEBUGGING PANEL:</b> - 
-		<?php echo liUser() . '@' . liDomain() . ' - ID(' . Authentication::liId() . ')'; ?>
+		<?php echo liUser() . '@' . liDomain() . ' - ID(' . AuthenticationDAO::liId() . ')'; ?>
 	</div>
 <?php } ?>
 <!DOCTYPE html>
@@ -40,10 +40,10 @@ include($dir . 'lib/Authentication.php');
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="<?= URL ?>interface/img/favicon.ico">
+    <link rel="apple-touch-icon" href="<?= URL ?>interface/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="<?= URL ?>interface/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="<?= URL ?>interface/img/apple-touch-icon-114x114.png">
     
     
     <!-- Scripts: inc. TableSorter -->

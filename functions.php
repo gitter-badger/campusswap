@@ -1,7 +1,7 @@
 <?php
 
 function return_home(){
-    include('./theme/return_home.php');
+    include('./interface/return_home.php');
 }
 
 function getSetup(){

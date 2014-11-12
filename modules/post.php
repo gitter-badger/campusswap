@@ -7,8 +7,9 @@ $Post = $posts[$x];
 $id = $Post->getId();
 $username = $Post->getUsername();
 $domain = $Post->getDomain();
+$full_name = $username . "@" . $domain;
 $item = $Post->getItem();
-$descriptionTemp = $Post->getDescription();
+$description = $Post->getDescription();
 $price = $Post->getPrice();
 $hits = $Post->getHits();
 $views = $Post->getViews();
@@ -18,49 +19,11 @@ $created = $Post->getCreated();
 $createdSince = $Post->getCreatedSince(); //TODO: Delete this in the DB;
 
 if(Helper::getDevice()=='tablet'){
-    $description = substr($descriptionTemp, 0, 80); //SHORTEN DESCRIPTION 
+    $descriptionShort = substr($description, 0, 80); //SHORTEN DESCRIPTION
 } else {
-    $description = substr($descriptionTemp, 0, 150); //SHORTEN DESCRIPTION 
+    $descriptionShort = substr($description, 0, 150); //SHORTEN DESCRIPTION
 }
-	
-$imgSet = false;
 
-if($switch==1) { 
-    $switch=0; echo '<div class="result box" id="result">'; 
-} else{ 
-    $switch = 1; echo '<div class="result" style"background-color:#F8F5F1" id="result">'; 
-}
-?>
-	
-<a href="#" 
-	style="word-spacing:2px;font-size:small" 
-	onclick="
-            Effect.toggle('<?php echo 'ROW-' . $id; ?>', 'slide');
-            viewItem(<?= $id ?>);
-            return false;">
-            <?= $item . ' - $' . $price; ?>
-	
-<?php 
-	//ECHO HITS
-	if($hits != 0){
-		echo '(' . $hits . ' likes)';
-	}
-	
- 	//ECHO SHORTER DESCRIPTION
-	if(Helper::getDevice()=='mobile'){ }
-	else {
- 		if($img!='FALSE' || $img == null){ 
-			echo '<i class="icon-film"></i>'; 
-			$imgSet = true;
-			}
-		echo '<small> - ' . $description . '</small>';
-	} 
-	?>
-	</a>
-
-<div class="post_title_name">
-
-<?php 
 date_default_timezone_set('America/New_York'); //SET TIME TO DELETION DATES
 
 // TODAYS DATE
@@ -81,54 +44,63 @@ $sinceSeconds = $created_since->format('%s');
 $sinceHours = $created_since->format('%h');
 $sinceDays = $created_since->format('%d');
 
-echo '<strong class="muted">';
-//if($sinceMinutes >= 1){
-//	if($sinceHours >=1){
-//		if($sinceDays >= 1){
-//			if($sinceDays>1){
-//				echo $sinceDays . ' days ago - ';
-//			} else {
-//				echo $sinceDays . ' day ago - ';
-//			}
-//		} else {
-//			if($sinceHours > 1){
-//				echo $sinceHours . ' hours ago - ';
-//			} else {
-//				echo $sinceHours . ' hour ago - ';
-//			}
-//			
-//		}
-//	} else {
-//		if($sinceMinutes > 1){
-//			echo $sinceMinutes . ' minutes ago - ';
-//		} else {
-//			echo $sinceMinutes . ' minute ago - ';
-//		}
-//		
-//	}
-//} else {
-//	if($sinceSeconds > 1){
-//		echo $sinceSeconds . ' seconds ago - ';
-//	} else {
-//		echo $sinceSeconds . ' second ago - ';
-//	}
-//	
-//}
-echo '</strong>';
+$imgSet = false;
 
-//username mask v**@hartford.edu
-$strlen = strlen($username);
-$nameEx = str_split($username);
+if($switch==1) { 
+    $switch=0;
+    echo '<div class="result box" id="result">';
+} else{ 
+    $switch = 1;
+    echo '<div class="result" style"background-color:#F8F5F1" id="result">';
+}
+?>
 
-//Date Created
+<?php //POS TITLE ?>
+<a href="#"
+	style="word-spacing:2px;font-size:small" 
+	onclick="
+        Effect.toggle('<?php echo 'ROW-' . $id; ?>', 'slide');
+        viewItem(<?= $id ?>);
+        return false;">
+        <?= $item . ' - $' . $price; ?>
+
+<?php
+if($sinceDays > 7) {
+    echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
+} else if($sinceDays > 3) {
+    echo '<span class="label label-warning">' . $sinceDays . ' days ago</span>';
+} else if($sinceDays > 1) {
+    echo '<span class="label label-primary">' . $sinceDays . ' days ago</span>';
+} else if($sinceDays == 1) {
+    echo '<span class="label label-primary">' . $sinceDays . ' day ago</span>';
+} else if($sinceDays == 0) {
+    echo '<span class="label label-success">Today</span>';
+}
+?>
+
+<?php 
+	//ECHO HITS
+	if($hits != 0){
+		echo '<span class="btn">Likes <span class="badge">' . $hits . ' </span></span>)';
+	}
+	
+ 	//ECHO SHORTER DESCRIPTION
+	if(Helper::getDevice()!='mobile') {
+ 		if(!Parser::isFalse($img) || $img == null){
+			echo '<i class="fa fa-picture-o fa-lg"></i>';
+			$imgSet = true;
+        }
+	}
+	?>
+	</a>
+
+<div class="post_title_name">
+
+<?php
+
+//Obfuscate Username + Print
 if(Helper::getDevice()!='mobile'){
-
-	echo $nameEx[0];
-
-	for($i = 0; $i < ($strlen - 1); $i++){ //ECHO USERNAME, WITH ***'S
-		echo '*';
-	} 
-		echo '@' . $domain;
+    echo Helper::obfuscate_username($username, $domain);
 }
 ?>
 	
@@ -138,81 +110,97 @@ if(Helper::getDevice()!='mobile'){
 
 <?php
 //TODO: Finish if single item
-//if(item()=='empty'){ //FINISH IF SINGLE ITEM SELECTED,CHOOSE THIS
-//	$postDisplay = '';
-//} else {
+if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,CHOOSE THIS
+	$postDisplay = '';
+} else {
     $postDisplay = 'display:none;';
-//}
-
+}
 ?>
 
-
+<?php //POST CONTENTS ?>
 <div class="post" id="<?php echo 'ROW-' . $id; ?>" style="margin-bottom:5px;<?= $postDisplay ?>">
-  <div>
-    <?= $description ?><br />&nbsp;<br />
-	<?php if(!Parser::isFalse($img)){ ?>
+    <div class="media">
+
+        <div class="post_description page-header"> <?PHP //TITLE ?>
+            <h3><?= $item ?>&nbsp;<small><i class="fa fa-usd"></i><?= $price ?></small></h3>
+        </div>
+
+        <?php if(!Parser::isFalse($img)){ //IMAGE ?>
             <a href="<?= URL ?>var/uploads/<?= $img?>"
                class="lightwindow">
-            <img class="post_img"
-            align="left" width="100" height="100" src="<?= URL ?>var/uploads/<?= $img ?>" />
+                <img class="thumbnail"
+                     align="left" width="100" height="90" src="<?= URL ?>var/uploads/<?= $img ?>" />
             </a>
-        <?php //TODO: Bug, the lightwindow image takes too long to load. possibly cache, or pre-load maybe ?>
             <br />
-	<?php } ?>
-	
-	<div>
-            <?php
-            echo $sinceDays . ' days ago - ';
-            echo $sinceHours . ' hours ago - ';
-            echo $sinceMinutes . ' minutes ago - ';
-            echo $sinceSeconds . ' seconds ago ';
-            ?>
-        </div>
-        <div>
-        <?php ////TODO: Sanitize this ?>
-        <i class="icon-globe"></i>&nbsp;<?= URL . '?item=' . $id ?><br />&nbsp; 
-        Views: <?= $views ?> / 
-        Created: <?= $date_created->format('Y-m-d'); ?> / 
-        Deletion Date <?= $delete_date->format('Y-m-d') ?> /
-        Days till Deletion <?php echo $time_till_delete->format('%R%a days') ?>
-		
-    <?php if(Authentication::isLi()){ ?>
-        <table>
-            <tr>
-                <td><form id="contactForm" action="contactSeller.php" method="post">
-                    <input type="hidden" name="sellerEmail" value="<?= $username ?>@<?= $domain ?>">
-                    <input type="hidden" name="item" value="<?= $item?>" />
-                    <button type="submit" class="btn btn-small"><i class="icon-comment"></i>Contact Seller</button>
-                </form></td>
-            <tr>
-        <?php if($thisUser->doesUserLike($hits)){ ?><?php //TODO: The like button does not work ?>
-            <p class="btn btn-large">You liked this</p>
-        <?php } else {?>
-            <div action="#" style="padding:none;margin:none;" name="likeButton<?= $id ?>" id="likeButton<?= $id ?>">
-                <form id="likeForm" onsubmit="return likeItem(<?= $id ?>); return false;">
-                        <button type="submit" class="btn btn-small"><i class="icon-star"></i>Like It</button>
-                </form>
+        <?php } ?>
+
+        <p><?php echo $description ?></p><br><br><br>
+
+<!--        <div>-->
+<!--            --><?php
+//            Print the ammount of days since created
+//            echo $sinceDays . ' days ago - ';
+//            echo $sinceHours . ' hours ago - ';
+//            echo $sinceMinutes . ' minutes ago - ';
+//            echo $sinceSeconds . ' seconds ago ';
+//            ?>
+<!--        </div>-->
+
+        <div class="input-group col-xs-4 col-md-4 col-sm-4">
+            <span class="input-group-addon"><i class="fa fa-link"></i></span>
+            <input disabled type="text" class="form-control" placeholder="<?= URL . '?item=' . $id ?>">
+        </div><br>
+
+        <ol class="breadcrumb">
+            <li> <b>Views:</b> <?= $views ?> </li>
+            <li><i class="fa fa-calendar-o fa-lg"></i> <b>Created:</b> <?= $date_created->format('Y-m-d'); ?> </li>
+            <li><i class="fa fa-calendar fa-lg"></i> <b>Deletion Date:</b> <?= $delete_date->format('Y-m-d') ?> </li>
+            <li><i class="fa fa-bullhorn fa-lg"></i> <b>Days till Deletion:</b> <?php echo str_replace("+", "", $time_till_delete->format('%R%a days')); ?> </li>
+        </ol>
+
+        <?php if($isLi){ ?>
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                    <?php $contact_url = 'approach=' . urlencode("email") . '&sellerEmail=' . urlencode($full_name) . '&id=' . urlencode($id); ?>
+                    <a class="btn btn-default lightwindow"
+                       role="button"
+                       href="<?= URL ?>modules/contact_seller.php?<?= $contact_url ?>"
+                       params="lightwindow_type=external,lightwindow_width=520,lightwindow_height=550">
+                        <i class="fa fa-comment fa-lg"></i>
+                        Contact Seller
+                    </a>
+                </div>
+
+                <div class="btn-group">
+                    <?php if($this_user->doesUserLike($hits)){ ?><?php //TODO: The like button does not work ?>
+                        <p class="btn btn-large">You liked this</p>
+                    <?php } else {?>
+                        <div action="#" style="padding:none;margin:none;" name="likeButton<?= $id ?>" id="likeButton<?= $id ?>">
+                            <form id="likeForm" onsubmit="return likeItem(<?= $id ?>); return false;">
+                                <button type="submit" class="btn btn-default" role="button"><i class="fa fa-star fa-lg"></i>Like It</button>
+                            </form>
+                        </div>
+                    <?php } ?>
+                </div>
+
+                <div class="btn-group">
+                    <form id="abuseForm" action="<?= URL ?>modules/report_abuse.php" method="post">
+                        <input type="hidden" name="abuser" value="<?= $username ?>@<?= $domain ?>">
+                        <input type="hidden" name="reporter" value="<?= AuthenticationDAO::liFullName() ?>">
+                        <input type="hidden" name="post" value="<?= URL . '?item=' . $id ?>">
+                        <input type="hidden" name="abuse" value="abuse" />
+                        <button type="submit" class="btn btn-default" role="button"><i class="fa fa-gavel fa-lg"></i>Report Abuse</button>
+                    </form>
+                </div>
+
             </div>
-        <?php } ?>
-        </td>
-        <td>
-            <form id="abuseForm" action="reportAbuse.php" method="post">
-                <input type="hidden" name="abuser" value="<?= $username ?>@<?= $domain ?>">
-                <input type="hidden" name="reporter" value="<?= liFullname() ?>" />
-                <input type="hidden" name="post" value="<?= URL . '?item=' . $id ?>" />
-                <input type="hidden" name="abuse" value="abuse" />
-                <button type="submit" class="btn btn-small"><i class="icon-flag"></i>Report Abuse</button>
-            </form>
-        </td>
-        </tr>
-        </table>
-        <?php } else {?>
-                <br />
-            <form action="login.php">
-                <button type="submit" class="btn">Log-in to contact User</button>
-            </form>
-        <?php } ?>
-	</div>
+
+            <?php } else { //Not logged in?>
+                    <br />
+                <form action="login.php">
+                    <button type="submit" class="btn">Log-in to contact User</button>
+                </form>
+            <?php } ?>
+        </div>
   </div>
-</div>
 

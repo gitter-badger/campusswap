@@ -1,186 +1,173 @@
 <?php
+//session_start();
 
 include('./lib/Config.php');
+
 $config = new Config('./etc/config.ini');
+
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
+$version = Config::get('version');
 
-include($dir . 'lib/DAO/PostsDAO.php');
+include($dir . 'lib/DAO/DomainsDAO.php');
+include($dir . 'lib/DAO/AccessDAO.php');
+include($dir . 'lib/DAO/UsersDAO.php');
 
-include($dir . 'functions.php');
-include($dir . 'lib/Domains.php');
-include($dir . 'lib/Users.php');
-include($dir . 'lib/vers.php');
-include($dir . 'lib/Posts.php');
+
+include($dir . 'lib/Util/Parser.php');
+include($dir . 'lib/Util/Helper.php');
+include($dir . 'lib/Util/LogUtil.php');
+
 include($dir . 'lib/Database.php');
-include($dir . 'lib/Authentication.php');
-include($dir . 'lib/Log.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
 
-include('./theme/subpage_head.php');
+$debug = Parser::isTrue(Config::get('debug'));
 
 $database = new Database();
 $conn = $database->connection();
+
+$LogUtil = new LogUtil($conn, $config);
+$DomainsDAO = new DomainsDAO($conn, $config, $LogUtil);
+$AccessDAO = new AccessDAO($conn, $config, $LogUtil);
+$UsersDAO = new UsersDAO($conn, $config, $LogUtil);
+
+$all_domains = $DomainsDAO->getAllDomains();
+
+//TODO: Cleanup the login and add failed attempt banner
+//TODO: Cleanup the security system while were at it, this page is a good start
+
+
+include(DIR . 'interface/subpage_head.php');
 
 
 if(isset($_POST['loginSubmitted'])){
 	
 	$errors = array();
 	
-	if(empty($_POST['username'])){
+	if(!isset($_POST['username'])){
 		$errors[] = 'You did not enter a username!';
 	} else {
-		$u = $_POST['username'];
+		$username = $_POST['username'];
 	}
+
+    $domain = $_POST['domain'];
 	
-	$u = $_POST['username'];
-	
-	if(empty($_POST['password'])){
+	if(!isset($_POST['password'])){
 		$errors[] = 'You did not enter a password';
 	} else {
-		$p = $_POST['password'];
+		$password = $_POST['password'];
 	}
 	
-	$d = $_POST['domain'];
-	
-	$fullName = $u . '$' . $d;
+	$fullName = $username . '$' . $domain;
 	
 	if(empty($errors)){
 		
-		$ip = $_SERVER['REMOTE_ADDR'];
-		
-		date_default_timezone_set('America/Denver');
+		date_default_timezone_set('America/New_York');
 		$today = date("y-m-d");
-		
-		$ipQuery = mysqli_query($conn, "SELECT failed_logons FROM ipLog WHERE (ip = '$ip' AND date = '$today')");
-		
-		$ipArray = mysqli_fetch_array($ipQuery, MYSQL_NUM);
-		
-		$failed_logons = $ipArray[0];
-		
+
 		$check = false;
 		
-		$userSQL = mysqli_query($conn, "SELECT username, domain, level, id, status FROM users WHERE (username='$u' AND domain='$d' AND password=SHA('$p'))");
-		
-		$userSQLCount = mysqli_num_rows($userSQL);
-		
-		$row = mysqli_fetch_array($userSQL, MYSQL_NUM);
+        $user_authenticated = $UsersDAO->authenticateUser($username, $domain, $password);
+        $access = $AccessDAO->getAccessToday(LogUtil::getIp(), $fullName);
 
-		if($userSQLCount != 0){ //If found user
+        $failed_logins = $access->getFailedLogins();
+
+		if($user_authenticated){ //If user + password good
 			
-			if($row[4]=='banned' || $failed_logons > 5){ //If Banned or Too many Login attempts
-				echo 'You have been banned, your IP has been logged.';
-				if($ipArray[0] < 5){
-					echo '<div class="alert alert-danger">Your ip has failed logon attempts today greater than 5 times, try again tomorrow</div>';
-					Log::logAction($_SERVER['REMOTE_ADDR'], $u . '@' . $d . ' failed to enter correct password more than 5 times');
-					
-				}
-				Log::logAction($_SERVER['REMOTE_ADDR'], 'Banned User attempted login, user ' . $u . '@' . $d);
-				
-			} else { //Login successfully
-				$_SESSION['user'] = $row[0];
-				$_SESSION['domain'] = $row[1];
-				$_SESSION['userId'] = $row[3];
-				$_SESSION['level'] = $row[2];
+			if($failed_logins > 5 || $user_authenticated == 'banned'){ //If Banned or Too many Login attempts
 
-				$fullName = $_SESSION['user'] . '@' . $_SESSION['domain'];
-				
-				$ipUsernameSQL = mysqli_query($conn, "SELECT usernames FROM ipLog WHERE (ip = '$ip' AND date = '$today')");
-				$ipUsername = mysqli_fetch_array($ipUsernameSQL, MYSQL_NUM);
-				
-				$ipUsernames = explode("/", $ipUsername[0]);
-				
-				
-				$foundUserIp = FALSE;
-				foreach($ipUsernames as $i){
-					if($i == $fullName){
-						$foundUserIp = TRUE;
-					} else {
-						//Do Nothing
-					}
-				}
-				
-				$updateUsername = $ipUsername[0] . '/' . $fullName;
-				
-				if(!$foundUserIp){
-					//mysql_query("UPDATE ipLog SET usernames = CONCAT(usernames, '$updateUsername') WHERE (ip = '$ip' AND date = '$today')");
+				echo 'You have been banned or you have more than 5 failed login attempts in the past 24 hours, your IP has been logged.';
+				if($failed_logins > 5){
+					$alert = 'Your IP has been temporarily banned becase your IP has failed more than 5 logon attempts today. If you beleive this is incorrect - please contact support.';
+					Helper::print_alert("danger", $alert);
+                    $LogUtil->log("IP", "ACTION", $username . "@" . $domain . " failed to enter correctly password more than 5 times. Failed login attempt #" . $failed_logins);
 				}
 
-				Log::logAction($fullName, 'logged in successfully');
+                if($user_authenticated == 'banned') {
+                    $LogUtil->log("IP", "ACTION", $username . "@" . $domain . "Banned User attempted login", "banned user login attempt");
+                    Helper::print_alert("warning", "Your username has been banned, you cannot log in. If you think this has been done in error, contact support");
+                }
 
-				echo '<div class="alert alert-success">you have successfully logged in</div>';
+			} else { //Login successful
+				$_SESSION['user'] = $user_authenticated->getUsername();
+				$_SESSION['domain'] = $user_authenticated->getDomain();
+				$_SESSION['userId'] = $user_authenticated->getId();
+				$_SESSION['level'] = $user_authenticated->getLevel();
+				
+				$access_usernames = explode("/", $access->getUsernames());
+                if(!in_array($fullName, $access_usernames)){
+                    $access->addUsertoAccess($conn, $fullName); //Might to include the file at the top and redlecare
+                }
+
+				$LogUtil->log($fullName, 'ACTION', $fullName, ' logged in successfully from' . LogUtil::getIp(), 'login');
+
+				echo '<div class="alert alert-success">You have successfully logged in</div>';
 			}
 				
 		} else {
-			echo '<div class="alert alert-warning">Could not find the username or password and your ip address has been logged. If you repeatedly login incorrectly your IP address will be banned.</div><br />';
-			
-                        echo '<a href="login.php"><button class="btn btn-primary">Try Login Again</button></a>';
+			echo '<div class="alert alert-warning">Could not find the username or password. If you repeatedly login incorrectly your IP address will be banned.</div><br />';
+
+            echo '<a href="' . $url . 'login.php"><button class="btn btn-primary">Try Login Again</button></a>';
                         
-                        mysqli_query($conn, "UPDATE ipLog SET failed_logons = failed_logons +1 WHERE (ip = '$ip' AND date = '$today')");
-			Log::logAction($_SERVER['REMOTE_ADDR'], 'Incorrect Password attempt, user ' . $u . '@' . $d);
+            $LogUtil->log('IP', 'ACTION' , ' failed login attempt user ' . $username . '@' . $domain, ' failed login');
 		}
 	} else {
 		
 		foreach($errors as $msg){
-			echo $msg ;
+            $LogUtil->log('IP', 'ACTION' , ' failed login error: ' . $msg, 'failed login');
+            echo '<div class="alert alert-danger"><a href="login.php">' . $msg . '</a></div>';
 		}
-		echo '<div class="alert alert-danger"><a href="login.php">There was an error, Try Again</a></div>';
-                return_home();
+        Helper::return_home_button('center');
 	}
 } else { ?>
 
+<h1>Login</h1>
+<form name="input"
+          class="form-signin"
+          action="login.php"
+          method="post">
+        <h4><b>Username: </b></h4>
+    <input type="text" class="tall_text_box input-group input-group-lg" size="10" value="username" name="username" /><br />
+    <select class="form-control input-lg" name="domain">
+        <?php
+        $domain_result = mysqli_query($conn, "SELECT domain, name FROM domains");
 
+        while($row = mysqli_fetch_assoc($domain_result)){
+            echo '<option value = "' . $row['domain'] . '">@' . $row['domain'] . '</option>';
+        }
 
-    <h2>Login</h2>
-	<form name="input" 
-              class="form-signin"
-              action="login.php" 
-              method="post">
-            <h4><b>Username: </b></h4>
-		<input type="text" class="tall_text_box input-group input-group-lg" size="10" value="username" name="username" /><br />
-		<select class="form-control input-lg" name="domain">
-			<?php
-			$domain_result = mysqli_query($conn, "SELECT domain, name FROM domains");
+        ?>
+    </select><br />
+            <h4><b>Password: </b></h4>
+    <input class="tall_text_box form-control input-lg" type="password" size="30" name="password" value="password" /><br />
+    <input type="hidden" name="loginSubmitted" value="TRUE">
+    <input type="submit" class="btn btn-primary btn-large btn-block" value="Login" />
+    <a href="<?= Config::get('url'); ?>recoverPassword.php">Recover Password</a>
+</form>
 
-			while($row = mysqli_fetch_assoc($domain_result)){
-				echo '<option value = "' . $row['domain'] . '">@' . $row['domain'] . '</option>';
-			}
+<h2>Register<small>Available Upon Release</small></h2>
+<form name="input" action="signup.php" method="post">
+        <h4><b>University E-Mail: </b></h4>
+            <input class="tall_text_box input-group input-grou-lg" type="text" size="10" value="username" name="username" /><br />
+    <select class="form-control input-lg" name="domain">
+        <?php
 
-			?>
-		</select><br />
-                <h4><b>Password: </b></h4>
-		<input class="tall_text_box form-control input-lg" type="password" size="30" name="password" value="password" /><br />
-		<input type="hidden" name="loginSubmitted" value="TRUE">
-		<input type="submit" class="btn btn-primary btn-large btn-block" value="Login" />
-		<a href="<?= Config::get('url'); ?>recoverPassword.php">Recover Password</a>
-	</form>
+        foreach($all_domains as $row){
+            echo '<option value = "' . $row->getDomain() . '">@' . $row->getDomain() . '</option>';
+        }
 
-	<h2>Register<small>Available Upon Release</small></h2>
-	<form name="input" action="signup.php" method="post">
-            <h4><b>University E-Mail: </b></h4>
-                <input class="tall_text_box input-group input-grou-lg" type="text" size="10" value="username" name="username" /><br />
-		<select class="form-control input-lg" name="domain">
-			<?php
-			$domain_result = mysqli_query($conn, "SELECT domain, name FROM domains");
-
-			while($row = mysqli_fetch_assoc($domain_result)){
-				echo '<option value = "' . $row['domain'] . '">@' . $row['domain'] . '</option>';
-			}
-
-			?>
-		</select><br />
-		<input type="hidden" name="signup" value="TRUE">
-		<input type="submit" class="btn btn-primary btn-large btn-block" value="Signup!" />
-		
-	</form>
-        
+        ?>
+    </select><br />
+    <input type="hidden" name="signup" value="TRUE">
+    <input type="submit" class="btn btn-primary btn-large btn-block" value="Signup!" />
 
 </form>
 
 <?php } 
 
- return_home();
+ Helper::return_home_button('center');
 
-include('./theme/subpage_foot.php'); 
+include(DIR . 'interface/subpage_foot.php');
 
 
 ?>

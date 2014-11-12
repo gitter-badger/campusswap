@@ -7,11 +7,11 @@ $dir = Config::get('dir');
 
 include($dir . 'functions.php');
 include($dir . 'lib/Domains.php');
-include($dir . 'lib/Users.php');
+
 include($dir . 'lib/vers.php');
 include($dir . 'lib/Posts.php');
 include($dir . 'lib/Database.php');
-include($dir . 'lib/Authentication.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
 include($dir . 'lib/Log.php');
 
 $database = new Database();

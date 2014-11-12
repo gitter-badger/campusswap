@@ -1,6 +1,4 @@
 <?php 
-
-
 //session_start();
         
 include('./lib/Config.php');
@@ -11,40 +9,43 @@ $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 $version = Config::get('version');
 
+//TODO: Before final deployment, replace includes with requires, to prevent errors in production
 include($dir . 'lib/DAO/PostsDAO.php');
+include($dir . 'lib/DAO/DomainsDAO.php');
+include($dir . 'lib/DAO/UsersDAO.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
 
 include($dir . 'lib/Util/Parser.php');
+include($dir . 'lib/Util/Helper.php');
+include($dir . 'lib/Util/LogUtil.php');
+include($dir . 'lib/Util/Mobile_Detect.php');
+include($dir . 'lib/Util/Timer.php');
 
-include($dir . 'lib/Helper.php');
-include($dir . 'lib/Domains.php');
-include($dir . 'lib/Users.php');
-include($dir . 'lib/vers.php');
-include($dir . 'lib/Posts.php');
 include($dir . 'lib/Database.php');
-include($dir . 'lib/Authentication.php');
-include($dir . 'lib/log4php/Logger.php');
-include($dir . 'lib/Mobile_Detect.php');
 
 $debug = Parser::isTrue(Config::get('debug'));
 
-Logger::configure($dir . 'etc/log4php.xml'); //TODO: Production has different config file
-$log = Logger::getLogger("main");
-//Also add timer
-
-$liUser = Authentication::liUser();
-$liDomain = Authentication::liDomain();
-$liId = Authentication::liId();
-$liLevel = Authentication::liLevel();
+$AuthenticationDAO = new AuthenticationDAO($config);
+$auth = $AuthenticationDAO->getAuthObject();
+$liUser = $auth->getLiUser();
+$liDomain = $auth->getLiDomain();
+$liId = $auth->getLiId();
+$liLevel = $auth->getLiLevel();
+$liFullName = $auth->getLiFullName();
+$isLi = $auth->getIsLi();
 
 $database = new Database();
 $conn = $database->connection();
+$log = new LogUtil($conn, $config);
+$PostsDAO = new PostsDAO($conn, $config, $log);
+$DomainsDAO = new DomainsDAO($conn, $config, $log);
+$UsersDAO = new UsersDAO($conn, $config, $log);
 
-$PostsDAO = New PostsDAO($conn);
+$Timer = new Timer($log);
+$Times = Array();
 
-$domains = new Domains($conn);
-$domains->fetchColleges();
-
-$thisUser = new Users($liUser, $conn);
+$this_user = $UsersDAO->getUserFromId($liId);
+$all_domains = $DomainsDAO->getAllDomains();
 
 if(isset($_SESSION['user'])){ //TODO: Lock this down, this is insecure and shitty
     $loggedIn = TRUE;
@@ -53,7 +54,7 @@ if(isset($_SESSION['user'])){ //TODO: Lock this down, this is insecure and shitt
 }
 
 /* @var $_SERVER callable */
-$ip = $_SERVER['REMOTE_ADDR'];
+$ip = LogUtil::getIp();
 
 date_default_timezone_set('America/New_York');
 $today = date("y-m-d");
@@ -61,61 +62,67 @@ $today = date("y-m-d");
 include DIR . 'modules/disect_url.php';
 
 if($item){
-    $log->info("We are loading a single post: " . $id);
-    $PostsDAO->getPost($id);
+    $log->log($liFullName, "info", "We are loading a Single post: " . $id);
+    $posts[0] = $PostsDAO->getPost($id);
     $pages = 0;
-    $post_count = 1;
+    $total_count = 1;
 } else {
-    //getPosts($conn, $search = false, $college = 'all', $sort = false, $first_limit = false,  $second_limit = false, $debug = false){
+    $Timer->start();
     $posts = $PostsDAO->getPosts($college, $search, $sort, 0, 40);
+    $Timer->stop();
+    $log->log($liFullName, 'info', 'Timer: PostsDAO->getPosts() took ' . Timer::$last_time);
 
-    $log->info("We are loading multiple (" . $PostsDAO::$row_count . ") posts: " . $PostsDAO::$sql);
+    $total_count = $PostsDAO->getTotalRows($PostsDAO::$sql);
+
+    $log->log($liFullName, "info", "We are loading multiple (" . PostsDAO::$total_count . " posts total) (" . PostsDAO::$fp_count .  " posts on front-page) SQL: " . $PostsDAO::$sql);
 
     // Choose AJAX Infinite Scrolls
     $pages = 0;
     if($posts != false){
-        $post_count = count($posts);
-        $pages = ceil((($post_count - 40) / 10));
+        $pages = ceil((($total_count - 40) / 10));
     } else {
-        $post_count = false;
+        $total_count = false;
         $pages = false;
     }
 }
 
 if($debug){
-    include DIR . 'theme/debug.php';
+    include DIR . 'modules/debug.php';
 }
 
-include('./theme/head.php');
+include(DIR . 'interface/head.php');
 
-include('./modules/analytics.php');
+include(DIR . 'modules/analytics.php');
 
-if(Authentication::isLi()){
-    include('./theme/index/post_item.php');
+if(AuthenticationDAO::isLi()){
+    include(DIR . 'interface/index/post_item.php');
 } else {
     if(isset($_COOKIE['welcome'])){ } else {
-        include('./theme/index/welcome_box.php');
+        include(DIR . 'interface/index/welcome_box.php');
     }
 }
 
-include('./theme/index/query_selector.php');
+include(DIR . 'interface/index/query_selector.php');
 
 echo '<h4>' . $title . '</h4>'; //CURRENT QUERY TITLE ECHO
 echo '<div id="postswrapper">';
 
 //THE LOOP
-if($post_count<1  && !$post_count){
-    if($search){
-        echo '<center><b>Sorry, we could not find anything in that matched your search <i>' . $search . '</i></b></center>';
+$count = 0;
+$switch = 1;
+if(PostsDAO::$fp_count<1  && !PostsDAO::$fp_count) {
+    if ($search) {
+        echo '<b>Sorry, we could not find anything in that matched your search <i>' . $search . '</i></b><';
+        $log->log($liFullName, "action", $liFullName . " searched for " . $search, "no results found");
     } else {
-        echo '<center><b> Sorry we could not find any posts from ' . Domains::getCollegeName($college) . ', try <a href="' . Config::get('url') . '">from the beginning</a></b></center>';
+        echo '<b> Sorry we could not find any posts from ' . DomainsDAO::getCollegeName($college) . ', try <a href="' . Config::get('url') . '">from the beginning</a></b>';
+        $log->log($liFullName, "action", $liFullName . " looked up " . $college, "no results found");
     }
+} else if(PostsDAO::$fp_count == 1) {
+    $x = 0;
+    include(DIR . 'modules/post.php'); //We can probably remove this now because getPost returns an array anyways
 } else {
-
-    $switch = 1;
-    $count = 0;
-
-    for($x = 0; $x < $post_count; $x++){
+    for($x = 0; $x < PostsDAO::$fp_count; $x++){
         include(DIR . 'modules/post.php');
 
         if($count <9){
@@ -126,9 +133,9 @@ if($post_count<1  && !$post_count){
     }
 }
 
-echo '</div><div id="loadmoreajaxloader" style="display:none;"><center><img src="./img/ajax-loader.gif" /></center></div>';
+echo '</div><div id="loadmoreajaxloader" style="display:none;"><center><img src="' . URL . 'interface/img/ajax-loader.gif" /></center></div>';
 
-include(DIR . 'theme/foot.php');
+include(DIR . 'interface/foot.php');
 
 include(DIR . 'modules/analytics.php');
  ?>

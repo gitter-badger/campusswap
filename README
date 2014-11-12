@@ -1,0 +1,16 @@
+Campus Swap - College Student Marketplace
+
+
+README
+
+- Through out the software there are many TODO: comments, that any good IDE can filter 
+out. If you open the TODO window in PHPStorm or Netbeans then you can see the TODO’s 
+in the project. These are all tasks that need to get finished.
+
+
+
+TODO: Finish up the README and add deployment info as well as a TODO list copy
+
+
+Planned Features:
+- Review system for posts. We use the Bootstrap->CSS->Block Quote feature to put review for an item. The author can repost an t

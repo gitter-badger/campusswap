@@ -2,7 +2,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
-<img style="margin-left:42%; text-align:center" src="./img/logo_txt_only.jpg" />
+<img style="margin-left:42%; text-align:center" src="./interface/img/logo_txt_only.jpg" />
 <div style="text-align:center;background-color:#d0ddcf;border: 1px solid #9CAA9C;width:300px;margin-left:30%;width:600px">
 
 
@@ -13,7 +13,7 @@ include('functions.php');
 
 
 if(isset($_POST['delete']) && $_POST['delete']=='yes'){
-	$id = Authentication::liId();
+	$id = AuthenticationDAO::liId();
 	mysql_query("DELETE FROM users WHERE id = '$id'");
 	unset($_SESSION['user']);
 	unset($_SESSION['domain']);

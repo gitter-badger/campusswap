@@ -1,13 +1,13 @@
 
 <?php
 
-include('./theme/subpage_head.php');
+include('./interface/subpage_head.php');
 
 include('./functions.php');
-include('./lib/Domains.php');
-include('./lib/Users.php');
+include('./lib/Domain.php');
+include('./lib/Objects/User.php');
 include('./lib/vers.php');
-include('./lib/Posts.php');
+include('./lib/Post.php');
 include('./lib/Database.php');
 
 $database = new Database();
@@ -111,9 +111,9 @@ if(isset($_GET['ver'])){
     
 }
 
-return_home();
+Helper::return_home_button();
 
-include('./theme/subpage_foot.php');
+include('./interface/subpage_foot.php');
 
 ?>
 

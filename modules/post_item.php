@@ -10,28 +10,29 @@ $url = Config::get('url');
 if(!defined('url')) { define ('URL', $url); }
 
 include($dir . 'lib/DAO/PostsDAO.php');
-
+include($dir . 'lib/Util/LogUtil.php');
 include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Helper.php');
-include($dir . 'lib/Domains.php');
-include($dir . 'lib/Users.php');
-include($dir . 'lib/vers.php');
-include($dir . 'lib/Posts.php');
+include($dir . 'lib/Util/Helper.php');
 include($dir . 'lib/Database.php');
-include($dir . 'lib/Authentication.php');
-include($dir . 'lib/log4php/Logger.php');
-include($dir . 'lib/Mobile_Detect.php');
-
-include($dir . 'theme/subpage_head.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
 
 $database = new Database();
 $conn = $database->connection();
+$LogUtil = new LogUtil($conn, $config);
+$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 
 $error = false;
 $image_created = false;
 $post_result = false;
 
-if(isset($_POST['postItem']) && isLi()){
+//TODO: Filter Post title, price and description but allow the use
+// of 3 or 4 HTML tags for the post description (IE: <p>, <li> & <ul>,
+// maybe one heading we will create too and any other HTML tags we want to allow
+// (that wont break our UI or make it ugly)
+
+include($dir . 'interface/subpage_head.php');
+
+if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
 	
     $item = $_POST['name'];
     $price = $_POST['price'];
@@ -93,10 +94,11 @@ if(isset($_POST['postItem']) && isLi()){
                         
                         if($post_result){
                             echo '<div class="alert alert-success">';
+                            echo '<img align=center" href=' . URL . 'var/uploads/' . basename($new_file_name);
                             echo 'Your item has been created successfully!</div><br />';
-                            echo '<b>' . $item . '</b> - ' . $description . '<i>' . $price . '</i><br /><br />';
-                            echo '<center><img width="200" src="' . Config::get('url') . $new_file_name . '" /></center><br /><br />';
-                            return_home_button();
+                            echo '<b>' . $item . '</b> - ' . $description . '<i> - ' . $price . '</i><br /><br />';
+                            echo '<center><img width="200" src="' . Config::get('url') . 'var/uploads/' . $new_file_name . '" /></center><br /><br />';
+                            Helper::return_home_button();
                         }
                     }
                 } else {
@@ -112,7 +114,7 @@ if(isset($_POST['postItem']) && isLi()){
                 echo '<input type="hidden" name="user" value="' . $username . '">';
                 echo '<input type="hidden" name="domain" value="' . $domain . '">';
                 echo '<input type="submit" class="btn btn-success">Re-Size Image Automatically</input>';
-                return_home_button();
+                Helper::return_home_button();
                 echo '</form>';
             }
         } catch (RuntimeException $e){
@@ -127,7 +129,7 @@ if(isset($_POST['postItem']) && isLi()){
         } else {
             echo '<div class="alert alert-danger">There was an error posting your item</div>';
         }
-        return_home_button();
+        Helper::return_home_button();
     } 
 } else if(isset($_POST['imageresize'])){
     //RESIZE IMAGES
@@ -169,7 +171,7 @@ if(isset($_POST['postItem']) && isLi()){
 
             $images_fin = ImageCreateTrueColor($width, $height);
             ImageCopyResampled($images_fin, $images_orig, 0, 0, 0, 0, $width+1, $height+1, $photoX, $photoY);
-            ImageJPEG($images_fin,DIR . "var/uploads/".$new_image);
+            ImageJPEG($images_fin, DIR . "var/uploads/".$new_image);
             ImageDestroy($images_orig);
             ImageDestroy($images_fin);
 
@@ -177,24 +179,23 @@ if(isset($_POST['postItem']) && isLi()){
             $image_created = true;
 
             if($post_result){
-                include DIR . 'theme/post_item/post_success.php';
+                include DIR . 'interface/post_item/post_success.php';
             }
         }
     } else {
         echo '<div class="alert alert-danger">Incorrect file type. Only JPG JPEG PNG and GIF images are allowed</div>';
-        return_home_button();
+        Helper::return_home_button();
     }
 } else {
-    $ip = $_SERVER['REMOTE_ADDR'];
     echo 'You do not have permission to be on this page, your IP has been logged';
-    Log::logAction($ip, 'unauthorized access to the postItem.php page');
+    $LogUtil->log('IP', 'ACTION', 'Unauthorized Access Post_Item.php', 'unauthorized access');
 }
 
 
 ?>
 
 <?php 
-include($dir . 'theme/subpage_foot.php'); 
+include($dir . 'interface/subpage_foot.php');
 
 
 /*

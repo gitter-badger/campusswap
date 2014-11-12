@@ -1,17 +1,20 @@
 <?php
 
 
-include('./theme/subpage_head.php');
+include('./lib/Config.php');
 
-include('./functions.php');
-include('./lib/Domains.php');
-include('./lib/Users.php');
-include('./lib/vers.php');
-include('./lib/Posts.php');
-include('./lib/Database.php');
+$config = new Config('./etc/config.ini');
 
-$database = new Database();
-$conn = $database->connection();
+$dir = Config::get('dir');
+if(!defined('dir')) { define ('DIR', $dir); }
+$url = Config::get('url');
+if(!defined('url')) { define ('URL', $url); }
+
+include $dir . 'lib/Util/Helper.php';
+include $dir . 'lib/Util/Parser.php';
+
+include(DIR . 'interface/subpage_head.php');
+
 
 unset($_SESSION['user']);
 unset($_SESSION['domain']);
@@ -25,6 +28,6 @@ session_unset();
 <br />
 
     <div class="alert alert-success">You have successfully logged out!</div>
-     <?php return_home(); ?>
+     <?php Helper::return_home_button(); ?>
 
-<?php include('./theme/subpage_foot.php'); ?>
+<?php include('./interface/subpage_foot.php'); ?>
