@@ -6,8 +6,8 @@
     </a>
 </div>
 
-<div class="postSomething row-fluid" id="postSomething" style="display:none">
-    <div class="span4">
+<div class="row postSomething" id="postSomething" style="display:none">
+    <div class="col-lg-4">
         <form enctype="multipart/form-data" name="post" onsubmit="return validate()" action="<?= URL ?>modules/post_item.php" method="post">
             <input class="tall_text_box input-group input-group-md" type="text" name="name" value="Item Name" /><br />
             <input class="tall_text_box input-group input-group-md" type="text" name="price" value="Price $$" /><br />
@@ -32,7 +32,7 @@
             <input class="btn btn-success" type="submit" value="Post Item" />
         </form>
     </div>
-    <div class="span2">
+    <div class="col-lg-2">
         <iframe src="<?= URL ?>interface/index/post_disclaimer.php" frameborder="0" width="750" height="300">
               <p>Your browser does not support iframes.</p>
         </iframe>

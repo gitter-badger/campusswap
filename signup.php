@@ -7,6 +7,7 @@ $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 $version = Config::get('version');
 
+include $dir . 'lib/DAO/PostsDAO.php';
 include $dir . 'lib/DAO/DomainsDAO.php';
 include $dir . 'lib/DAO/UsersDAO.php';
 include($dir . 'lib/Util/Parser.php');
@@ -35,38 +36,38 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 
     if(!empty($_POST['domain']) && !empty($_POST['username']) && ($_POST['username'] != 'College E-Mail Address')) {
         
-	$username = $_POST['username'];
-	$password = $_POST['domain'];
+	$username = Parser::sanitize($_POST['username']);
+	$domain = $_POST['domain'];
 
 	
-	if(Domains::domainExists($domain_input, $conn)){ //CHECK IF DOMAIN EXISTS
+	if(DomainsDAO::domainExists($domain, $conn)){ //CHECK IF DOMAIN EXISTS
 				
-		$user_exists = users::userExists($user_input, $domain_input, $conn);
+		$user_exists = users::userExists($user, $domain, $conn);
 		
-		$fullName = $user_input . '@' . $domain_input;
+		$fullName = $user . '@' . $domain
         $user = $UsersDAO->getUserFromName($username, $domain, $conn);
                 
 		if($user['level'] != 'banned'){ //CHECK IF USER BANNED
 			
-                    vers::getVerFromUser($user_input, $domain_input, $conn);
+                    vers::getVerFromUser($user, $domain, $conn);
                     
                     if(!$user_exists){ //MAKE SURE USER DOESEN'T EXIST
 
-                            if(vers::verSent($user_input, $domain_input, $conn)){ //Var already sent
+                            if(vers::verSent($user_input, $domain, $conn)){ //Var already sent
                                 
                                 echo '<div class="alert alert-warning">';
                                 echo 'We have already sent you a verification email to ' . $fullName . ', we are sending another. Try checking your spam folder</div>';
                                 
-                                $key = vers::getVerFromUser($user_input, $domain_input, $conn);
+                                $key = vers::getVerFromUser($user, $domain, $conn);
                                 
                             } else { //Create an account
                                 
                                 $key = md5(uniqid(rand(), true));
                                 
-                                $created_ok = vers::createVer($key, $user_input, $domain_input, 'signup', $conn);
+                                $created_ok = vers::createVer($key, $user_input, $domain, 'signup', $conn);
                                 
                                 if($created_ok){
-                                    echo '<div class="alert alert-success">We sent you an e-mail to verify your status at ' . $domain_input . '</div>';
+                                    echo '<div class="alert alert-success">We sent you an e-mail to verify your status at ' . $domain . '</div>';
                                     Helper::return_home_button();
                                     
                                 } else {

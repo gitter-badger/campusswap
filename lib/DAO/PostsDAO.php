@@ -12,7 +12,7 @@ class PostsDAO {
 
     public function __construct($connection, $config, $log) {
         self::$conn = $connection;
-        self::$log = $log; //TODO:bug :this creates a dir "var" in lib so it has to go, or we meed to make it work
+        self::$log = $log;
 
 
         $dir = Config::get('dir');
@@ -132,7 +132,7 @@ class PostsDAO {
                     '$image')";
         }
 
-//        self::$log->log(AuthenticationDAO::liFullName(), "info", "created post: " . mysqli_insert_id(self::$conn), 'post create');
+        self::$log->log(AuthenticationDAO::liFullName(), "info", "created post: " . mysqli_insert_id(self::$conn), 'post create');
 
         //TODO: Sanitize
         $query = mysqli_query(self::$conn, $sql);
@@ -205,7 +205,7 @@ class PostsDAO {
         if($return) {
             return $return;
         } else {
-//            self::$log->log(AuthenticationDAO::liFullName(), "fatal", "There was an error loading the posts from the Posts DAO");
+            self::$log->log(AuthenticationDAO::liFullName(), "fatal", "There was an error loading the posts from the Posts DAO");
             return false;
         }
     }
@@ -270,7 +270,7 @@ class PostsDAO {
     }
 
     public function createObject($sql){
-//        self::$log->log(AuthenticationDAO::liFullName(), "debug", "Attempting to create Posts Object from " . $sql);
+        self::$log->log(AuthenticationDAO::liFullName(), "debug", "Attempting to create Posts Object from " . $sql);
 
         $result = mysqli_query(self::$conn, $sql);
 

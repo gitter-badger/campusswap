@@ -8,9 +8,9 @@
     <h3 class="muted">Welcome</h3>
 
     <p class="lead" style="font-align:left; font-size:1.5em">
-        <strong>This is just a preview</strong> of Campus Swap; Campus Swap is a user-based community where university students can buy and sell goods.
-        To sign up for Campus Swap, you must have a valid university email address. To contact other users you must have a Campus Swap account.
-        Your email address will never be revealed to anyone. Read the disclaimer for complete Campus Swap rules,
+        <strong>Campus Swap is still in development - This is just a preview</strong> Campus Swap is a user-based community where
+        university students can buy and sell goods. To sign up for Campus Swap, you must have a valid university email address. To
+        contact other users you must have a Campus Swap account. Your email address will never be revealed to anyone.
         <a class="lead" style="font-size:1.0em" href="<?= URL ?>interface/disclaimer.php">Disclaimer!</a>
     </p>
 

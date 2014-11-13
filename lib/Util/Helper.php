@@ -42,7 +42,7 @@ class Helper {
     }
 
     public static function contact_support_button($center = null){
-        echo '<a class="center" href="' . $url . 'contact.php">';
+        echo '<a class="center" href="' . URL . 'contact.php">';
             echo '<button type="button" class="btn btn-success">Contact</button>';
         echo '</a>';
     }

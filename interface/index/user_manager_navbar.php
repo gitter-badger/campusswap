@@ -9,7 +9,9 @@
         }
         echo ' / <a href="logout.php"><i class="fa fa-sign-out fa-lg"></i> &nbsp; Logout</a></b>';
         } else { ?>
-            <a href="#" onclick="Effect.toggle('login_register', 'appear'); return false;"><i class="icon-lock"></i><b>&nbsp;Login/ Register</b></a>
+            <a href="#" onclick="Effect.toggle('login_register', 'appear'); return false;">
+                <i class="fa fa-sign-in fa-lg"></i>&nbsp;<b>Login/ Register</b>
+            </a>
         <?php } ?>
     </a>
 </div>
@@ -19,8 +21,8 @@
 
 <div id="login_register" class="loginTop<?= $span2 ?>" style="<?= $display ?>">
     <?php //LOGIN ?>
-    <div class="login_register_inner row-fluid">
-        <div class="login_section span6">
+    <div class="row login_register_inner">
+        <div class="col-lg-5 login_section">
             <h3 class="muted">Login</h3>
             <form name="input" action="<?= URL ?>login.php" method="post">
                 <input class="tall_text_box input-group input-group-md" type="text" value="College E-Mail Address" name="username" />
@@ -38,7 +40,7 @@
             </form>
         </div>
         <?php //REGISTER ?>
-        <div class="register_section span5">
+        <div class="col-lg-5 register_section">
             <h3 class="muted">Register<small>(Available Upon Release)</small></h3>
             <form name="input" action="<?= URL ?>signup.php" method="post">
                 <input class="tall_text_box input-group input-group-md" type="text" value="College E-Mail Address" name="username" />

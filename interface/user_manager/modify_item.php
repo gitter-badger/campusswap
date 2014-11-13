@@ -33,11 +33,12 @@ $PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 
 if(isset($_POST['edit']) && AuthenticationDAO::isLi()){
 
-//    $LogUtil->log($liFullName, "info", "We are loading multiple (" . PostsDAO::$fp_count . ") posts: " . $PostsDAO::$sql);
+    $LogUtil->log($liFullName, "info", "We are loading multiple (" . PostsDAO::$fp_count . ") posts: " . $PostsDAO::$sql);
 
 	$id = $_POST['id'];
 
-    $post = $PostsDAO->getPost($id);
+    $posts = $PostsDAO->getPost($id);
+    $post = $posts[0];
 
     if(!Parser::isFalse($post->getImg())){
          echo '<img align="center" width="100" src="<?= URL ?>var/uploads/' . $post->getImg() . '" />';

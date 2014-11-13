@@ -73,9 +73,10 @@ if(isset($_GET['approach']) && $isLi){
 	$id = $_POST['id'];
     $contents = Parser::sanitize($_POST['contents']);
 
-    $item = $PostsDAO->getPost($id)[0];
+    $items = $PostsDAO->getPost($id);
+    $item = $items[0];
 
-//    $LogUtil->log($liFullName, "ACTION", $liFullName . " contacted " . $email . " with message " . $contents, "user contact");
+    $LogUtil->log($liFullName, "ACTION", $liFullName . " contacted " . $email . " with message " . $contents, "user contact");
 
     $email_content = '<html><head>CampusSwap.Net</head></head><body><h1>Campus Swap</h1><h2>You have been contacted by <b>' . $liFullName . '</b></h2>';
     $email_content .= '<p>Message regarding item: <b>"' . $item->getItem() . '"</b></p>';
@@ -95,9 +96,8 @@ if(isset($_GET['approach']) && $isLi){
 
     Helper::close_lightwindow_button();
 } else {
-	$ip = LogUtil::getIp();
-	echo '<div class="alert alert-danger">You do not have persmission to be on this page, your ip ' . $ip . ' has been logged</div>';
-//    $LogUtil->log($ip, "action", "unauthorized access to modify_item.php", "unauthorized access ");
+	echo '<div class="alert alert-danger">You do not have persmission to be on this page, your ip ' . LogUtil::getIp() . ' has been logged and you may be banned after repeated attempts.</div>';
+    $LogUtil->log("IP", "action", "unauthorized access to modify_item.php", "unauthorized access");
 
 }
 

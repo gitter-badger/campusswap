@@ -1,9 +1,7 @@
-
 <?php
 
 //Post Object
 $Post = $posts[$x];
-
 $id = $Post->getId();
 $username = $Post->getUsername();
 $domain = $Post->getDomain();
@@ -24,9 +22,8 @@ if(Helper::getDevice()=='tablet'){
     $descriptionShort = substr($description, 0, 150); //SHORTEN DESCRIPTION
 }
 
-date_default_timezone_set('America/New_York'); //SET TIME TO DELETION DATES
-
 // TODAYS DATE
+date_default_timezone_set('America/New_York'); //SET TIME TO DELETION DATES
 $date_created = new DateTime($created);
 $todaysDate = date('d.m.y');
 $today = new dateTime($todaysDate);
@@ -48,15 +45,15 @@ $imgSet = false;
 
 if($switch==1) { 
     $switch=0;
-    echo '<div class="result box" id="result">';
-} else{ 
+echo '<div class="result box" id="result">';
+} else {
     $switch = 1;
     echo '<div class="result" style"background-color:#F8F5F1" id="result">';
 }
 ?>
 
 <?php //POS TITLE ?>
-<a href="#"
+    <a href="#"
 	style="word-spacing:2px;font-size:small" 
 	onclick="
         Effect.toggle('<?php echo 'ROW-' . $id; ?>', 'slide');
@@ -64,21 +61,21 @@ if($switch==1) {
         return false;">
         <?= $item . ' - $' . $price; ?>
 
-<?php
-if($sinceDays > 7) {
-    echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
-} else if($sinceDays > 3) {
-    echo '<span class="label label-warning">' . $sinceDays . ' days ago</span>';
-} else if($sinceDays > 1) {
-    echo '<span class="label label-primary">' . $sinceDays . ' days ago</span>';
-} else if($sinceDays == 1) {
-    echo '<span class="label label-primary">' . $sinceDays . ' day ago</span>';
-} else if($sinceDays == 0) {
-    echo '<span class="label label-success">Today</span>';
-}
-?>
+    <?php
+    if($sinceDays > 7) {
+        echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
+    } else if($sinceDays > 3) {
+        echo '<span class="label label-warning">' . $sinceDays . ' days ago</span>';
+    } else if($sinceDays > 1) {
+        echo '<span class="label label-primary">' . $sinceDays . ' days ago</span>';
+    } else if($sinceDays == 1) {
+        echo '<span class="label label-primary">' . $sinceDays . ' day ago</span>';
+    } else if($sinceDays == 0) {
+        echo '<span class="label label-success">Today</span>';
+    }
+    ?>
 
-<?php 
+    <?php
 	//ECHO HITS
 	if($hits != 0){
 		echo '<span class="btn">Likes <span class="badge">' . $hits . ' </span></span>)';
@@ -92,21 +89,18 @@ if($sinceDays > 7) {
         }
 	}
 	?>
-	</a>
+</a>
 
-<div class="post_title_name">
-
-<?php
-
-//Obfuscate Username + Print
-if(Helper::getDevice()!='mobile'){
-    echo Helper::obfuscate_username($username, $domain);
-}
-?>
-	
+    <?php
+        //Obfuscate Username + Print
+        if(Helper::getDevice()!='mobile'){
+            echo '<div class="post_title_name">';
+            echo Helper::obfuscate_username($username, $domain);
+            echo '</div>';
+        }
+    ?>
 </div>
 
-</div>
 
 <?php
 //TODO: Finish if single item
@@ -153,7 +147,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
 
         <ol class="breadcrumb">
             <li> <b>Views:</b> <?= $views ?> </li>
-            <li><i class="fa fa-calendar-o fa-lg"></i> <b>Created:</b> <?= $date_created->format('Y-m-d'); ?> </li>
+            <li><i class="fa fa-calendar-o fa-lg"></i> <b>Created:</b> <?= $date_created->format('Y-m-d H:i:s'); ?> </li>
             <li><i class="fa fa-calendar fa-lg"></i> <b>Deletion Date:</b> <?= $delete_date->format('Y-m-d') ?> </li>
             <li><i class="fa fa-bullhorn fa-lg"></i> <b>Days till Deletion:</b> <?php echo str_replace("+", "", $time_till_delete->format('%R%a days')); ?> </li>
         </ol>
@@ -165,7 +159,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                     <a class="btn btn-default lightwindow"
                        role="button"
                        href="<?= URL ?>modules/contact_seller.php?<?= $contact_url ?>"
-                       params="lightwindow_type=external,lightwindow_width=520,lightwindow_height=550">
+                       params="lightwindow_type=external,lightwindow_width=527,lightwindow_height=573">
                         <i class="fa fa-comment fa-lg"></i>
                         Contact Seller
                     </a>
