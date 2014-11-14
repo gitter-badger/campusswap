@@ -14,7 +14,6 @@ $views = $Post->getViews();
 $img = $Post->getImg();
 $modified = $Post->getModified();
 $created = $Post->getCreated();
-$createdSince = $Post->getCreatedSince(); //TODO: Delete this in the DB;
 
 if(Helper::getDevice()=='tablet'){
     $descriptionShort = substr($description, 0, 80); //SHORTEN DESCRIPTION
@@ -52,7 +51,7 @@ echo '<div class="result box" id="result">';
 }
 ?>
 
-<?php //POS TITLE ?>
+<?php //POST TITLE ?>
     <a href="#"
 	style="word-spacing:2px;font-size:small" 
 	onclick="
@@ -62,29 +61,38 @@ echo '<div class="result box" id="result">';
         <?= $item . ' - $' . $price; ?>
 
     <?php
-    if($sinceDays > 7) {
+        //Print days since created badge
+    if($sinceDays > 9) {
         echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
-    } else if($sinceDays > 3) {
+    } else if($sinceDays > 5) {
         echo '<span class="label label-warning">' . $sinceDays . ' days ago</span>';
-    } else if($sinceDays > 1) {
+    } else if($sinceDays > 3) {
         echo '<span class="label label-primary">' . $sinceDays . ' days ago</span>';
+    } else if($sinceDays > 1) {
+        echo '<span class="label label-success">' .  $sinceDays. ' days ago</span>';
     } else if($sinceDays == 1) {
-        echo '<span class="label label-primary">' . $sinceDays . ' day ago</span>';
-    } else if($sinceDays == 0) {
         echo '<span class="label label-success">Today</span>';
     }
+
     ?>
 
     <?php
-	//ECHO HITS
+	//PRINT HITS
 	if($hits != 0){
-		echo '<span class="btn">Likes <span class="badge">' . $hits . ' </span></span>)';
+        if($hits > 6) {
+        } else if($hits > 5) {
+            echo '<span class="label label-success">' . $hits . ' Likes</span>';
+        } else if($hits > 1) {
+            echo '<span class="label label-primary">' .  $hits. ' Likes</span>';
+        } else if($hits == 1) {
+            echo '<span class="label label-warning">' . $hits . ' Like</span>';
+        }
 	}
 	
  	//ECHO SHORTER DESCRIPTION
 	if(Helper::getDevice()!='mobile') {
  		if(!Parser::isFalse($img) || $img == null){
-			echo '<i class="fa fa-picture-o fa-lg"></i>';
+			echo '&nbsp;<i class="fa fa-picture-o fa-lg"></i>';
 			$imgSet = true;
         }
 	}
@@ -92,12 +100,13 @@ echo '<div class="result box" id="result">';
 </a>
 
     <?php
-        //Obfuscate Username + Print
-        if(Helper::getDevice()!='mobile'){
-            echo '<div class="post_title_name">';
-            echo Helper::obfuscate_username($username, $domain);
-            echo '</div>';
-        }
+    //Obfuscate Username + Print
+    $obfuscated_username = Helper::obfuscate_username($username, $domain);
+    if(Helper::getDevice()!='mobile'){
+        echo '<div class="post_title_name">';
+        echo $obfuscated_username;
+        echo '</div>';
+    }
     ?>
 </div>
 
@@ -116,17 +125,18 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
     <div class="media">
 
         <div class="post_description page-header"> <?PHP //TITLE ?>
-            <h3><?= $item ?>&nbsp;<small><i class="fa fa-usd"></i><?= $price ?></small></h3>
-        </div>
+            <h3>
+                <?php if(!Parser::isFalse($img)){ //IMAGE ?>
+                    <a href="<?= URL ?>var/uploads/<?= $img?>"
+                       class="lightwindow">
+                        <img class="thumbnail post-img"
+                             align="left" width="75" height="65" src="<?= URL ?>var/uploads/<?= $img ?>" />
+                    </a>
+                    <br />
+                <?php } ?>
 
-        <?php if(!Parser::isFalse($img)){ //IMAGE ?>
-            <a href="<?= URL ?>var/uploads/<?= $img?>"
-               class="lightwindow">
-                <img class="thumbnail"
-                     align="left" width="100" height="90" src="<?= URL ?>var/uploads/<?= $img ?>" />
-            </a>
-            <br />
-        <?php } ?>
+                <?= $item ?>&nbsp;<small><i class="fa fa-usd"></i><?= $price ?></small></h3>
+        </div>
 
         <p><?php echo $description ?></p><br><br><br>
 
@@ -140,16 +150,27 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
 //            ?>
 <!--        </div>-->
 
-        <div class="input-group col-xs-4 col-md-4 col-sm-4">
+        <?php if(1==2) { ?>
+        <div class="input-group col-xs-6 col-md-6 col-sm-6">
             <span class="input-group-addon"><i class="fa fa-link"></i></span>
-            <input disabled type="text" class="form-control" placeholder="<?= URL . '?item=' . $id ?>">
+            <input disabled type="text" class="form-control" placeholder="">
         </div><br>
+        <?php } ?>
 
-        <ol class="breadcrumb">
-            <li> <b>Views:</b> <?= $views ?> </li>
-            <li><i class="fa fa-calendar-o fa-lg"></i> <b>Created:</b> <?= $date_created->format('Y-m-d H:i:s'); ?> </li>
-            <li><i class="fa fa-calendar fa-lg"></i> <b>Deletion Date:</b> <?= $delete_date->format('Y-m-d') ?> </li>
-            <li><i class="fa fa-bullhorn fa-lg"></i> <b>Days till Deletion:</b> <?php echo str_replace("+", "", $time_till_delete->format('%R%a days')); ?> </li>
+        <ol style="text-align:center" class="breadcrumb">
+            <?php $view_feature = false; //TODO: Write the VIEWS feature
+            if($view_feature) { ?>
+                <li> <b>Views:</b> <?= $views ?> </li>
+            <?php } else if(Helper::getDevice()!='mobile'){ ?>
+                <li><i class="fa fa-user"></i>&nbsp;<b>User:</b> <?= $obfuscated_username ?>
+            <?php } ?>
+            <li><i class="fa fa-calendar-o fa-lg"></i>&nbsp;<b>Created:</b> <?= $date_created->format('Y-m-d H:i:s'); ?> </li>
+            <?php $del_date_feature = false; //TODO: Write the VIEWS feature
+            if($del_date_feature) { ?>
+                <li><i class="fa fa-calendar fa-lg"></i>&nbsp;<b>Deletion Date:</b> <?= $delete_date->format('Y-m-d') ?> </li>
+            <?php } ?>
+            <li><i class="fa fa-bullhorn fa-lg"></i>&nbsp;<b>Days till Deletion:</b> <?php echo str_replace("+", "", $time_till_delete->format('%R%a days')); ?> </li>
+            <li><i class="fa fa-link fa-lg"></i>&nbsp;<b>Direct Link:</b> <?= URL . '?item=' . $id ?></li>
         </ol>
 
         <?php if($isLi){ ?>
@@ -160,21 +181,29 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                        role="button"
                        href="<?= URL ?>modules/contact_seller.php?<?= $contact_url ?>"
                        params="lightwindow_type=external,lightwindow_width=527,lightwindow_height=573">
-                        <i class="fa fa-comment fa-lg"></i>
+                        <i class="fa fa-comment fa-lg"></i>&nbsp;
                         Contact Seller
                     </a>
                 </div>
 
                 <div class="btn-group">
-                    <?php if($this_user->doesUserLike($hits)){ ?><?php //TODO: The like button does not work ?>
-                        <p class="btn btn-large">You liked this</p>
-                    <?php } else {?>
-                        <div action="#" style="padding:none;margin:none;" name="likeButton<?= $id ?>" id="likeButton<?= $id ?>">
-                            <form id="likeForm" onsubmit="return likeItem(<?= $id ?>); return false;">
-                                <button type="submit" class="btn btn-default" role="button"><i class="fa fa-star fa-lg"></i>Like It</button>
-                            </form>
-                        </div>
-                    <?php } ?>
+                    <div action="#" style="padding:none;margin:none;" name="likeButton<?= $id ?>" id="likeButton<?= $id ?>">
+                        <form id="likeForm" onsubmit="return likeItem(<?= $id ?>); return false;">
+                            <?php if($this_user->doesUserLike($id)){ ?>
+                                <button disabled type="submit" class="btn btn-default" role="button"><i class="fa fa-star fa-lg"></i>&nbsp;You liked this
+                            <?php } else {?>
+                                <button type="submit" class="btn btn-default" role="button"><i class="fa fa-star fa-lg"></i>&nbsp;Like It
+                            <?php } ?>
+                        </button>
+                        </form>
+                    </div>
+
+                    <div action="#" style="padding:none;margin:none;display:none" name="you_like_<?= $id ?>" id="you_like_<?= $id ?>">
+                        <form id="likeForm" onsubmit="return likeItem(<?= $id ?>); return false;">
+                            <button disabled type="submit" class="btn btn-default" role="button"><i class="fa fa-star fa-lg"></i>&nbsp;You liked this
+                                </button>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="btn-group">
@@ -183,7 +212,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                         <input type="hidden" name="reporter" value="<?= AuthenticationDAO::liFullName() ?>">
                         <input type="hidden" name="post" value="<?= URL . '?item=' . $id ?>">
                         <input type="hidden" name="abuse" value="abuse" />
-                        <button type="submit" class="btn btn-default" role="button"><i class="fa fa-gavel fa-lg"></i>Report Abuse</button>
+                        <button type="submit" class="btn btn-default" role="button"><i class="fa fa-gavel fa-lg"></i>&nbsp;Report Abuse</button>
                     </form>
                 </div>
 

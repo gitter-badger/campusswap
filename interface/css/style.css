@@ -1,3 +1,7 @@
+.post-img {
+    margin-right:10px;
+}
+
 .largeTextArea {
     font-size:33px !important;
     height:200px !important;
@@ -117,6 +121,14 @@ h5{
 }
 b {
     color:black;
+}
+
+.alert-success {
+    text-align: center;
+}
+
+.alert-success b {
+    color:#387038;
 }
 body {
     background-color:white;

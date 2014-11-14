@@ -86,6 +86,10 @@ class User {
         $this->status = $status;
     }
 
+    public function getFullName() {
+        return $this->getUsername() . '@' . $this->getDomain();
+    }
+
     public function doesUserLike($id) {
 
         $likes = explode("/", $this->getLikes());

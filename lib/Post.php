@@ -13,8 +13,7 @@ class Post {
     private $hits; 
     private $views; 
     private $created; 
-    private $createdSince; 
-    private $modified; 
+    private $modified;
     private $img;
 
 
@@ -89,14 +88,6 @@ class Post {
 
     public function setCreated($created) {
         $this->created = $created;
-    }
-
-    public function getCreatedSince() {
-        return $this->createdSince;
-    }
-
-    public function setCreatedSince($createdSince) {
-        $this->createdSince = $createdSince;
     }
 
     public function getModified() {

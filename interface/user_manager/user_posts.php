@@ -62,7 +62,9 @@ if(AuthenticationDAO::isLi()){
         echo '<tr>';
             echo '<td><h4>' . $rowItem . '</td><td><small>&nbsp;&nbsp;(' . $interval->format('%R%a') . ' days left)</small></h4>&nbsp;</td><td>&nbsp;' . $rowDescription . '</td>';
 
-            echo '<td style="padding-top:5px"> <form target="_top" name="editItem" action="modify_item.php" method="post">';
+            echo '<td style="padding-top:5px">';
+
+            echo '<form target="_top" name="editItem" action="' . URL . 'interface/user_manager/modify_item.php" method="post">';
 
             echo '<input type="hidden" value="' . $posts[$x]->getId() . '" name="id">';
             echo '<input type="hidden" name="edit" value="true">';
@@ -71,7 +73,7 @@ if(AuthenticationDAO::isLi()){
 
             echo '</form></td>';
 
-            echo '<td style="padding-top:5px"> <form target="_top" name="deleteItem" action="interface/user_manager/modify_item.php" method="post">';
+            echo '<td style="padding-top:5px"> <form target="_top" name="deleteItem" action="' . URL . 'interface/user_manager/modify_item.php" method="post">';
 
             echo '<input type="hidden" value="' . $posts[$x]->getId() . '" name="id">';
 

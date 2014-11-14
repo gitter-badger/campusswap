@@ -1792,3 +1792,450 @@
 13.11 00:48:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY price ASC LIMIT 0, 40
 13.11 00:48:20-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003240
 13.11 00:48:20-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY price ASC 
+13.11 10:45:03-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY price ASC LIMIT 0, 40
+13.11 10:45:03-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.031338
+13.11 10:45:03-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY price ASC 
+13.11 10:45:45-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created ASC LIMIT 0, 40
+13.11 10:45:45-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004148
+13.11 10:45:45-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created ASC 
+13.11 10:45:48-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 10:45:48-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004033
+13.11 10:45:48-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 10:48:19-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 10:48:19-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003488
+13.11 10:48:19-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 10:50:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 10:50:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004539
+13.11 10:50:44-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 10:50:58-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 10:50:58-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005194
+13.11 10:50:58-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 11:22:30-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 11:22:30-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004491
+13.11 11:22:30-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:22:31-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+13.11 11:22:31-INFO : kaloidis@hartford.edu - Scroll Timer: 0.068938
+13.11 17:22:31-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 50, 10
+13.11 11:22:31-INFO : kaloidis@hartford.edu - Scroll Timer: 0.037646
+13.11 17:22:32-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 60, 10
+13.11 11:22:32-INFO : kaloidis@hartford.edu - Scroll Timer: 0.048111
+13.11 17:22:32-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 70, 10
+13.11 11:22:32-INFO : kaloidis@hartford.edu - Scroll Timer: 0.037722
+13.11 17:22:32-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 80, 10
+13.11 11:22:32-INFO : kaloidis@hartford.edu - Scroll Timer: 0.041854
+13.11 17:22:32-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 90, 10
+13.11 11:22:33-INFO : kaloidis@hartford.edu - Scroll Timer: 0.039448
+13.11 17:22:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 100, 10
+13.11 11:22:33-INFO : kaloidis@hartford.edu - Scroll Timer: 0.037200
+13.11 17:22:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 110, 10
+13.11 11:22:33-INFO : kaloidis@hartford.edu - Scroll Timer: 0.041618
+13.11 17:22:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 120, 10
+13.11 17:22:33-FATAL: kaloidis@hartford.edu - There was an error loading the posts from the Posts DAO
+13.11 17:12:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:12:06-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.026613
+13.11 17:12:06-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:14:29-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:14:29-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003630
+13.11 17:14:29-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:15:49-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:15:49-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004654
+13.11 17:15:49-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:16:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:16:04-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004797
+13.11 17:16:04-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:16:10-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:16:10-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004587
+13.11 17:16:10-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:16:46-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:16:46-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003317
+13.11 17:16:46-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:17:00-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:17:00-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.006814
+13.11 17:17:00-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:17:11-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:17:11-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004737
+13.11 17:17:11-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 17:17:19-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 17:17:19-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003149
+13.11 17:17:19-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:21:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:21:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004603
+13.11 18:21:44-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 00:29:40-INFO : kaloidis - kaloidis liked item 1
+14.11 00:30:04-INFO : kaloidis - kaloidis liked item 1
+13.11 18:40:05-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:40:05-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003692
+13.11 18:40:05-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:41:05-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:41:05-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003529
+13.11 18:41:05-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:41:18-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:41:18-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003372
+13.11 18:41:18-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:41:40-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:41:40-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005500
+13.11 18:41:40-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 00:41:43-INFO : 12 - 12 liked item 513
+13.11 18:41:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:41:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003656
+13.11 18:41:44-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:43:22-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:43:22-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003677
+13.11 18:43:22-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:43:36-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:43:36-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004966
+13.11 18:43:36-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:43:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:43:42-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004538
+13.11 18:43:42-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:43:53-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:43:53-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003806
+13.11 18:43:53-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:44:00-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:44:00-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005428
+13.11 18:44:00-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:44:58-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:44:58-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003237
+13.11 18:44:58-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:45:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:45:06-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.007409
+13.11 18:45:06-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:45:16-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:45:16-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.008457
+13.11 18:45:16-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:49:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:49:06-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003380
+13.11 18:49:06-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:49:13-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:49:13-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004464
+13.11 18:49:13-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:49:30-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:49:30-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.007094
+13.11 18:49:30-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:49:59-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:49:59-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003622
+13.11 18:49:59-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:50:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:50:04-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003676
+13.11 18:50:04-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 18:50:11-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 18:50:11-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004542
+13.11 18:50:11-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:43:34-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:43:34-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003302
+13.11 19:43:34-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:44:48-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:44:48-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005957
+13.11 19:44:48-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:46:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:46:06-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003584
+13.11 19:46:06-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 01:46:10-INFO : 12 - 12 liked item 510
+13.11 19:46:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:46:15-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003244
+13.11 19:46:15-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:47:12-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:47:12-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004412
+13.11 19:47:12-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:48:50-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:48:50-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004461
+13.11 19:48:50-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:49:11-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:49:11-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004948
+13.11 19:49:11-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:49:26-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:49:26-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003888
+13.11 19:49:26-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:50:56-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:50:56-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003138
+13.11 19:50:56-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:52:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:52:15-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005516
+13.11 19:52:15-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:54:01-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:54:01-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003702
+13.11 19:54:01-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 01:54:06-INFO : 12 - 12 liked item 510
+13.11 19:54:07-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:54:07-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005373
+13.11 19:54:07-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:55:51-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:55:51-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003887
+13.11 19:55:51-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:56:16-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:56:16-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005018
+13.11 19:56:16-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:56:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:56:20-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.008206
+13.11 19:56:20-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:56:25-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:56:25-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005658
+13.11 19:56:25-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:56:28-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:56:28-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003389
+13.11 19:56:28-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:58:50-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:58:50-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004344
+13.11 19:58:50-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:58:51-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:58:51-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004993
+13.11 19:58:51-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:58:56-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:58:56-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003590
+13.11 19:58:56-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:59:31-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:59:31-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004282
+13.11 19:59:31-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 19:59:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 19:59:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003589
+13.11 19:59:44-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 20:00:30-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 20:00:30-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.006582
+13.11 20:00:30-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 20:00:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 20:00:33-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003528
+13.11 20:00:33-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 20:00:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 20:00:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003296
+13.11 20:00:44-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 20:01:46-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 20:01:46-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003218
+13.11 20:01:46-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 20:02:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 20:02:20-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003504
+13.11 20:02:20-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 20:02:28-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 20:02:28-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003627
+13.11 20:02:28-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:02:43-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:02:43-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003276
+13.11 21:02:43-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:03:19-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:03:19-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003584
+13.11 21:03:19-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:09:34-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:09:34-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003907
+13.11 21:09:34-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:09:57-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:09:57-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003326
+13.11 21:09:57-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:10:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:10:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003791
+13.11 21:10:44-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:10:58-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:10:58-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003817
+13.11 21:10:58-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:13:54-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:13:54-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005872
+13.11 21:13:54-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:16:41-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:16:41-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003322
+13.11 21:16:41-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:17:02-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:17:02-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003538
+13.11 21:17:02-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:17:09-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:17:09-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003354
+13.11 21:17:09-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:27:13-INFO : 12 - 12 liked item 508
+13.11 21:27:45-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:27:45-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003181
+13.11 21:27:45-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:29:10-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:29:11-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003491
+13.11 21:29:11-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:29:19-INFO : 12 - 12 liked item 514
+13.11 21:29:22-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:29:22-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003022
+13.11 21:29:22-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:30:18-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:30:18-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004159
+13.11 21:30:18-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:30:28-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:30:28-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004294
+13.11 21:30:28-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:31:07-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:31:07-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003236
+13.11 21:31:07-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:31:08-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+13.11 21:31:08-INFO : kaloidis@hartford.edu - Scroll Timer: 0.053178
+13.11 21:32:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:32:33-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003622
+13.11 21:32:33-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:33:26-INFO : 12 - 12 liked item 511
+13.11 21:33:57-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:33:57-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005138
+13.11 21:33:57-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:37:47-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:37:47-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003466
+13.11 21:37:47-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:37:48-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+13.11 21:38:00-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:38:00-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003766
+13.11 21:38:00-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:38:04-INFO : 12 - 12 liked item 512
+13.11 21:45:00-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:45:00-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.158743
+13.11 21:45:00-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:46:45-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:46:45-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004408
+13.11 21:46:45-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:46:52-INFO : 12 - 12 liked item 505
+14.11 03:46:54-INFO : 12 - 12 liked item 509
+13.11 21:46:55-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:46:55-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.006952
+13.11 21:46:55-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:47:30-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:47:30-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003318
+13.11 21:47:30-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:48:11-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:48:11-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003823
+13.11 21:48:11-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:48:24-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:48:24-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003955
+13.11 21:48:24-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:48:37-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:48:37-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005425
+13.11 21:48:37-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:49:12-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+13.11 21:49:12-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003859
+13.11 21:49:12-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+13.11 21:49:14-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:49:14-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003119
+13.11 21:49:14-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+14.11 03:49:28-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+13.11 21:51:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:51:42-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003239
+13.11 21:51:42-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+14.11 03:51:46-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+13.11 21:51:56-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:51:56-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002761
+13.11 21:51:56-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+13.11 21:52:14-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:52:14-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003787
+13.11 21:52:14-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+14.11 03:52:17-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+13.11 21:53:36-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:53:36-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003567
+13.11 21:53:36-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+13.11 21:53:36-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:53:36-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002996
+13.11 21:53:36-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+14.11 03:53:39-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 03:53:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '504'
+13.11 21:53:44-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts LIMIT 0, 40
+13.11 21:53:44-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004549
+13.11 21:53:44-INFO : kaloidis@hartford.edu - We are loading multiple (514 posts total) (40 posts on front-page) SQL: SELECT * FROM posts 
+14.11 03:53:47-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 03:53:49-INFO : kaloidis@hartford.edu - We are loading multiple () posts: 
+14.11 03:53:49-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '505'
+13.11 21:53:59-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:53:59-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003451
+13.11 21:53:59-INFO : kaloidis@hartford.edu - We are loading multiple (118 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:54:10-INFO : 12 - 12 liked item 504
+14.11 03:54:29-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 03:55:31-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 03:55:34-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '504'
+14.11 03:56:57-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '504'
+14.11 03:57:00-INFO : ACTION:  - Deleted Item 504
+13.11 21:57:23-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:57:23-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003157
+13.11 21:57:23-INFO : kaloidis@hartford.edu - We are loading multiple (117 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:57:30-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 03:57:37-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '510'
+14.11 03:57:39-INFO : ACTION:  - Deleted Item 510
+13.11 21:57:40-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:57:40-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004026
+13.11 21:57:40-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 21:59:11-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 21:59:11-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003139
+13.11 21:59:11-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 03:59:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 03:59:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+13.11 21:59:20-INFO : kaloidis@hartford.edu - Scroll Timer: 0.038010
+14.11 03:59:24-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '507'
+14.11 03:59:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '507'
+14.11 03:59:51-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '507'
+14.11 04:00:00-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '507'
+14.11 04:00:07-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '507'
+14.11 04:00:08-INFO : ACTION:  - Deleted Item 507
+14.11 04:00:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '507'
+13.11 22:00:17-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:00:17-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003111
+13.11 22:00:17-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:00:23-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:00:23-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003211
+13.11 22:00:23-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:00:26-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:00:26-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003079
+13.11 22:00:26-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 04:00:32-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 04:00:34-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+13.11 22:00:34-INFO : kaloidis@hartford.edu - Scroll Timer: 0.048066
+14.11 04:00:39-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '2'
+14.11 04:00:42-INFO : ACTION:  - Deleted Item 2
+13.11 22:00:43-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:00:43-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003933
+13.11 22:00:43-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:01:35-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:01:35-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.012932
+13.11 22:01:35-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 04:01:49-INFO : kaloidis@hartford.edu - created post: 0
+13.11 22:01:50-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:01:50-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003564
+13.11 22:01:50-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 04:01:56-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 04:02:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '515'
+14.11 04:03:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '515'
+14.11 04:03:38-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '515'
+14.11 04:03:57-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '515'
+14.11 04:04:37-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '515'
+14.11 04:04:53-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '515'
+14.11 04:04:57-INFO : ACTION:  - Deleted Item 515
+13.11 22:04:59-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:04:59-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.005516
+13.11 22:04:59-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:05:13-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:05:13-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003847
+13.11 22:05:13-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 04:05:16-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 04:05:19-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '3'
+13.11 22:05:22-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:05:22-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003255
+13.11 22:05:22-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+14.11 04:05:28-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE username = 'kaloidis' AND domain = 'hartford.edu' 
+14.11 04:05:33-INFO : kaloidis@hartford.edu - We are loading multiple () posts: 
+14.11 04:05:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '3'
+14.11 04:06:40-INFO : kaloidis@hartford.edu - We are loading multiple () posts: 
+14.11 04:06:40-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '3'
+14.11 04:07:06-INFO : kaloidis@hartford.edu - We are loading multiple () posts: 
+14.11 04:07:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '3'
+14.11 04:07:40-INFO : kaloidis@hartford.edu - We are loading multiple () posts: 
+14.11 04:07:40-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE id = '3'
+13.11 22:07:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:07:42-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003386
+13.11 22:07:42-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:08:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:08:42-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003399
+13.11 22:08:42-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:10:54-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:10:54-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003791
+13.11 22:10:54-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:11:16-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:11:16-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004660
+13.11 22:11:16-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:11:30-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:11:30-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004123
+13.11 22:11:30-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:11:53-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:11:53-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003350
+13.11 22:11:53-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:12:22-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:12:22-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003396
+13.11 22:12:22-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:13:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:13:15-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003042
+13.11 22:13:15-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+13.11 22:13:41-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+13.11 22:13:41-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003262
+13.11 22:13:41-INFO : kaloidis@hartford.edu - We are loading multiple (114 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 

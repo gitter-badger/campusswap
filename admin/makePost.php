@@ -82,7 +82,7 @@ if(isset($_GET['count'])){
 		
 		echo '<b>Title:</b> ' . $title . ' - <b>POST:</b> ' . $post . ' - <b>USER</b>: ' . $user . ' - <b>domain</b> - ' . $domain . '<br />';
 		echo '<br />';
-		mysqli_query($conn, "INSERT INTO posts (item, description, username, domain, price, hits, views, created, createdSince, modified, img) VALUES ('$title', '$post', '$user', '$domain', '$price', '0', '0', NOW(), NOW(), NOW(), 'FALSE')");
+		mysqli_query($conn, "INSERT INTO posts (item, description, username, domain, price, hits, views, created, modified, img) VALUES ('$title', '$post', '$user', '$domain', '$price', '0', '0', NOW(), NOW(), 'FALSE')");
 		
 		
 		$title = "";

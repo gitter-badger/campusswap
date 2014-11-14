@@ -47,16 +47,18 @@ class PostsDAO {
         }
     }
 
-    public function likeItem($user, $id) {
+    public function likeItem($user_id, $id) {
 
         $result = mysqli_query(self::$conn, "UPDATE posts SET hits = hits +1 WHERE id = '$id'");
 
         $update = '/' . $id;
-        $result2 = mysqli_query(self::$conn, "UPDATE users SET likes = CONCAT(likes, '$update') WHERE id = '$user'");
+        $result2 = mysqli_query(self::$conn, "UPDATE users SET likes = CONCAT(likes, '$update') WHERE id = '$user_id'");
 
         if($result && $result2) {
+            self::$log->log($user_id, 'INFO', $user_id . ' liked item ' . $id);
             return true;
         } else {
+            self::$log->log($user_id, 'ERROR', $user_id . ' error liking item ' . $id);
             return false;
         }
     }
@@ -92,7 +94,6 @@ class PostsDAO {
                     hits,
                     views,
                     created,
-                    createdSince,
                     modified,
                     img)
                 VALUES
@@ -103,7 +104,6 @@ class PostsDAO {
                     '$price',
                     '0',
                     '0',
-                    NOW(),
                     NOW(),
                     NOW(),
                    'FALSE')";
@@ -290,7 +290,6 @@ class PostsDAO {
                 $Post->setImg($row['img']);
                 $Post->setModified($row['modified']);
                 $Post->setCreated($row['created']);
-                $Post->setCreatedSince($row['createdSince']);
                 $results[] = $Post;
             }
             return $results;
@@ -308,7 +307,6 @@ class PostsDAO {
                 $Post->setImg($row['img']);
                 $Post->setModified($row['modified']);
                 $Post->setCreated($row['created']);
-                $Post->setCreatedSince($row['createdSince']);
                 $Posts[0] = $Post;
                 return $Posts;
             }

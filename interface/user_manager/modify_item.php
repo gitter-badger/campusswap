@@ -40,7 +40,7 @@ if(isset($_POST['edit']) && AuthenticationDAO::isLi()){
     $posts = $PostsDAO->getPost($id);
     $post = $posts[0];
 
-    if(!Parser::isFalse($post->getImg())){
+    if(Parser::isTrue($post->getImg())){
          echo '<img align="center" width="100" src="<?= URL ?>var/uploads/' . $post->getImg() . '" />';
     }
 
@@ -51,8 +51,9 @@ if(isset($_POST['edit']) && AuthenticationDAO::isLi()){
         <b>Item Description</b><textarea class="form-control" name="description" rows="6" cols="80">' . $post->getDescription() . '</textarea><br />
 
         <input type="hidden" name="id" value="' . $id . '">
-        <input type="hidden" name="edit2" value="true">
-        <input type="submit" class="btn btn-primary" value="Submit" />
+        <input type="hidden" name="edit2" value="true">';
+        Helper::return_home_button();
+    echo '<input type="submit" class="btn btn-primary" value="Submit" />
         </form>
 ';
 
@@ -82,16 +83,19 @@ if(isset($_POST['edit']) && AuthenticationDAO::isLi()){
 } else if(isset($_POST['delete'])){
 	$id = $_POST['id'];
 
-    $item = $PostsDAO->getPost($id);
-	
+    $items = $PostsDAO->getPost($id);
+    $item = $items[0];
+
+    echo '<div class="alert alert-success">';
 	echo 'Are you sure you will like to delete item <b>"' . $item->getItem() . '"</b>';
 	echo '
 	<form name="delete2" action="modify_item.php" method="post">
-	<input type="hidden" name="id" value="' . $id . '">
+	<input type="hidden" name="id" value="' . $item->getId() . '">
 	<input type="hidden" name="delete2" value="true">
-	<input type="submit" value="Yes" />
-	';
-	echo 'Or <a href="' . Config::get('url') . '">Bring Me Home</a>';
+	</div>
+	<input type="submit" class="btn btn-primary" value="yes">
+    </form>';
+	Helper::return_home_button();
 	
 	
 } else if(isset($_POST['delete2'])){
@@ -100,12 +104,16 @@ if(isset($_POST['edit']) && AuthenticationDAO::isLi()){
 	$deleted = $PostsDAO->deleteItem($id);
 
     if($deleted){
+        echo '<div class="alert alert-success">';
         echo 'Item Deleted!';
+        echo '</div>';
         $LogUtil->log($liFullName, 'action', 'Deleted Item ' . $id);
     } else {
         echo 'Could not delete Item!';
         $LogUtil->log($liFullName, 'fatal', "Item: " . $id . " could not be deleted");
     }
+
+    Helper::return_home_button();
 
 
 } else {

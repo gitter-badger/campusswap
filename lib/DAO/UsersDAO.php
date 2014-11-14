@@ -55,6 +55,21 @@ class UsersDAO {
         return $this->createObject($sql);
     }
 
+    public static function getUsername($id) {
+        $sql = "SELECT * FROM users WHERE $id = '$id' ";
+
+        $result = mysqli_query(self::$conn, $sql);
+
+        $count = mysqli_num_rows($result);
+
+        if($count > 0) {
+            while($row = mysqli_fetch_array($result)) {
+                $return = $row['username'] . '@' . $row['domain'];
+            }
+            return $return;
+        }
+    }
+
     //CREATE USER
     public static function createUser($user, $domain, $password, $conn){
 

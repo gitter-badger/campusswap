@@ -3,7 +3,7 @@ function likeItem(likeId){
         url: cswap_url + "modules/like_item.php?id=" + likeId,
         success: function(html){
             jQuery('div#likeButton' + likeId).hide();
-            jQuery('div#likeButton' + likeId).html('<b>You like this</b>');
+            jQuery('div#you_like_' + likeId).show();
         }
     });
     return false;
