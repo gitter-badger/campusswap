@@ -13,6 +13,10 @@
  */
 class Parser {
 
+    public static function isVarSet($input) {
+
+    }
+
     public static function sanitize($input) {
         $strip_tags = strip_tags($input);
         $return = htmlentities($strip_tags);
@@ -40,7 +44,7 @@ class Parser {
         }
     }
 
-    public static function getString($input) {
+    public static function getBooleanString($input) {
         if($input == FALSE){
             return 'false';
         } else if(Parser::isFalse($input)) {

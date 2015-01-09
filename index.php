@@ -2,9 +2,7 @@
 //session_start();
         
 include('./lib/Config.php');
-
 $config = new Config('./etc/config.ini');
-
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 $version = Config::get('version');
@@ -47,7 +45,7 @@ $Times = Array();
 $this_user = $UsersDAO->getUserFromId($liId);
 $all_domains = $DomainsDAO->getAllDomains();
 
-if(isset($_SESSION['user'])){ //TODO: Lock this down, this is insecure and shitty
+if(isset($_SESSION['user'])){ //TODO: Lock this down, this is insecure
     $loggedIn = TRUE;
 } else {
     $loggedIn = FALSE;
@@ -86,6 +84,7 @@ if($item){
     }
 }
 
+$subpage = FALSE; //TODO: Figure out what subpage .. looks like garbage
 if($debug){
     include DIR . 'modules/debug.php';
 }

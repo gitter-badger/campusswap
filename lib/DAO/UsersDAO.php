@@ -71,14 +71,14 @@ class UsersDAO {
     }
 
     //CREATE USER
-    public static function createUser($user, $domain, $password, $conn){
+    public function createUser($user, $domain, $password){
 
         $sql = "INSERT INTO users
                         (id, username, password, domain, level, created, modified)
                     VALUES
                         (NULL, '$user', SHA('$password'), '$domain', 'normal', NOW(), NOW())";
 
-        $result = mysqli_query($conn, $sql);
+        $result = mysqli_query(self::$conn, $sql);
 
         if($result){
             return TRUE;
@@ -112,7 +112,7 @@ class UsersDAO {
         $result = mysqli_query($conn, "SELECT *
 							FROM users
 							WHERE username = '" . $user . "' " .
-            " AND domain = '" . $domain . "' ");
+                            " AND domain = '" . $domain . "' ");
         $num_rows = mysqli_num_rows($result);
         if($num_rows == 1) {
             return TRUE;

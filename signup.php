@@ -15,6 +15,8 @@ include($dir . 'lib/Util/Helper.php');
 include($dir . 'lib/Database.php');
 include($dir . 'lib/DAO/AuthenticationDAO.php');
 include($dir . 'lib/Util/LogUtil.php');
+include($dir . 'lib/DAO/VersDAO.php');
+
 
 $debug = Parser::isTrue(Config::get('debug'));
 
@@ -24,6 +26,8 @@ $LogUtil = new LogUtil($conn, $config);
 $PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 $DomainsDAO = new DomainsDAO($conn, $config, $LogUtil);
 $all_domains = $DomainsDAO->getAllDomains();
+$UsersDAO = new UsersDAO($conn, $config, $LogUtil);
+$VersDAO = new VersDAO($conn, $config, $LogUtil);
 
 //TODO: Cleanup the login and add failed attempt banner
 //TODO: Cleanup the security system while were at it, this page is a good start
@@ -42,57 +46,65 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 	
 	if(DomainsDAO::domainExists($domain, $conn)){ //CHECK IF DOMAIN EXISTS
 				
-		$user_exists = users::userExists($user, $domain, $conn);
+		$user_exists = UsersDAO::userExists($username, $domain, $conn);
 		
-		$fullName = $user . '@' . $domain
+		$fullName = $username . '@' . $domain;
         $user = $UsersDAO->getUserFromName($username, $domain, $conn);
                 
 		if($user['level'] != 'banned'){ //CHECK IF USER BANNED
-			
-                    vers::getVerFromUser($user, $domain, $conn);
-                    
-                    if(!$user_exists){ //MAKE SURE USER DOESEN'T EXIST
 
-                            if(vers::verSent($user_input, $domain, $conn)){ //Var already sent
-                                
-                                echo '<div class="alert alert-warning">';
-                                echo 'We have already sent you a verification email to ' . $fullName . ', we are sending another. Try checking your spam folder</div>';
-                                
-                                $key = vers::getVerFromUser($user, $domain, $conn);
-                                
-                            } else { //Create an account
-                                
-                                $key = md5(uniqid(rand(), true));
-                                
-                                $created_ok = vers::createVer($key, $user_input, $domain, 'signup', $conn);
-                                
-                                if($created_ok){
-                                    echo '<div class="alert alert-success">We sent you an e-mail to verify your status at ' . $domain . '</div>';
-                                    Helper::return_home_button();
-                                    
-                                } else {
-                                    echo '<div class="alert alert-danger>There was a problem creating your account</div>';
-                                }
-                                
-                            }
-                            $theURL = Config::get('url');
+                if(!$user_exists){ //MAKE SURE USER DOESEN'T EXIST TODO: Fix this, adds multiple users
 
-                            $email = $fullName;
-                            $subject = '<br />CampusSwap.net verification code!';
-                            $content = 'Welcome to Campus Swap! Click this link to verify your email adress and start Hustling!</p>';
-                            $content = $content . ' ' . $theURL . 'passChoose.php?register=' . $key . ' ';
-                            $headers = 'From: donotreply@campusswap.net' . "\r\n";
+                    if($VersDAO->verSent($username, $domain)){ //Var already sent
 
-                            mail($email, $subject, $content, $headers);
+                        $key = $VersDAO->getVerFromUser($username, $domain);
 
-                    } else {
-                        
-                        echo '<div class="alert alert-warning>You already have an account at Campus Swap,';
-                        echo 'if you forgot your password you can recover it.';
-                        echo '<a href="/recoverPassword.php"><button type="button" class="btn btn-primary">Recover Password</button></a></div>';
-                        Helper::return_home_button();
-                            
+                        echo '<div class="alert alert-warning">';
+                        echo 'We have already sent you a verification email to ' . $fullName . ', we will send another one. Try checking your spam folder</div>';
+//                          $key = vers::getVerFromUser($user, $domain, $conn);
+
+                    } else { //Create an account
+
+                        $key = md5(uniqid(rand(), true));
+
+                        $created_ok = $VersDAO->createVer($key, $username, $domain, 'signup');
+
+                        if($created_ok){
+                            echo '<div class="alert alert-success">We sent you an e-mail to verify your status at ' . $domain . '</div>';
+                            Helper::return_home_button();
+
+                        } else {
+                            echo '<div class="alert alert-danger>There was a problem creating your account</div>';
+                        }
+
                     }
+                    $theURL = Config::get('url');
+
+                    $email = $fullName;
+
+                    $subject = 'Campus Swap - Verification Code!';
+
+                    $content = '<h1>Welcome to Campus Swap!</h1>';
+                    $content .= 'Click this link to verify your email adress and start selling!</p>';
+                    $content .= ' ' . $theURL . 'passChoose.php?key=' . $key . ' ';
+
+                    $headers = 'Content-type: text/html; charset=utf-8' . "\r\n";
+                    $headers .= 'From: user_contact@campusswap.net' . "\r\n";
+
+                    echo '<div class="alert alert-warning>' . $content . ' </div>';
+
+                    mail($email, $subject, $content, $headers);
+
+                    echo '<div class="alert alert-warning>' . $theURL . 'passChoose.php?key=' . $key . ' </div>';
+
+                } else {
+
+                    echo '<div class="alert alert-warning>You already have an account at Campus Swap,';
+                    echo 'If you forgot your password you can recover it.';
+                    echo '<a href="/recoverPassword.php"><button type="button" class="btn btn-primary">Recover Password</button></a></div>';
+                    Helper::return_home_button();
+
+                }
 			
 		} else { //Banned
 			
@@ -103,17 +115,19 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 		}
 		
 	} else {
-            echo '<div class="alert alert-warning">Your domain is not a domain we allow on Campus Swap, you can contact us and we may add it</div>';
-	}
+        echo '<div class="alert alert-warning">Your domain is not a domain we allow on Campus Swap, you can contact us and we may add it</div>';
+        Helper::return_home_button('Try Again');
+    }
         
     } else {
         echo '<div class="alert alert-warning">You did not enter an email address. Try again!</div>';
+        Helper::return_home_button('Try Again');
 
     }
         
 }
 
-Helper::return_home_button();
+
 
 
 include(DIR . 'interface/subpage_foot.php');

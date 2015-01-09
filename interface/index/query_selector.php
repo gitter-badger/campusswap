@@ -2,9 +2,9 @@
     <div class="col-lg-3" style="margin-right: 120px">
 	<h4 class="muted"><i class="fa fa-university fa-lg"></i>&nbsp;Select a University</h4>
 	<form name="domainForm">
-            <?php $selectName = '<select multiple="multiple" width="350" style="width: 350px" size=6 name="domain" OnChange="location.href=domainForm.domain.options[selectedIndex].value">'; ?>
-            <?= $selectName ?>
-            <option value="">Select a College</option>
+        <?php $selectName = '<select multiple="multiple" width="350" style="width: 350px" size=6 name="domain" OnChange="location.href=domainForm.domain.options[selectedIndex].value">'; ?>
+        <?= $selectName ?>
+        <option value="">Select a College</option>
             
             <?php
             $base_url = URL . 'index.php?';

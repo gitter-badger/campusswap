@@ -1,9 +1,7 @@
 <?php
 
 class User {
-	
-	public static $conn;
-	
+
 	private $id;
 	private $username;
 	private $domain;

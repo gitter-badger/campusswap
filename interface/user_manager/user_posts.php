@@ -1,4 +1,7 @@
 <?php
+
+//TODO: htaccess
+
 include('../../lib/Config.php');
 
 $config = new Config('../../etc/config.ini');
@@ -29,11 +32,15 @@ $conn = $database->connection();
 $LogUtil = new LogUtil($conn, $config);
 $PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 
-$simple = true;
+$simple = true; // TODO: This looks  - Define what this does + refactor global usage if needed
+$subpage = false; // TODO: This looks retarded also - its a variable set in the debug panel module
 include $dir . 'interface/subpage_head.php';
 
 if(AuthenticationDAO::isLi()){
-    $posts = $PostsDAO->getPostsUser($liUser, $liDomain); ?>
+    $posts = $PostsDAO->getPostsUser($liUser, $liDomain);
+    echo 'sql - ' . $PostsDAO::$sql;
+    echo 'count - ' . $PostsDAO::$fp_count;
+?>
     <table border="0" cellspacing="0" cellpadding="0" style=";font-size:1em;">
         <div style="padding-left:2px;border-bottom:1px white solid"><h1><?= AuthenticationDAO::liUser() ?>@<?= AuthenticationDAO::liDomain() ?> Posts</h1>
             &nbsp;
@@ -46,6 +53,7 @@ if(AuthenticationDAO::isLi()){
             <a class="btn btn-default btn-sm" href="<?=  URL ?>interface/deleteAccount.php" target="_top">Delete Account</a>
         </div>
     <?php
+    echo 'Posts: ' . count($posts);
     for($x = 0; $x < count($posts); $x++){
         $rowDescription = null;
         $rowDescription = substr($posts[$x]->getDescription(), 0, 180) . "...";

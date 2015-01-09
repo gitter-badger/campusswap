@@ -28,10 +28,13 @@ $todaysDate = date('d.m.y');
 $today = new dateTime($todaysDate);
 $rightNow = new DateTime(date('Y-m-d H:i:s'));
 
+//echo 'created: ' . $date_created->format('Y-m-d H:i:s');
 // DELETE DATE
 $delete_date = new DateTime($created);
-$delete_date->modify("+60 day");
+$delete_date->modify("+120 day");
 $time_till_delete = $today->diff($delete_date);
+
+//echo ' - today: ' . $time_till_delete->format('Y-m-d H:i:s') . ' - ';
 
 // CREATED SINCE
 $created_since = $date_created->diff($rightNow);
@@ -61,7 +64,9 @@ echo '<div class="result box" id="result">';
         <?= $item . ' - $' . $price; ?>
 
     <?php
-        //Print days since created badge
+    //Print days since created badge
+    // TODO: Fix this this doesent work completly
+//    echo 'since-days: ' . $sinceDays;
     if($sinceDays > 9) {
         echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
     } else if($sinceDays > 5) {
@@ -70,7 +75,7 @@ echo '<div class="result box" id="result">';
         echo '<span class="label label-primary">' . $sinceDays . ' days ago</span>';
     } else if($sinceDays > 1) {
         echo '<span class="label label-success">' .  $sinceDays. ' days ago</span>';
-    } else if($sinceDays == 1) {
+    } else if($sinceDays <= 1) {
         echo '<span class="label label-success">Today</span>';
     }
 
@@ -165,7 +170,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                 <li><i class="fa fa-user"></i>&nbsp;<b>User:</b> <?= $obfuscated_username ?>
             <?php } ?>
             <li><i class="fa fa-calendar-o fa-lg"></i>&nbsp;<b>Created:</b> <?= $date_created->format('Y-m-d H:i:s'); ?> </li>
-            <?php $del_date_feature = false; //TODO: Write the VIEWS feature
+            <?php $del_date_feature = false;
             if($del_date_feature) { ?>
                 <li><i class="fa fa-calendar fa-lg"></i>&nbsp;<b>Deletion Date:</b> <?= $delete_date->format('Y-m-d') ?> </li>
             <?php } ?>

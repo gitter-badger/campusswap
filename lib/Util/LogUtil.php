@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Log
- *
- * @author vaskaloidis
- */
 class LogUtil {
 
     public static $log, $conn, $dir;
@@ -25,8 +20,11 @@ class LogUtil {
         /*
         if($userInput=='getLiUser'){
             try {
-                $user = AuthenticationDAO::liFullName(); //TODO: *** START HERE ** Possiby remove this and add logging to Auth
-                                                         // class instead and make the user just pass in the loggers username
+                $user = AuthenticationDAO::liFullName();
+
+                //TODO: *** START HERE ** Possiby remove this and add logging to Auth
+                // class instead and make the user just pass in the loggers username
+
             } catch(Exception $e) {
                 echo 'You need to include the Authentication.php from the lib folder - ' . $e->getMessage();
             }

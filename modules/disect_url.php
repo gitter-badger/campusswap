@@ -10,7 +10,7 @@ if(!isset($_GET)){
     if(AuthenticationDAO::isLi()){
         $college = $liDomain;
         $college_string = "false"; //Maybe this 'extra' 'string' version of the main variables
-                                  // can be done better.. like a parser.. this is shitty
+                                  // can be done better.. like a parser.. this is
     } else {
         $college = 'all';
         $college_string = "false";

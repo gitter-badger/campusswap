@@ -1,7 +1,9 @@
 <?php
 if(isset($config) && Parser::isTrue(Config::get('debug'))) {
-    $subpage = true;
-    include DIR . 'modules/debug.php';
+    if (Config::get('debug_location') == 'head') {
+        $subpage = true;
+        include DIR . 'modules/debug.php';
+    }
 }
 ?>
 
@@ -56,7 +58,7 @@ if(isset($config) && Parser::isTrue(Config::get('debug'))) {
 <?php if(!isset($simple)) { ?>
 <div class="subpage_container">
 <center>
-    <a href="/">
+    <a href="<?= URL ?>">
         <img src="<?= URL ?>/interface/img/logo.png" />
     </a>
 </center>

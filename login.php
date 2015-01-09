@@ -117,9 +117,13 @@ if(isset($_POST['loginSubmitted'])){
             $LogUtil->log('IP', 'ACTION' , ' failed login error: ' . $msg, 'failed login');
             echo '<div class="alert alert-danger"><a href="login.php">' . $msg . '</a></div>';
 		}
-        Helper::return_home_button('center');
+        Helper::return_home_button();
 	}
-} else { ?>
+} else {
+
+//TODO: Finish Login Page UI
+
+?>
 
 <h1>Login</h1>
 <form name="input"
@@ -165,7 +169,7 @@ if(isset($_POST['loginSubmitted'])){
 
 <?php } 
 
- Helper::return_home_button('center');
+ Helper::return_home_button();
 
 include(DIR . 'interface/subpage_foot.php');
 

@@ -47,7 +47,22 @@ class Helper {
         echo '</a>';
     }
 
-    public static function return_home_button(){
+    public static function return_home_button($text = null, $size = null){
+        echo '<br><a class="center" href="' . Config::get("url") . '">';
+
+        if($size != null){
+            echo '<button class="btn btn-lg btn-success btn-block" type="submit">';
+        } else {
+            echo '<button type="button" class="btn btn-success">';
+        }
+
+        if($text != null){
+            echo $text . '</button>';
+        } else {
+            echo 'Return Home</button>';
+        }
+
+        echo '</a>';
         include(DIR . 'interface/return_home.php');
     }
 

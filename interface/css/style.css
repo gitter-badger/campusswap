@@ -35,7 +35,7 @@
 /*  Campus Swap Logo 3b99c9 */
 
 .debug {
-    border: 1px solid #3b99c9;
+    /*border: 1px solid #3b99c9;*/
     padding:10px;
     text-align: center;
     margin: 10px;
@@ -192,9 +192,6 @@ a {
 
 }
 .post {
-    border-left:1 solid #9da6ab;
-    border-bottom:1 solid #9da6ab;
-    border-right:1 solid #9da6ab;
     padding: 0px 10px 10px 10px;
 }
 .result {

@@ -188,6 +188,8 @@ class PostsDAO {
 
         self::$sql = $this->setSql($college, $search, $sort);
 
+        self::$log->log(AuthenticationDAO::liFullName(), "debug", "Debug SQL: " . self::$sql);
+
         self::$limit_sql = self::$sql;
 
         if($first_limit >= 0){

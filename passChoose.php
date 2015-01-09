@@ -1,55 +1,75 @@
 
 <?php
 
-include('./interface/subpage_head.php');
 
-include('./functions.php');
-include('./lib/Domain.php');
-include('./lib/Objects/User.php');
-include('./lib/vers.php');
-include('./lib/Post.php');
-include('./lib/Database.php');
+
+include('./lib/Config.php');
+$config = new Config('./etc/config.ini');
+$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
+$version = Config::get('version');
+
+//TODO: Before final deployment, replace includes with requires, to prevent errors in production
+include($dir . 'lib/DAO/PostsDAO.php');
+
+include($dir . 'lib/DAO/DomainsDAO.php');
+include($dir . 'lib/DAO/UsersDAO.php');
+include($dir . 'lib/DAO/VersDAO.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
+include($dir . 'lib/Util/Parser.php');
+include($dir . 'lib/Util/LogUtil.php');
+include($dir . 'lib/Util/Helper.php');
+
+include($dir . 'lib/Database.php');
+
+include($dir . 'interface/subpage_head.php');
 
 $database = new Database();
 $conn = $database->connection();
+$log = new LogUtil($conn, $config);
 
-if(isset($_GET['ver'])){
+$VersDAO = new VersDAO($conn, $config, $log);
 
-	
-	$ver = $_GET['ver'];
-	
-	$ver_object = vers::getVerification($ver, $conn);
-	
-	if($ver_object){		
-		
-		$v = $ver_object['ver']; 
+$UsersDAO = new UsersDAO($conn, $config, $log);
 
-		$u = $ver_object['username'];
+if(isset($_GET['key'])){
 
-		$d = $ver_object['domain'];
-		
-                echo '<div class="alert alert-info">';
-                
+	$key = $_GET['key'];
+
+    $verification = $VersDAO->getVerification($key);
+
+	if($verification){
+
+		$ver = $verification->getVer();
+
+		$username = $verification->getUsername();
+
+		$domain = $verification->getDomain();
+
+        $type = $verification->getType();
+
+        echo '<div class="alert alert-warning">';
+
 		echo '<b>Please choose a password</b><br />';
-		
-		echo 'Your password must be between 4 and 20 characters long, only requirement<br />';
-                
-                echo '</div>';
-		
-		echo '<form name="passChoose" 
+
+		echo 'Your password must be between 4 and 20 characters long<br />';
+
+        echo '</div>';
+
+		echo '<form name="passChoose"
                         class="form-signin"
-                        onsubmit="return matchPass()" 
-                        action="passChoose.php" 
+                        onsubmit="return matchPass()"
+                        action="passChoose.php"
                         method="post">';
 			echo '<input class="form-control" type="password" name="password1" value="password" /><br />';
 			echo '<input class="form-control" type="password" name="password2" value="password" /><br />';
-			echo '<input type="hidden" name="username" value="' . $u . '">';
-			echo '<input type="hidden" name="domain" value="' . $d . '">';
-			echo '<input type="hidden" name="ver" value="' . $v . '">';
+			echo '<input type="hidden" name="username" value="' . $username . '">';
+			echo '<input type="hidden" name="domain" value="' . $domain . '">';
+			echo '<input type="hidden" name="ver" value="' . $key . '">';
 			echo '<input type="hidden" name="passwordSubmitted" value="TRUE">';
 			echo '<input class="btn btn-primary" type="submit" value="START MAKING $$" />';
 		echo '</form>';
-		
+
 	} else {
             
 		echo '<div class="alert alert-danger">We could not find your verification number</div>';
@@ -57,42 +77,32 @@ if(isset($_GET['ver'])){
 	}
 } else if(isset($_POST['passwordSubmitted'])){
 		
-		$p = $_POST['password1'];
-		$p2 = $_POST['password2'];
-		$u = $_POST['username'];
-		$d = $_POST['domain'];
+		$password = $_POST['password1'];
+		$password2 = $_POST['password2'];
+		$username = $_POST['username'];
+		$domain = $_POST['domain'];
 		$key = $_POST['ver'];
-		
-		
-		if($p == $p2){
+
+		if($password == $password2){
 			
-                    $create_user_ok = users::createUser($u, $d, $p, $conn);
-                    
-                    $delete_ver_ok = vers::deleteVer($key, $conn);
-                    
-                    if($create_user_ok && $delete_ver_ok){
-                        echo '<div class="alert alert-success">' . $u . '@' . $d . ' Welcome to Campus Swap</div>';
-                        echo '<a href="' . Config::get('url') . 'login.php"><button class="btn btn-primary">Login</button></a>';
-                    }
-	
-                    
-		
-                    
-                } else {
+            $create_user_ok = $UsersDAO->createUser($username, $domain, $password);
+
+            $delete_ver_ok = $VersDAO->deleteVer($key);
+
+            if($create_user_ok && $delete_ver_ok){
+                echo '<div class="alert alert-success">' . $username . '@' . $domain . ' Welcome to Campus Swap</div>';
+                echo '<a href="' . Config::get('url') . 'login.php"><button class="btn btn-primary">Login</button></a>';
+            }
+        } else {
 			echo '<div class="alert alert-danger">';
-                        echo 'Your passwords did not match!<br /></div>';
+            echo 'Your passwords did not match!<br /></div>';
 			echo '<form action="passChoose.php" method="GET">';
 			echo '<input type="hidden" name="register" value="TRUE" />';
 			echo '<input type="hidden" name="key" value="' . $key . '" />';
 			echo '<input type="submit" value="Try Again" />';
 			echo '</form>';
+            Helper::return_home_button(null, 'long');
 		}
-		
-	
-
-			
-
-
 } else {
     
     echo '<div class="alert alert-info">Please enter your Verification Code</div>';
@@ -104,14 +114,12 @@ if(isset($_GET['ver'])){
     echo '<br />';
     
     echo '<button class="btn btn-lg btn-primary btn-block" type="submit">Verify</button>';
-    
-    
+
+    Helper::return_home_button(null, 'long');
     
     echo '</form>';
     
 }
-
-Helper::return_home_button();
 
 include('./interface/subpage_foot.php');
 

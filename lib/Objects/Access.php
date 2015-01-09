@@ -124,7 +124,7 @@ class Access {
 
     public function addUsertoAccess($conn, $userInput) {
         $user = "/" . $userInput;
-        mysqil_query(self::$conn, "UPDATE access SET usernames = CONCAT(usernames, '$user') WHERE (ip = '$this->getIp()' AND datetime = '$this->getDatetime()')");
+        mysqli_query($conn, "UPDATE access SET usernames = CONCAT(usernames, '$user') WHERE (ip = '$this->ip' AND datetime = '$this->datetime')");
     }
 
 }

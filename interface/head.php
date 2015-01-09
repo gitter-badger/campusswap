@@ -13,12 +13,12 @@ error_reporting(E_ALL);
     <title>Campus Swap </title> <?php //TODO: Add title ?>
 
     <script type="text/javascript">
-        var cswap_debug = <?= Parser::getString($debug); ?>;
+        var cswap_debug = <?= Parser::getBooleanString($debug); ?>;
         var cswap_pages = <?= Parser::getNumber($pages) ?>;
         var cswap_total = <?= Parser::getNumber(PostsDAO::$total_count) ?>;
-        var cswap_college = '<?= Parser::getString($college) ?>';
-        var cswap_sort = '<?= Parser::getString($sort) ?>';
-        var cswap_search = '<?= Parser::getString($search) ?>';
+        var cswap_college = '<?= Parser::getBooleanString($college) ?>';
+        var cswap_sort = '<?= Parser::getBooleanString($sort) ?>';
+        var cswap_search = '<?= Parser::getBooleanString($search) ?>';
         var cswap_first = 40;
         var cswap_url = '<?= URL ?>';
     </script>
@@ -33,13 +33,15 @@ error_reporting(E_ALL);
     <link href="<?= URL ?>interface/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= URL ?>interface/css/lightwindow.css" rel="stylesheet">
     <link href="<?= URL ?>interface/css/style.css" rel="stylesheet" >
-    <link href="<?= URL ?>interface/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<!--    <link href="--><?//= URL ?><!--interface/css/font-awesome.min.css" rel="stylesheet">-->
 
     <script type="text/javascript">
         jQuery.noConflict();
     </script>
     
     <script src="<?= URL ?>interface/js/campusswap_infinite_scroll.js" type="text/javascript"></script>
+    <!-- //TODO: Fix the post price form validation -->
     <script src="<?= URL ?>interface/js/campusswap_core.js" type="text/javascript"></script>
 
     <!--[if lt IE 9]>
