@@ -10,19 +10,32 @@ class LogUtil {
         include $dir . 'lib/log4php/Logger.php';
         Logger::configure($dir . 'etc/log4php.xml');
 
+//        TODO: Implement ERROR Type enum with SplEnum
+//        include $dir . 'enum/error.php';
+
         self::$log = Logger::getLogger("main");
         self::$dir = $dir;
         self::$conn = $conn;
     }
 
 
-    public function log($user, $level = 'action', $details, $action = null){
+    /**
+     *
+     * Log either a log or log an action
+     *
+     * @param $user IP = IP address, or pass in the fullName
+     * @param string $level INFO, WARN, ERROR, FATAL, DEBUG, ACTION, TRACE. Action and Fatal Log to database but
+     * action is logged as a site-action rather than a simple log
+     * @param $details the details of the log event
+     * @param null $action if the $level is an action, then define the action
+     */
+    public function log($user, $level = 'action', $details, $action = null, $exception_object = null){
         /*
         if($userInput=='getLiUser'){
             try {
                 $user = AuthenticationDAO::liFullName();
 
-                //TODO: *** START HERE ** Possiby remove this and add logging to Auth
+                //TODO: Decision: Possiby remove this and add logging to Auth
                 // class instead and make the user just pass in the loggers username
 
             } catch(Exception $e) {
@@ -42,28 +55,30 @@ class LogUtil {
             $action = strtoupper($action);
         }
 
-        if($level == 'INFO'){
+        if(strtolower($level) == 'info'){
             self::$log->info($user . " - " . $details);
-        } else if($level == 'WARN'){
+        } else if(strtolower($level) == 'warn'){
             self::$log->warn($user . " - " . $details);
             self::logDb($user, $level, $details);
-        } else if($level == 'ERROR'){
+        } else if(strtolower($level) == 'error'){
             self::$log->error($user . " - " . $details);
             self::logDb($user, $level, $details, $action);
-        } else if($level == 'FATAL'){
+        } else if(strtolower($level) == 'fatal'){
             self::$log->fatal($user . " - " . $details);
+            if($exception_object != null) {
+                self::$log->fatal($user . " - " . $details . " - Stacktrace: " . $exception_object->getTraceAsString());
+            }
             self::logDb($user, $level, $details);
-        } else if($level == 'DEBUG'){
+        } else if(strtolower($level) == 'debug'){
             self::$log->debug($user . " - " . $details);
-        } else if($level == 'ACTION') {
-            self::$log->info("ACTION: " . $action . " - " . $details);
+        } else if(strtolower($level) == 'action') {
+            self::$log->info("action" . $action . " - " . $details);
             self::logDb($user, $level, $details, $action);
-        } else if($level == 'TRACE') {
+        } else if(strtolower($level) == 'trace') {
             self::$log->trace($user . " - $details");
         } else {
-            self::$log->warn($user . " - (**unknown log level set) - " . $details);
+            self::$log->warn($user . " - " . $details);
         }
-
     }
 
     public function logDb($user, $level, $details, $action = null) {

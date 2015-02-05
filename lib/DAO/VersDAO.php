@@ -82,12 +82,13 @@ class VersDAO {
             }
         }
 	
-	public function getVerFromUser($user, $domain){
+	public function getVerFromUser($user, $domain, $type = 'signup'){
 		
 		$sql = "SELECT *
                      FROM vers
                      WHERE username = '" . $user . "'
-                     AND domain = '" . $domain . "'";
+                     AND domain = '" . $domain . "'
+                     AND type = '" . $type . "'";
 
         $return = $this->createObject($sql);
 
@@ -99,8 +100,8 @@ class VersDAO {
 		
 	}
 
-    public function verSent($username, $domain) {
-        $sql = "SELECT * FROM vers WHERE username = '" . $username . "' and domain = '" . $domain . "'";
+    public function verSent($username, $domain, $type = 'signup') {
+        $sql = "SELECT * FROM vers WHERE username = '" . $username . "' AND domain = '" . $domain . "' AND type='" . $type . "' ";
 
         $return = $this->createObject($sql);
 

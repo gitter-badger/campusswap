@@ -6,7 +6,7 @@ class Database {
     public static $query;
 
     
-    public function query($sql){
+    public function &query($sql){
         
         $connection = self::connection();
         
@@ -15,9 +15,10 @@ class Database {
         return self::$query;
         
     }
-        
-    public function connection(){
-            return self::$conn;
+
+    //TODO: Implement Registry PHP Design Pattern
+    public function &connection(){
+        return self::$conn;
     }
 
     public function __construct(){
@@ -35,15 +36,12 @@ class Database {
          
         self::$conn = mysqli_connect($server, $user, $password, $database);
 
-        //self::$conn = mysqli_connect('localhost', 'root', 'root', 'campusswap');
-
         if (\mysqli_connect_error() || !self::$conn) {
             die('Connect Error (' . mysqli_connect_errno(self::$conn) . ') '
                     . mysqli_connect_error(self::$conn));
         } else {
             return self::$conn;
         }
-
     }
 }
 

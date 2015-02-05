@@ -26,14 +26,12 @@ $image_created = false;
 $post_result = false;
 
 //TODO: Filter Post title, price and description but allow the use
-// of 3 or 4 HTML tags for the post description (IE: <p>, <li> & <ul>,
-// maybe one heading we will create too and any other HTML tags we want to allow
-// (that wont break our UI or make it ugly)
+// of 1 or 2 Style tags. Probably wont be HTML styling but we will allow some BB style or something
+
 
 include($dir . 'interface/subpage_head.php');
 
 if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
-	
     $item = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description']; 
@@ -66,57 +64,70 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
                 $error = TRUE;
             }
             //FILE SIZE
-            if (($_FILES["file"]["size"] < 1000000)) { //TODO: Nail out file size + test
+            $image_resize_feature = false;
+            define('Megabyte', 1048576);
+            if (($_FILES["file"]["size"] > (.75*Megabyte)) && $image_resize_feature) { //TODO: Nail out file size + test
 
-                $file_name = $_FILES["file"]["name"];
-                
-                $allowedExts = array("jpg", "jpeg", "gif", "png");
-                $explode = explode(".", $file_name);
-                $extension = end($explode);
+                $image = $_FILES["file"]["tmp_name"];
+                $new_image = "thumbnails_" . $_FILES["file"]["name"];
+                copy($_FILES, DIR . "var/uploads/" . $_FILES["file"]["name"]);
+                $width = 500; //*** Fix Width & Heigt (Autu caculate) ***//
+                $size = GetimageSize($image);
+                $height = round($width * $size[1] / $size[0]);
+                $images_orig = ImageCreateFromJPEG($image);
 
-                //CORRECT EXTENSION
-                if((($_FILES["file"]["type"] == "image/gif") // TODO: Duplicate code of a ton of crap that can be done in a UITL
-                    || ($_FILES["file"]["type"] == "image/jpeg")
-                    || ($_FILES["file"]["type"] == "image/jpg")
-                    || ($_FILES["file"]["type"] == "image/pjpeg")
-                    || ($_FILES["file"]["type"] == "image/x-png")
-                    || ($_FILES["file"]["type"] == "image/png"))
-                    && in_array($extension, $allowedExts)){
+                $photoX = ImagesX($images_orig);
+                $photoY = ImagesY($images_orig);
 
-                    //TODO: Double check the new Uploads URL
-                    $new_file_name = sprintf(DIR . 'var/uploads/%s.%s', sha1_file($_FILES['file']['tmp_name']), $extension);
+                $images_fin = ImageCreateTrueColor($width, $height);
+                ImageCopyResampled($images_fin, $images_orig, 0, 0, 0, 0, $width + 1, $height + 1, $photoX, $photoY);
+                ImageJPEG($images_fin, DIR . "var/uploads/" . $new_image);
+                ImageDestroy($images_orig);
+                ImageDestroy($images_fin);
+                $post_result = $PostsDAO->createPost($item, $description, $username, $domain, $price, basename($new_file_name), $conn);
+                $image_created = true;
 
-                    if (!move_uploaded_file($_FILES['file']['tmp_name'], $new_file_name )) {
-                        throw new RuntimeException('Failed to move uploaded file.'); //Could not move file
-                    } else { //Create Post
-                        $post_result = $PostsDAO->createPost($item, $description, $username, $domain, $price, basename($new_file_name), $conn);
-                        $image_created = true;
-                        
-                        if($post_result){
-                            echo '<div class="alert alert-success">';
-                            echo '<img align=center" href=' . URL . 'var/uploads/' . basename($new_file_name);
-                            echo 'Your item has been created successfully!</div><br />';
-                            echo '<b>' . $item . '</b> - ' . $description . '<i> - ' . $price . '</i><br /><br />';
-                            echo '<center><img width="200" src="' . Config::get('url') . 'var/uploads/' . $new_file_name . '" /></center><br /><br />';
-                            Helper::return_home_button();
-                        }
+                $image_resize_feature = false;
+
+                echo '<div class="alert alert-danger">Your image was too large, we have re-sized it to under 1mb  </div>';
+            }
+            $file_name = $_FILES["file"]["name"];
+
+            $allowedExts = array("jpg", "jpeg", "gif", "png");
+            $explode = explode(".", $file_name);
+            $extension = end($explode);
+
+            //CORRECT EXTENSION
+            if((($_FILES["file"]["type"] == "image/gif") // TODO: Duplicate code of a ton of crap that can be done in a UITL
+                || ($_FILES["file"]["type"] == "image/jpeg")
+                || ($_FILES["file"]["type"] == "image/jpg")
+                || ($_FILES["file"]["type"] == "image/pjpeg")
+                || ($_FILES["file"]["type"] == "image/x-png")
+                || ($_FILES["file"]["type"] == "image/png"))
+                && in_array($extension, $allowedExts)){
+
+                //TODO: Double check the new Uploads URL
+                $new_file_name = sprintf(DIR . 'var/uploads/%s.%s', sha1_file($_FILES['file']['tmp_name']), $extension);
+                if (!move_uploaded_file($_FILES['file']['tmp_name'], $new_file_name )) {
+                    throw new RuntimeException('Failed to move uploaded file.'); //Could not move file
+                } else { //Create Post
+                    $post_result = $PostsDAO->createPost($item, $description, $username, $domain, $price, basename($new_file_name), $conn);
+                    $image_created = true;
+                    echo Parser::getBoolean($post_result);
+                    if($post_result){
+                        echo 'success';
+                        echo '<div class="alert alert-success">';
+                        echo '<img align=center" href=' . URL . 'var/uploads/' . basename($new_file_name);
+                        echo 'Your item has been created successfully!</div><br />';
+                        echo '<b>' . $item . '</b> - ' . $description . '<i> - ' . $price . '</i><br /><br />';
+                        echo '<center><img width="200" src="' . Config::get('url') . 'var/uploads/' . $new_file_name . '" /></center><br /><br />';
+                        Helper::return_home_button();
                     }
+                }
                 } else {
                     throw new RuntimeException('Incorrect file type. Only JPG JPEG PNG and GIF images are allowed');
                 }
-            } else {
-                echo '<div class="alert alert-danger">Your image is too large, would you like to re-size it?</div>';
-                echo '<form method="POST" action="postItem.php">';
-                echo '<input type="hidden" name="imageresize" value="imageresize">';
-                echo '<input type="hidden" name="item" value="' . $item . '">';
-                echo '<input type="hidden" name="price" value="' . $price . '">';
-                echo '<input type="hidden" name="description" value="' . $description . '">';
-                echo '<input type="hidden" name="user" value="' . $username . '">';
-                echo '<input type="hidden" name="domain" value="' . $domain . '">';
-                echo '<input type="submit" class="btn btn-success">Re-Size Image Automatically</input>';
-                Helper::return_home_button();
-                echo '</form>';
-            }
+
         } catch (RuntimeException $e){
             echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
             }
@@ -134,10 +145,10 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
 } else if(isset($_POST['imageresize'])){
     //RESIZE IMAGES
     
-    $item = $_POST['name'];
+    $item = $_POST['item'];
     $price = $_POST['price'];
     $description = $_POST['description']; 
-    $username = $_POST['user'];
+    $username = $_POST['username'];
     $domain = $_POST['domain'];
 
     $allowedExts = array("jpg", "jpeg", "gif", "png");

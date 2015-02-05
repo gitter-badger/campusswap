@@ -13,12 +13,12 @@ error_reporting(E_ALL);
     <title>Campus Swap </title> <?php //TODO: Add title ?>
 
     <script type="text/javascript">
-        var cswap_debug = <?= Parser::getBooleanString($debug); ?>;
+        var cswap_debug = <?= Parser::getBoolean($debug); ?>;
         var cswap_pages = <?= Parser::getNumber($pages) ?>;
         var cswap_total = <?= Parser::getNumber(PostsDAO::$total_count) ?>;
-        var cswap_college = '<?= Parser::getBooleanString($college) ?>';
-        var cswap_sort = '<?= Parser::getBooleanString($sort) ?>';
-        var cswap_search = '<?= Parser::getBooleanString($search) ?>';
+        var cswap_college = '<?= Parser::getBoolean($college) ?>';
+        var cswap_sort = '<?= Parser::getBoolean($sort) ?>';
+        var cswap_search = '<?= Parser::getBoolean($search) ?>';
         var cswap_first = 40;
         var cswap_url = '<?= URL ?>';
     </script>

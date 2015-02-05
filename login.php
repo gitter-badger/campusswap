@@ -134,12 +134,9 @@ if(isset($_POST['loginSubmitted'])){
     <input type="text" class="tall_text_box input-group input-group-lg" size="10" value="username" name="username" /><br />
     <select class="form-control input-lg" name="domain">
         <?php
-        $domain_result = mysqli_query($conn, "SELECT domain, name FROM domains");
-
-        while($row = mysqli_fetch_assoc($domain_result)){
-            echo '<option value = "' . $row['domain'] . '">@' . $row['domain'] . '</option>';
+        foreach($all_domains as $row){
+            echo '<option value = "' . $row->getDomain() . '">@' . $row->getDomain() . '</option>';
         }
-
         ?>
     </select><br />
             <h4><b>Password: </b></h4>
@@ -155,11 +152,9 @@ if(isset($_POST['loginSubmitted'])){
             <input class="tall_text_box input-group input-grou-lg" type="text" size="10" value="username" name="username" /><br />
     <select class="form-control input-lg" name="domain">
         <?php
-
         foreach($all_domains as $row){
             echo '<option value = "' . $row->getDomain() . '">@' . $row->getDomain() . '</option>';
         }
-
         ?>
     </select><br />
     <input type="hidden" name="signup" value="TRUE">

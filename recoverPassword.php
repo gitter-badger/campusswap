@@ -1,24 +1,23 @@
 <?php
 
-include('../../lib/Config.php');
+include('./lib/Config.php');
 
-$config = new Config('../../etc/config.ini');
+$config = new Config('./etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 
+include($dir . 'lib/DAO/UsersDAO.php');
+include($dir . 'lib/DAO/VersDAO.php');
+include($dir . 'lib/DAO/DomainsDAO.php');
+include($dir . 'lib/DAO/AuthenticationDAO.php');
 include($dir . 'lib/DAO/PostsDAO.php');
-
 include($dir . 'lib/Util/Parser.php');
-
 include($dir . 'lib/Util/Helper.php');
-
-
-include($dir . 'lib/vers.php');
+include($dir . 'lib/Util/LogUtil.php');
 
 include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-include($dir . 'lib/Util/LogUtil.php');
+
 
 $debug = Parser::isTrue(Config::get('debug'));
 
@@ -36,6 +35,11 @@ $conn = $database->connection();
 
 $LogUtil = new LogUtil($conn, $config);
 $PostsDAO = new PostsDAO($conn, $config, $LogUtil);
+$UserDAO = new UsersDAO($conn, $config, $LogUtil);
+$DomainsDAO = new DomainsDAO($conn, $config, $LogUtil);
+$all_domains = $DomainsDAO->getAllDomains();
+$VersDAO = new VersDAO($conn, $config, $LogUtil);
+
 
 include(DIR . 'interface/subpage_head.php');
 
@@ -43,80 +47,86 @@ include(DIR . 'interface/subpage_head.php');
 
 if(isset($_POST['recover'])) {
 	
-	$u = $_POST['user'];
-	$d = $_POST['domain'];
-	$fullName = $u . '@' . $d;
-	echo 'An email has been dispatched to ' . $fullName . '<br />';
+	$username = $_POST['username'];
+	$domain = $_POST['domain'];
+	$fullName = $username . '@' . $domain;
+
 	$key = md5(uniqid(rand(), true));
-	
-	$query = mysql_query("SELECT * FROM vers WHERE username = '$u' AND domain = '$d'");
-	if(mysql_num_rows($query) > 0){
-		mysql_query("UPDATE vers SET ver = '$key' WHERE username = '$u' AND domain = '$d'");
-	} else {
-		mysql_query("INSERT INTO vers (ver, username, domain, type) VALUES ('$key', '$u', '$d', 'recover')");
-	}
-	
-	
-	//echo '<a href="' . Config::get('url') . 'recoverPassword.php?key=' . $key . '">' . $key . '</a><br />';
-	
-	$email = $fullName;
-	$subject = 'CampusSwap.net Password Recovery';
-	$content = 'CampusSwap.net - to recover your password, follow this link' . Config::get('url') . 'recoverPassword.php?key=' . $key;
-	
-	mail($email, $subject, $content);
 
-} else if(isset($_GET['key'])){
+    if($UserDAO->userExists($username, $domain, $conn)) {
 
-	$key = $_GET['key'];
-	
-	$query = mysql_query("SELECT username, domain FROM vers WHERE ver = '$key'");
-	
-	if(mysql_num_rows($query) == 1){
-		
-		echo 'Choose a new password';
-		
-		$array = mysql_fetch_array($query);
-		echo '<form action="recoverPassword.php" method="post">';
-		echo '<input type="password" name="password" />';
-		echo '<input type="hidden" name="username" value="' . $array[0] . '" />';
-		echo '<input type="hidden" name="domain" value="' . $array[1] . '" />';
-		echo '<input type="hidden" name="key" value="' . $_GET['key'] . '" />';
-		echo '<input type="hidden" name="resetPass" value="TRUE" />';
-		echo '<input type="submit" value="recover" />';
-	}
+        if ($VersDAO->verSent($username, $domain, 'recover')) { //Var already sent
 
-} else if(isset($_POST['resetPass'])){
-	$p = $_POST['password'];
-	$u = $_POST['username'];
-	$d = $_POST['domain'];
-	$k = $_POST['key'];
-	
-	mysql_query("UPDATE users SET password = SHA('$p') WHERE username='$u' AND domain='$d'");
-	
-	mysql_query("DELETE FROM vers WHERE ver = '$k'");
-	
-	echo 'Password has been changed';
+            $key = $VersDAO->getVerFromUser($username, $domain, 'recover');
+
+            echo '<div class="alert alert-warning">';
+            echo 'We have already sent you a verification email to ' . $fullName . ', we will send another one. Try checking your spam folder</div>';
+
+        } else { //Create an account
+
+            $key = md5(uniqid(rand(), true));
+
+            $created_ok = $VersDAO->createVer($key, $username, $domain, 'recover');
+
+            if ($created_ok) {
+                echo '<div class="alert alert-success">We have sent an email to ' . $fullName . ' containing a verification key</div>';
+
+            } else {
+                echo '<div class="alert alert-danger>There was a problem creating your account</div>';
+            }
+        }
+
+        Helper::return_home_button();
+        echo '<a class="center" href="' . Config::get("url") . 'passChoose.php"><button class="btn btn-primary">Enter Key</button></a>';
+
+        $theURL = Config::get('url');
+        $recoverURL = $theURL . 'passChoose.php?key=' . $key . ' ';
+
+        $email = $fullName;
+        $subject = 'CampusSwap.net - Password Recovery!';
+
+        $content = '<h1>Welcome to Campus Swap!</h1>';
+        $content .= 'CampusSwap.net - to recover your password, click <a href="' . $recoverURL . '"> Here</a><br />';
+        $content .= 'Or go to: ' . $recoverURL . '<br><br>Thanks,<br>Campus Swap';
+
+
+        $headers = 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $headers .= 'From: user_contact@campusswap.net' . "\r\n";
+
+        echo '<div class="alert alert-warning>' . $content . ' </div>';
+
+        mail($email, $subject, $content, $headers);
+
+        echo '<div class="alert alert-warning>' . $theURL . 'passChoose.php?key=' . $key . ' </div>';
+
+    } else {
+        echo '<div class="alert alert-warning">You do not have an account at Campus Swap, please <a href="' . Config::get("url") . 'login.php">Register</a> for an account before proceeding</div>';
+    }
+
 } else {
-	echo 'If you have lost your password, you can recover it by having an email dispatched with a reset password link<br />';
-	echo '<form action="recoverPassword.php" method="post">';
-	echo '<input type="text" name="user" value="username" />';
-	echo '<select name="domain">';
 
-	$domain_result = mysql_query("SELECT domain, name FROM domains");
+    echo '<form action="' . Config::get("url") . 'recoverPassword.php" method="post">';
 
-	while($row = mysql_fetch_assoc($domain_result)){
-		echo '<option value = "' . $row['domain'] . '">@' . $row['domain'] . '</option>';
-	}
+    echo '<div class="alert alert-warning">';
+	echo 'If you have lost your password, you can recover it here. Check your email for a password reset link.</div>';
 
-	echo '</select><br />';
+    echo '<input type="text" class="tall_text_box input-group input-group-lg" size="10" value="username" name="username" /><br />';
+    echo '<select class="form-control input-lg" name="domain">';
+
+    foreach($all_domains as $row){
+        echo '<option value = "' . $row->getDomain() . '">@' . $row->getDomain() . '</option>';
+    }
+
+    echo '</select><br />';
+
 	echo '<input type="hidden" name="recover" value="true">';
-	echo '<input type="submit" value="Recover Password"/>';
+    Helper::return_home_button();
+	echo '<input type="submit" class="btn btn-primary" value="Recover Password"/>';
 	echo '</form>';
 }
 
 ?>
 </div>
 
-<a style="margin-top:20px;margin-left:48%;text-align:center;color:black" href="<?= Config::get('url'); ?>">Return Home</a>
 
 </html>

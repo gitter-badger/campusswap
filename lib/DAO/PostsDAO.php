@@ -1,12 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: vaskaloidis
  * Date: 10/28/14
  * Time: 12:27 AM
  */
 
-class PostsDAO {
+
+//TODO: Implement the DAO Interface here too
+class PostsDAO{
 
     public static $conn, $sql, $limit_sql, $total_count, $fp_count, $log, $dir;
 
@@ -64,6 +65,9 @@ class PostsDAO {
     }
 
     /**
+     *
+     * Create Post creates a post in the database from the item name, description, the username and domain, price and
+     * name of the image.
      *
      * @param type $item the name of the item
      * @param type $description the item's description
@@ -132,10 +136,16 @@ class PostsDAO {
                     '$image')";
         }
 
-        self::$log->log(AuthenticationDAO::liFullName(), "info", "created post: " . mysqli_insert_id(self::$conn), 'post create');
+        //TODO: Sanitize data before insert query
+        try {
+            $query = mysqli_query(self::$conn, $sql);
+            self::$log->log(AuthenticationDAO::liFullName(), "info", "Created Post: " . mysqli_insert_id(self::$conn), 'post create');
+        } catch(mysqli_sql_exception $me) {
+            self::$log->log(AuthenticationDAO::liFullName(), "error", "Mysqli Query Error inserting '" . $item . "' - " . $me->getMessage());
+        } catch(Exception $e) {
+            self::$log->log(AuthenticationDAO::liFullName(), "error", "Error Creating Post: '" . $item . "' - " . $e->getMessage());
+        }
 
-        //TODO: Sanitize
-        $query = mysqli_query(self::$conn, $sql);
 
         if($query){
             return TRUE;

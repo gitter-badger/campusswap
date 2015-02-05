@@ -66,12 +66,13 @@ if(isset($_GET['key'])){
 			echo '<input type="hidden" name="username" value="' . $username . '">';
 			echo '<input type="hidden" name="domain" value="' . $domain . '">';
 			echo '<input type="hidden" name="ver" value="' . $key . '">';
+            echo '<input type="hidden" name="type" value="' . $type . '">';
 			echo '<input type="hidden" name="passwordSubmitted" value="TRUE">';
 			echo '<input class="btn btn-primary" type="submit" value="START MAKING $$" />';
 		echo '</form>';
 
 	} else {
-            
+
 		echo '<div class="alert alert-danger">We could not find your verification number</div>';
                 
 	}
@@ -82,16 +83,28 @@ if(isset($_GET['key'])){
 		$username = $_POST['username'];
 		$domain = $_POST['domain'];
 		$key = $_POST['ver'];
+        $type = $_POST['type'];
 
 		if($password == $password2){
-			
-            $create_user_ok = $UsersDAO->createUser($username, $domain, $password);
+
+            if($type == 'signup') {
+                $update = $UsersDAO->createUser($username, $domain, $password);
+            } elseif($type == 'recover') {
+                $update = $UsersDAO->updatePassword($username, $domain, $password);
+            }
 
             $delete_ver_ok = $VersDAO->deleteVer($key);
 
-            if($create_user_ok && $delete_ver_ok){
-                echo '<div class="alert alert-success">' . $username . '@' . $domain . ' Welcome to Campus Swap</div>';
+            if($update && $delete_ver_ok){
+                if($type=='signup') {
+                    echo '<div class="alert alert-success">' . $username . '@' . $domain . ' Welcome to Campus Swap</div>';
+                } elseif($type == 'recover') {
+                    echo '<div class="alert alert-success">' . $username . '@' . $domain . ' Your password has succesfully been reset! Welcome Back!</div>';
+                }
+
                 echo '<a href="' . Config::get('url') . 'login.php"><button class="btn btn-primary">Login</button></a>';
+            } else {
+                echo '<div class="alert alert-error">There was a problem creating your account, updating your password or deleting the verification key</div></div>';
             }
         } else {
 			echo '<div class="alert alert-danger">';
@@ -109,7 +122,7 @@ if(isset($_GET['key'])){
     
     echo '<form method="GET" action="passChoose.php" class="form-signin">';
     
-    echo '<input name="ver" type="text" class="form-control" placeholder="Verification Code" required="" autofocus="">';
+    echo '<input name="key" type="text" class="form-control" placeholder="Verification Code" required="" autofocus="">';
     
     echo '<br />';
     

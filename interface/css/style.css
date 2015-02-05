@@ -1,3 +1,7 @@
+.btn {
+    margin-right:10px;
+}
+
 .post-img {
     margin-right:10px;
 }
@@ -220,9 +224,6 @@ a {
 
 }
 .postSomething {
-    border-left:1px solid #9da6ab;
-    border-right:1px solid #9da6ab;
-    border-bottom:1px solid #9da6ab;
     padding-left:10px;
     margin-bottom:3px;
     padding-top:15px;

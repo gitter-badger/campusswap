@@ -40,24 +40,21 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 
     if(!empty($_POST['domain']) && !empty($_POST['username']) && ($_POST['username'] != 'College E-Mail Address')) {
         
-	$username = Parser::sanitize($_POST['username']);
-	$domain = $_POST['domain'];
+        $username = Parser::sanitize($_POST['username']);
+        $domain = $_POST['domain'];
 
-	
-	if(DomainsDAO::domainExists($domain, $conn)){ //CHECK IF DOMAIN EXISTS
-				
-		$user_exists = UsersDAO::userExists($username, $domain, $conn);
-		
-		$fullName = $username . '@' . $domain;
-        $user = $UsersDAO->getUserFromName($username, $domain, $conn);
-                
-		if($user['level'] != 'banned'){ //CHECK IF USER BANNED
+        if(DomainsDAO::domainExists($domain, $conn)){ //CHECK IF DOMAIN EXISTS
 
-                if(!$user_exists){ //MAKE SURE USER DOESEN'T EXIST TODO: Fix this, adds multiple users
+            if(!UsersDAO::userExists($username, $domain, $conn)){ //CHECK IF USER BANNED
 
-                    if($VersDAO->verSent($username, $domain)){ //Var already sent
+                $fullName = $username . '@' . $domain;
+                $user = $UsersDAO->getUserFromName($username, $domain, $conn);
 
-                        $key = $VersDAO->getVerFromUser($username, $domain);
+                if($user['level'] != 'banned'){ //is banned?
+
+                    if($VersDAO->verSent($username, $domain, 'signup')){ //Var already sent
+
+                        $key = $VersDAO->getVerFromUser($username, $domain, 'signup');
 
                         echo '<div class="alert alert-warning">';
                         echo 'We have already sent you a verification email to ' . $fullName . ', we will send another one. Try checking your spam folder</div>';
@@ -71,13 +68,15 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 
                         if($created_ok){
                             echo '<div class="alert alert-success">We sent you an e-mail to verify your status at ' . $domain . '</div>';
-                            Helper::return_home_button();
 
                         } else {
                             echo '<div class="alert alert-danger>There was a problem creating your account</div>';
                         }
-
                     }
+
+                    Helper::return_home_button();
+                    echo '<a class="center" href="' . Config::get("url") . 'passChoose.php"><button class="btn btn-primary">Enter Key</button></a>';
+
                     $theURL = Config::get('url');
 
                     $email = $fullName;
@@ -98,26 +97,19 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
                     echo '<div class="alert alert-warning>' . $theURL . 'passChoose.php?key=' . $key . ' </div>';
 
                 } else {
-
-                    echo '<div class="alert alert-warning>You already have an account at Campus Swap,';
-                    echo 'If you forgot your password you can recover it.';
-                    echo '<a href="/recoverPassword.php"><button type="button" class="btn btn-primary">Recover Password</button></a></div>';
-                    Helper::return_home_button();
-
+                    echo '<div class="alert alert-danger">Your email address ' . $fullName . ' has been banned from Campus Swap, your IP has been logged</div>';
+                    $log->log($_SERVER['REMOTE_ADDR'], "action", "Attempetd ban user signup " . $fullName, "attempted ban login" . $fullName);
                 }
-			
-		} else { //Banned
-			
-			echo '<div class="alert alert-danger">Your email address ' . $fullName . ' has been banned, your IP has been logged</div>';
 
-            $log->log($_SERVER['REMOTE_ADDR'], "action", "Attempetd ban user signup " . $fullName, "attempted ban login" . $fullName);
-
-		}
-		
-	} else {
-        echo '<div class="alert alert-warning">Your domain is not a domain we allow on Campus Swap, you can contact us and we may add it</div>';
-        Helper::return_home_button('Try Again');
-    }
+            } else {
+                echo '<div class="alert alert-warning">You already have an account at Campus Swap, If you forgot your password you can recover it.</div>';
+                Helper::return_home_button();
+                echo '<a href="' . Config::get("url") . 'recoverPassword.php"><button type="button" class="btn btn-primary">Recover Password</button></a>';
+            }
+        } else {
+            echo '<div class="alert alert-warning">Your domain is not a domain we allow on Campus Swap, you can contact us and we may add it</div>';
+            Helper::return_home_button('Try Again');
+        }
         
     } else {
         echo '<div class="alert alert-warning">You did not enter an email address. Try again!</div>';

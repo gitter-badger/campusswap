@@ -26,9 +26,9 @@ $PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 
 if(isset($_GET['college']) && isset($_GET['sort']) && isset($_GET['search']) && isset($_GET['first'])){
     
-    $college = Parser::getBooleanString($_GET['college']);
-    $sort = Parser::getBooleanString($_GET['sort']);
-    $search = Parser::getBooleanString($_GET['search']);
+    $college = Parser::getBoolean($_GET['college']);
+    $sort = Parser::getBoolean($_GET['sort']);
+    $search = Parser::getBoolean($_GET['search']);
     $first = $_GET['first'];
 
     $posts = $PostsDAO->getPosts($college, $search, $sort, $first, 10);

@@ -44,7 +44,7 @@ class Parser {
         }
     }
 
-    public static function getBooleanString($input) {
+    public static function getBoolean($input) {
         if($input == FALSE){
             return 'false';
         } else if(Parser::isFalse($input)) {

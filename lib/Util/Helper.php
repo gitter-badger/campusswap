@@ -63,7 +63,6 @@ class Helper {
         }
 
         echo '</a>';
-        include(DIR . 'interface/return_home.php');
     }
 
     public static function getDevice(){

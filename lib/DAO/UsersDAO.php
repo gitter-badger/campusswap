@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: vaskaloidis
  * Date: 11/5/14
  * Time: 2:37 AM
  */
 
+//TODO: Implement the DAO interface here
 class UsersDAO {
 
     public static $conn, $config, $count, $log;
@@ -18,7 +18,7 @@ class UsersDAO {
         include $dir . 'lib/Objects/User.php';
     }
 
-    private function createObject($sql){
+    public function createObject($sql){
 
         $result = mysqli_query(self::$conn, $sql);
 
@@ -104,6 +104,14 @@ class UsersDAO {
             self::$log->log('IP', 'FATAL', $user . '@' . $domain . ' returned multiple results from the database');
         }
         return $user;
+    }
+
+    public function updatePassword($username, $domain, $password) {
+        $sql = "UPDATE users SET password = SHA('$password') WHERE username='$username' AND domain='$domain'";
+
+        $query = mysqli_query(self::$conn, $sql);
+
+        return $query;
     }
 
     //SEE IF USER EXISTS ALREADY
