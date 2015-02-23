@@ -3,7 +3,7 @@
 
 class Config{
     
-    private static $dir, $system;
+    private static $dir, $section;
 
     public function getOpt($input){
 
@@ -11,7 +11,7 @@ class Config{
             $ini = parse_ini_file(self::$dir, true);
         }
 
-        $CONFIG = $ini[self::$system];
+        $CONFIG = $ini[self::$section];
 
         return $CONFIG[$input];
     }
@@ -22,7 +22,7 @@ class Config{
             $ini = parse_ini_file(self::$dir, true);
         }
 		
-        $CONFIG = $ini[self::$system];
+        $CONFIG = $ini[self::$section];
         
         return $CONFIG[$input];
     }
@@ -30,9 +30,8 @@ class Config{
     public function __construct($dir){
         self::$dir = $dir;
 
-        //DECLARE ENVIORMENT HERE
-        // CONFIG_DEV OR CONFIG_PRODUCTION
-        self::$system = 'CONFIG_DEV';
+        // DECLARE ENVIORMENT HERE
+        self::$section = 'CONFIG';
     }
 
 }
