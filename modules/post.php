@@ -21,28 +21,6 @@ if(Helper::getDevice()=='tablet'){
     $descriptionShort = substr($description, 0, 150); //SHORTEN DESCRIPTION
 }
 
-// TODAYS DATE
-date_default_timezone_set('America/New_York'); //SET TIME TO DELETION DATES
-$date_created = new DateTime($created);
-$todaysDate = date('d.m.y');
-$today = new dateTime($todaysDate);
-$rightNow = new DateTime(date('Y-m-d H:i:s'));
-
-//echo 'created: ' . $date_created->format('Y-m-d H:i:s');
-// DELETE DATE
-$delete_date = new DateTime($created);
-$delete_date->modify("+120 day");
-$time_till_delete = $today->diff($delete_date);
-
-//echo ' - today: ' . $time_till_delete->format('Y-m-d H:i:s') . ' - ';
-
-// CREATED SINCE
-$created_since = $date_created->diff($rightNow);
-$sinceMinutes = $created_since->format('%i');
-$sinceSeconds = $created_since->format('%s');
-$sinceHours = $created_since->format('%h');
-$sinceDays = $created_since->format('%d');
-
 $imgSet = false;
 
 if($switch==1) { 
@@ -64,9 +42,36 @@ echo '<div class="result box" id="result">';
         <?= $item . ' - $' . $price; ?>
 
     <?php
-    //Print days since created badge
+
+    // TODAYS DATE
+    date_default_timezone_set('America/New_York');
+
+    $date_created = new DateTime($created);
+    $todaysDate = date('d.m.y');
+    $today = new dateTime($todaysDate);
+    $rightNow = new DateTime(date('Y-m-d H:i:s'));
+
+    echo ' - (created: ' . $date_created->format('Y-m-d H:i:s') . ') ';
+    // DELETE DATE
+    $delete_date = new DateTime($created);
+    $delete_date->modify("+120 day");
+    $time_till_delete = $today->diff($delete_date);
+
+    //echo ' - today: ' . $time_till_delete->format('Y-m-d H:i:s') . ' - ';
+
+    // CREATED SINCE
+    $created_since = $date_created->diff($rightNow);
+
+    $sinceMinutes = $created_since->format('%i');
+    $sinceSeconds = $created_since->format('%s');
+    $sinceHours = $created_since->format('%h');
+
+    $sinceDays = $created_since->format('%d');
+
+    //Print days since created (badge)
     // TODO: Fix this this doesent work completly
-//    echo 'since-days: ' . $sinceDays;
+    echo ' (' . $created . ')';
+    echo ' - (since-days: ' . $sinceDays . ') '; //DEBUG-TESTING
     if($sinceDays > 9) {
         echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
     } else if($sinceDays > 5) {
