@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+//TODO: Install PhpING
+//TODO: Create OCEF - Open College Ecommerce Framework with PhpIng build tool
+
 //session_start();
         
 include('./lib/Config.php');
