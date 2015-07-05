@@ -11,3 +11,5 @@ etc/log4php.xml
 etc/config.ini
 
 var/log/main.log
+
+nbproject
