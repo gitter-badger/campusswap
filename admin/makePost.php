@@ -1,7 +1,7 @@
 <?php
 include('../lib/Config.php');
 
-$config = new Config('../etc/config.ini');
+$Config = new Config('../etc/config.ini');
 
 $dir = Config::get('dir');
 
@@ -15,7 +15,7 @@ include($dir . 'lib/DAO/AuthenticationDAO.php');
 include($dir . 'lib/Log.php');
 
 $database = new Database();
-$conn = $database->connection();
+$Conn = $database->connection();
 
 
 if(isset($_GET['count'])){
@@ -82,7 +82,7 @@ if(isset($_GET['count'])){
 		
 		echo '<b>Title:</b> ' . $title . ' - <b>POST:</b> ' . $post . ' - <b>USER</b>: ' . $user . ' - <b>domain</b> - ' . $domain . '<br />';
 		echo '<br />';
-		mysqli_query($conn, "INSERT INTO posts (item, description, username, domain, price, hits, views, created, modified, img) VALUES ('$title', '$post', '$user', '$domain', '$price', '0', '0', NOW(), NOW(), 'FALSE')");
+		mysqli_query($Conn, "INSERT INTO posts (item, description, username, domain, price, hits, views, created, modified, img) VALUES ('$title', '$post', '$user', '$domain', '$price', '0', '0', NOW(), NOW(), 'FALSE')");
 		
 		
 		$title = "";

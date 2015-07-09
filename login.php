@@ -3,7 +3,7 @@
 
 include('./lib/Config.php');
 
-$config = new Config('./etc/config.ini');
+$Config = new Config('./etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
@@ -24,12 +24,12 @@ include($dir . 'lib/DAO/AuthenticationDAO.php');
 $debug = Parser::isTrue(Config::get('debug'));
 
 $database = new Database();
-$conn = $database->connection();
+$Conn = $database->connection();
 
-$LogUtil = new LogUtil($conn, $config);
-$DomainsDAO = new DomainsDAO($conn, $config, $LogUtil);
-$AccessDAO = new AccessDAO($conn, $config, $LogUtil);
-$UsersDAO = new UsersDAO($conn, $config, $LogUtil);
+$LogUtil = new LogUtil($Conn, $Config);
+$DomainsDAO = new DomainsDAO($Conn, $Config, $LogUtil);
+$AccessDAO = new AccessDAO($Conn, $Config, $LogUtil);
+$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
 
 $all_domains = $DomainsDAO->getAllDomains();
 
@@ -62,15 +62,15 @@ if(isset($_POST['loginSubmitted'])){
 	
 	if(empty($errors)){
 		
-		date_default_timezone_set('America/New_York');
-		$today = date("y-m-d");
+            date_default_timezone_set('America/New_York');
+            $today = date("y-m-d");
 
-		$check = false;
+            $check = false;
 		
-        $user_authenticated = $UsersDAO->authenticateUser($username, $domain, $password);
-        $access = $AccessDAO->getAccessToday(LogUtil::getIp(), $fullName);
+            $user_authenticated = $UsersDAO->authenticateUser($username, $domain, $password);
+            $access = $AccessDAO->getAccessToday(LogUtil::getIp(), $fullName);
 
-        $failed_logins = $access->getFailedLogins();
+            $failed_logins = $access->getFailedLogins();
 
 		if($user_authenticated){ //If user + password good
 			
@@ -78,15 +78,15 @@ if(isset($_POST['loginSubmitted'])){
 
 				echo 'You have been banned or you have more than 5 failed login attempts in the past 24 hours, your IP has been logged.';
 				if($failed_logins > 5){
-					$alert = 'Your IP has been temporarily banned becase your IP has failed more than 5 logon attempts today. If you beleive this is incorrect - please contact support.';
-					Helper::print_alert("danger", $alert);
-                    $LogUtil->log("IP", "ACTION", $username . "@" . $domain . " failed to enter correctly password more than 5 times. Failed login attempt #" . $failed_logins);
-				}
+                                    $alert = 'Your IP has been temporarily banned becase your IP has failed more than 5 logon attempts today. If you beleive this is incorrect - please contact support.';
+                                    Helper::print_alert("danger", $alert);
+                                    $LogUtil->log("IP", "ACTION", $username . "@" . $domain . " failed to enter correctly password more than 5 times. Failed login attempt #" . $failed_logins);
+                                }
 
-                if($user_authenticated == 'banned') {
-                    $LogUtil->log("IP", "ACTION", $username . "@" . $domain . "Banned User attempted login", "banned user login attempt");
-                    Helper::print_alert("warning", "Your username has been banned, you cannot log in. If you think this has been done in error, contact support");
-                }
+                        if($user_authenticated == 'banned') {
+                            $LogUtil->log("IP", "ACTION", $username . "@" . $domain . "Banned User attempted login", "banned user login attempt");
+                            Helper::print_alert("warning", "Your username has been banned, you cannot log in. If you think this has been done in error, contact support");
+                        }
 
 			} else { //Login successful
 				$_SESSION['user'] = $user_authenticated->getUsername();
@@ -94,22 +94,19 @@ if(isset($_POST['loginSubmitted'])){
 				$_SESSION['userId'] = $user_authenticated->getId();
 				$_SESSION['level'] = $user_authenticated->getLevel();
 				
-				$access_usernames = explode("/", $access->getUsernames());
-                if(!in_array($fullName, $access_usernames)){
-                    $access->addUsertoAccess($conn, $fullName); //Might to include the file at the top and redlecare
-                }
+                            $access_usernames = explode("/", $access->getUsernames());
+                            if(!in_array($fullName, $access_usernames)){
+                                $access->addUsertoAccess($Conn, $fullName); //Might to include the file at the top and redlecare
+                            }
 
-				$LogUtil->log($fullName, 'ACTION', $fullName, ' logged in successfully from' . LogUtil::getIp(), 'login');
-
-				echo '<div class="alert alert-success">You have successfully logged in</div>';
+                            $LogUtil->log($fullName, 'action', 'login - ' . $fullName - ' . IP: ' . LogUtil::getIp());
+                            echo '<div class="alert alert-success">You have successfully logged in</div>';
 			}
 				
 		} else {
-			echo '<div class="alert alert-warning">Could not find the username or password. If you repeatedly login incorrectly your IP address will be banned.</div><br />';
-
-            echo '<a href="' . $url . 'login.php"><button class="btn btn-primary">Try Login Again</button></a>';
-                        
-            $LogUtil->log('IP', 'ACTION' , ' failed login attempt user ' . $username . '@' . $domain, ' failed login');
+                    echo '<div class="alert alert-warning">Could not find the username or password. If you repeatedly login incorrectly your IP address will be banned.</div><br />';
+                    echo '<a href="' . $url . 'login.php"><button class="btn btn-primary">Try Login Again</button></a>';
+                    $LogUtil->log('IP', 'action' , ' failed login - ' . $username . '@' . $domain);
 		}
 	} else {
 		

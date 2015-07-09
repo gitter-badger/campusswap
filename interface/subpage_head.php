@@ -1,11 +1,16 @@
 <?php
-if(isset($config) && Parser::isTrue(Config::get('debug'))) {
-    if (Config::get('debug_location') == 'head') {
+
+use Parser;
+use Config;
+
+if(Parser::isTrue(Config::get('debug'))) {
+    if(Config::get('debug_location') === 'foot'){
         $subpage = true;
         include DIR . 'modules/debug.php';
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

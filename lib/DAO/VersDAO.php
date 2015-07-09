@@ -2,7 +2,7 @@
 
 class VersDAO {
 	
-	public static $conn, $config, $log, $count, $sql;
+	public static $conn, $Config, $log, $count, $sql;
         
         private $id;
         private $ver;
@@ -10,9 +10,9 @@ class VersDAO {
         private $domain;
         private $type;
 
-    public function __construct($connection, $config, $log) {
-        self::$conn = $connection;
-        self::$config = $config;
+    public function __construct($Connection, $Config, $log) {
+        self::$conn = $Connection;
+        self::$Config = $Config;
         self::$log = $log;
         $dir = Config::get('dir');
         include $dir . 'lib/Objects/Vers.php';
@@ -20,7 +20,7 @@ class VersDAO {
 
     private function createObject($sql){
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         self::$sql = $sql;
 
@@ -45,7 +45,7 @@ class VersDAO {
             
             $sql = "DELETE FROM vers WHERE ver='$key'";
                     
-            $return = mysqli_query(self::$conn, $sql);
+            $return = mysqli_query(self::$Conn, $sql);
             
             if($return){
                 return TRUE;
@@ -69,7 +69,7 @@ class VersDAO {
             $query = $query . " VALUES ('" . $ver . "', '" . $user . "', '" . $domain . "', '" . $type . "') ";
 
             try {
-                $result = mysqli_query(self::$conn, $query);
+                $result = mysqli_query(self::$Conn, $query);
                                   
             } catch(mysqli_sql_exception $ex){
                 echo 'Mysql Error ' . $ex->getMessage() . '<br />';

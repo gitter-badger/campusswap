@@ -1,6 +1,37 @@
 <?php
 
 class Helper {
+
+    /* http://stackoverflow.com/questions/25800310/reduce-image-size-while-uploading-using-the-following-php-code-used-to-upload-im */
+    public static function resizeImgage($img, $source, $dest, $maxw, $maxh ) {      
+
+        if( $img ) {
+            list( $width, $height  ) = getimagesize( $jpg ); //$type will return the type of the image
+            $source = imagecreatefromjpeg( $jpg );
+
+            if( $maxw >= $width && $maxh >= $height ) {
+                $ratio = 1;
+            }elseif( $width > $height ) {
+                $ratio = $maxw / $width;
+            }else {
+                $ratio = $maxh / $height;
+            }
+
+            $thumb_width = round( $width * $ratio ); //get the smaller value from cal # floor()
+            $thumb_height = round( $height * $ratio );
+
+            $thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
+            imagecopyresampled( $thumb, $source, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height );
+
+            $path = $dest.$img."_thumb.jpg";
+            imagejpeg( $thumb, $path, 75 );
+        } else {
+//            throw new Exception("")
+        }
+        imagedestroy( $thumb );
+        imagedestroy( $source );
+    }
+    
     public static function obfuscate_username($username, $domain = null) {
         if($domain == null) {
             $explode = explode("@", $username);
@@ -20,7 +51,19 @@ class Helper {
 
         return $return;
     }
-
+    
+    public static function print_error_dump($e) {
+        Helper::print_error("<b>Message:</b><br>" . $e->getMessage()); 
+        echo "<br>";
+        //Helper::print_error("<b>File - Line</b><br>" . $e->getFile() . " - " . + $e->getLine());
+        //echo "<br>";
+        //Helper::print_error("<b>Trace</b><br>" . $e->getTrace());
+        //echo "<br>";
+        //Helper::print_error("<b>Trace (String)</b><br>" . $e->getTraceAsString());
+        //echo "<br>";
+        //Helper::print_error("<b>Trace (String)</b><br>" . $e->getCode());
+    }
+    
     public static function print_alert($alert, $message) {
         if($alert == 'danger') {
             echo '<div class="alert alert-danger">';
@@ -35,6 +78,43 @@ class Helper {
         echo $message;
 
         echo '</div>';
+    }
+
+    /**
+     * 
+     * Prints an error message in a red error box
+     * 
+     * @param type $message message to print in red error box
+     */
+    public static function print_error($message) {
+        self::print_alert("danger", $message);
+    }
+    
+    /**
+     * Prints a message in yellow message box
+     * 
+     * @param type $message message to print in yellow warning box
+     */
+    public static function print_warning($message) {
+         self::print_alert("warning", $message);
+    }
+    
+    /**
+     * Prints a blue message box
+     * 
+     * @param type $message to output in Info message box
+     */
+    public static function print_info($message) {
+         self::print_alert("danger", $message);
+    }
+    
+    /**
+     * Prints a green box with the input
+     * 
+     * @param type $message to print in the green message box
+     */
+    public static function print_message($message) {
+        self::print_alert("success", $message);
     }
 
     public static function close_lightwindow_button() {

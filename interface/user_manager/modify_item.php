@@ -1,6 +1,6 @@
 <?php
 include('../../lib/Config.php');
-$config = new Config('../../etc/config.ini');
+$Config = new Config('../../etc/config.ini');
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 
@@ -10,8 +10,16 @@ include($dir . 'lib/Util/Helper.php');
 include($dir . 'lib/Util/LogUtil.php');
 include($dir . 'lib/Database.php');
 include($dir . 'lib/DAO/AuthenticationDAO.php');
+include($dir . 'lib/DAO/UsersDAO.php');
 
-$AuthenticationDAO = new AuthenticationDAO($config);
+$debug = Parser::isTrue(Config::get('debug'));
+$database = new Database();
+$Conn = $database->connection();
+$LogUtil = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
+
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $liDomain = $auth->getLiDomain();
@@ -19,12 +27,6 @@ $liId = $auth->getLiId();
 $liLevel = $auth->getLiLevel();
 $liFullName = $auth->getLiFullName();
 $isLi = $auth->getIsLi();
-
-$debug = Parser::isTrue(Config::get('debug'));
-$database = new Database();
-$conn = $database->connection();
-$LogUtil = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 ?>
 
 <?php include(DIR . 'interface/subpage_head.php'); ?>

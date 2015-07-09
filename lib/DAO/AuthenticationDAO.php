@@ -4,23 +4,68 @@
 class AuthenticationDAO {
 
     public static $conn, $sql, $count, $log, $dir;
-    public $Auth;
+    public $Auth, $AuthSess;
 
-    public function __construct($config) {
+    public function __construct(mysqli $Conn, Config $Config, LogUtil $log, UsersDAO $UsersDAO) {
 
         $dir = Config::get('dir');
         self::$dir = $dir;
+        self::$log = $log;
         include $dir . 'lib/Objects/Authentication.php';
+        
+        
+        $AuthException = new Exception("authentication error");
+        
+        $AuthErrorLogDesc = 'authentication error - AuthenticationDAO - Session variables are not set correctly. Session Variables: '
+            . $_SESSION['userId'] . " "
+            . $_SESSION['user']  . " "
+            . $_SESSION['domain'] . " "
+            . $_SESSION['level'];
+        
+        try {
+            if(isset($_SESSION['user']) 
+                && isset($_SESSION['domain'])
+                && isset($_SESSION['userId'])
+                && isset($_SESSION['level']))
+            {
+                //Create the Authentication Object
+                $this->AuthSess = new Authentication();
+                $this->AuthSess->setliId($_SESSION['userId']);
+                $this->AuthSess->setliUser($_SESSION['user']);
+                $this->AuthSess->setliDomain($_SESSION['domain']);
+                $this->AuthSess->setLiFullName($_SESSION['user'] . "@" . $_SESSION['domain']);
+                $this->AuthSess->setliLevel($_SESSION['level']);
 
-        //Create the Authentication Object
-        $this->Auth = new Authentication();
-        $this->Auth->setIsLi(Parser::isTrue(self::isLi()));
-        $this->Auth->setliId(self::liId());
-        $this->Auth->setliUser(self::liUser());
-        $this->Auth->setliDomain(self::liDomain());
-        $this->Auth->setLiFullName(self::liFullName());
-        $this->Auth->setIsAdmin(self::isAdmin());
-        $this->Auth->setliLevel(self::liLevel());
+                $AuthenticatedUser = $UsersDAO->getUserFromId($_SESSION['userId']); //TDOO: User ID in Session is a soft-spot
+                $this->Auth = new Authentication();
+                $this->Auth->setliId($AuthenticatedUser->getId());
+                $this->Auth->setliUser($AuthenticatedUser->getUsername());
+                $this->Auth->setliDomain($AuthenticatedUser->getDomain());
+                $this->Auth->setLiFullName($AuthenticatedUser->getFullName());
+                $this->Auth->setliLevel($AuthenticatedUser->getLevel());
+
+                //TODO: Replace with strcasecmp() for non-case-sensitive compare
+                if($this->AuthSess->getLiId() != $this->AuthSess->getLiId()) {
+                    throw new $AuthException;
+                } elseif($this->AuthSess->getLiUser() != $this->AuthSess->getLiUser()) {
+                    throw new $AuthException;
+                } elseif($this->AuthSess->getLiDomain() != $this->AuthSess->getLiDomain()) {
+                    throw new $AuthException;
+                } elseif($this->AuthSess->getLiLevel() != $this->AuthSess->getLiLevel()) {
+                    throw new $AuthException;
+                } elseif($this->AuthSess->getLiLevel() != $this->AuthSess->getLiLevel()) {
+                    throw new $AuthException;
+                } else {
+                    self::$log->log('IP', 'action', $AuthErrorLogDesc, $AuthException, 'IP');
+                 }
+
+            } else {
+                Throw new $AuthException;
+            }
+        } catch(Exception $e) {
+            self::$log->log('IP', 'action', $AuthErrorLogDesc, $e, 'IP');
+            Helper::print_error("Sorry but we are having technical difficulties");
+        }
 
     }
 
@@ -30,14 +75,7 @@ class AuthenticationDAO {
     
     public static function isLi(){ //TODO: Lock this down!
         if(isset($_SESSION['user']) && isset($_SESSION['domain'])){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static function isAdmin(){
-        if(isset($_SESSION['level'])){
+            if($_SESSION['user'] == $this->Auth->getLiUser())
             return true;
         } else {
             return false;
@@ -45,27 +83,31 @@ class AuthenticationDAO {
     }
 
     public static function liUser(){
-        if(isset($_SESSION['user'])){
-            return $_SESSION['user'];
-        } else {
-            return null;
-        }
+        return $this->Auth->getLiUser();
 
     }
 
     public static function liId(){
-        if(isset($_SESSION['userId'])){
-            return $_SESSION['userId'];
-        } else {
-            return null;
-        }
+        return $this->Auth->getLiId();
     }
 
     public static function liLevel(){
-        if(isset($_SESSION['level'])){
-            return $_SESSION['level'];
+        return $this->Auth->getLiUser();
+    }
+    
+    public static function isAdmin() {
+        if(liLevel() == 'admin') {
+            return true;
         } else {
-            return null;
+            return false;
+        }
+    }
+    
+    public static function isModerator() {
+        if(liLevel() == 'moderator') {
+            return true;
+        } else {
+            return false;
         }
     }
 

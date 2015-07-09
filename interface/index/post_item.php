@@ -16,7 +16,7 @@
             <b>Picture:</b>
             <input type="file" name="file" id="file" />
             <small>
-                - No Larger than 1MB<br />
+                - No Larger than 1.2MB<br />
                 - Must be .jpg, .jpeg, .png or .gif only
             </small>
 

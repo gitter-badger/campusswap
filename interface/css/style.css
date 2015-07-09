@@ -39,10 +39,10 @@
 /*  Campus Swap Logo 3b99c9 */
 
 .debug {
-    /*border: 1px solid #3b99c9;*/
+    /* Top Right Bottom Left*/
     padding:10px;
     text-align: center;
-    margin: 10px;
+    margin: 10px 15% 100px 15%;
 }
 
 .subpage_container {

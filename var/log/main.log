@@ -1,0 +1,669 @@
+04.07 22:20:26-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+04.07 22:20:26-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+04.07 22:20:26-INFO :  - Timer: PostsDAO->getPosts() took 0.001512
+04.07 22:20:26-INFO :  - We are loading multiple (511 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+06.07 18:07:50-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 18:07:50-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 18:07:50-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.008026
+06.07 18:07:50-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:06:51-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:06:51-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 20:06:51-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002166
+06.07 20:06:51-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:06:54-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:06:54-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+06.07 20:06:54-INFO : kaloidis@hartford.edu - Scroll Timer: 0.005342
+06.07 20:07:42-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:07:42-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 50, 10
+06.07 20:07:42-INFO : kaloidis@hartford.edu - Scroll Timer: 0.008801
+06.07 20:07:48-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:07:48-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 20:07:48-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003591
+06.07 20:07:48-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:08:10-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+06.07 20:08:10-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+06.07 20:08:10-INFO :  - Timer: PostsDAO->getPosts() took 0.003128
+06.07 20:08:10-INFO :  - We are loading multiple (511 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+06.07 20:08:31-INFO : action LOGGED IN SUCCESSFULLY FROM127.0.0.1 - kaloidis$hartford.edu
+06.07 20:08:33-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:08:33-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 20:08:33-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004796
+06.07 20:08:33-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+06.07 20:09:04-INFO : kaloidis@hartford.edu - Scroll Timer: 0.008996
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 50, 10
+06.07 20:09:04-INFO : kaloidis@hartford.edu - Scroll Timer: 0.005181
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 60, 10
+06.07 20:09:04-INFO : kaloidis@hartford.edu - Scroll Timer: 0.005325
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 70, 10
+06.07 20:09:04-INFO : kaloidis@hartford.edu - Scroll Timer: 0.005016
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 80, 10
+06.07 20:09:04-INFO : kaloidis@hartford.edu - Scroll Timer: 0.008996
+06.07 20:09:05-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:05-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 90, 10
+06.07 20:09:05-INFO : kaloidis@hartford.edu - Scroll Timer: 0.006425
+06.07 20:09:15-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 100, 10
+06.07 20:09:15-INFO : kaloidis@hartford.edu - Scroll Timer: 0.013033
+06.07 20:09:15-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:15-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 110, 10
+06.07 20:09:15-INFO : kaloidis@hartford.edu - Scroll Timer: 0.003559
+06.07 20:09:18-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:18-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 20:09:18-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001551
+06.07 20:09:18-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:20-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+06.07 20:09:20-INFO : kaloidis@hartford.edu - Scroll Timer: 0.010098
+06.07 20:09:21-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:21-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 20:09:21-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002859
+06.07 20:09:21-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:21-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:21-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 40, 10
+06.07 20:09:21-INFO : kaloidis@hartford.edu - Scroll Timer: 0.007623
+06.07 20:09:23-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:23-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 50, 10
+06.07 20:09:23-INFO : kaloidis@hartford.edu - Scroll Timer: 0.008877
+06.07 20:09:23-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:23-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 60, 10
+06.07 20:09:23-INFO : kaloidis@hartford.edu - Scroll Timer: 0.007651
+06.07 20:09:23-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:23-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 70, 10
+06.07 20:09:23-INFO : kaloidis@hartford.edu - Scroll Timer: 0.008945
+06.07 20:09:24-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:24-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 80, 10
+06.07 20:09:24-INFO : kaloidis@hartford.edu - Scroll Timer: 0.007883
+06.07 20:09:24-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:24-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 90, 10
+06.07 20:09:24-INFO : kaloidis@hartford.edu - Scroll Timer: 0.005267
+06.07 20:09:25-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:25-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 100, 10
+06.07 20:09:25-INFO : kaloidis@hartford.edu - Scroll Timer: 0.006055
+06.07 20:09:25-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:25-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 110, 10
+06.07 20:09:25-INFO : kaloidis@hartford.edu - Scroll Timer: 0.010985
+06.07 20:09:35-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 20:09:35-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+06.07 20:09:35-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002839
+06.07 20:09:35-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+06.07 22:04:16-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+06.07 22:04:16-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+06.07 22:04:16-INFO :  - Timer: PostsDAO->getPosts() took 0.001505
+06.07 22:04:16-INFO :  - We are loading multiple (511 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+06.07 23:58:19-INFO : actionUNAUTHORIZED ACCESS - Unauthorized Access Post_Item.php
+07.07 00:20:01-INFO : actionUNAUTHORIZED ACCESS - Unauthorized Access Post_Item.php
+07.07 00:45:38-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+07.07 00:45:38-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+07.07 00:45:38-INFO :  - Timer: PostsDAO->getPosts() took 0.001678
+07.07 00:45:38-INFO :  - We are loading multiple (511 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+07.07 00:45:45-INFO : action LOGGED IN SUCCESSFULLY FROM127.0.0.1 - kaloidis$hartford.edu
+07.07 00:45:46-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 00:45:46-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 00:45:46-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002559
+07.07 00:45:46-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 00:45:51-ERROR: kaloidis@hartford.edu - 
+07.07 00:46:48-ERROR: kaloidis@hartford.edu - 
+07.07 00:47:29-ERROR: kaloidis@hartford.edu - 
+07.07 00:48:21-ERROR: kaloidis@hartford.edu - 
+07.07 00:48:33-ERROR: kaloidis@hartford.edu - 
+07.07 00:50:32-ERROR: kaloidis@hartford.edu - 
+07.07 00:57:45-ERROR: kaloidis@hartford.edu - 
+07.07 00:59:40-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:114
+Stack trace:
+#0 {main}
+07.07 17:29:21-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 17:29:21-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 17:29:21-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003067
+07.07 17:29:21-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 17:29:25-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 17:29:25-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 17:29:25-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002891
+07.07 17:29:25-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 17:29:28-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:114
+Stack trace:
+#0 {main}
+07.07 17:29:31-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 17:29:31-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 17:29:31-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003199
+07.07 17:29:31-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 18:15:58-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:114
+Stack trace:
+#0 {main}
+07.07 22:58:26-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+07.07 22:58:26-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+07.07 22:58:26-INFO :  - Timer: PostsDAO->getPosts() took 0.003585
+07.07 22:58:26-INFO :  - We are loading multiple (511 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+07.07 22:58:33-INFO : action LOGGED IN SUCCESSFULLY FROM127.0.0.1 - kaloidis$hartford.edu
+07.07 22:58:34-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 22:58:34-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 22:58:34-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002903
+07.07 22:58:34-INFO : kaloidis@hartford.edu - We are loading multiple (115 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 22:58:37-INFO : kaloidis@hartford.edu - Created Post: 517
+07.07 23:17:14-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:120
+Stack trace:
+#0 {main}
+07.07 23:17:19-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:19-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:19-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002854
+07.07 23:17:19-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:20-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:20-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001175
+07.07 23:17:20-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:21-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:21-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:21-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001536
+07.07 23:17:21-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:21-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:21-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:21-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002244
+07.07 23:17:21-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:22-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:22-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:22-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001067
+07.07 23:17:22-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:23-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:23-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:23-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003474
+07.07 23:17:23-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:26-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:17:26-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:17:26-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004312
+07.07 23:17:26-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:18:02-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:120
+Stack trace:
+#0 {main}
+07.07 23:18:04-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:18:04-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:18:04-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001995
+07.07 23:18:04-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:18:08-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:120
+Stack trace:
+#0 {main}
+07.07 23:18:20-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:18:20-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:18:20-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002395
+07.07 23:18:20-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:18:55-ERROR: kaloidis@hartford.edu - 
+exception 'RuntimeException' with message 'Failed to move uploaded file.' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:120
+Stack trace:
+#0 {main}
+07.07 23:21:06-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:21:06-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+07.07 23:21:06-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002283
+07.07 23:21:06-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+07.07 23:21:57-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:22:24-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:22:51-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:35:23-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:36:38-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:37:10-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:54:13-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:54:28-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:59:06-INFO : kaloidis@hartford.edu - Created Post: 0
+07.07 23:59:26-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:05:27-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:05:46-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:06:31-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:09:13-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:10:37-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:10:50-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:11:44-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:14:05-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:14:43-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:15:06-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:15:34-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:18:59-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:42:10-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 00:42:10-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 00:42:10-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001913
+08.07 00:42:10-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 00:42:14-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:43:32-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:44:01-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:45:46-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:45:46-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:50:13-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:50:13-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:50:57-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:50:57-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:51:59-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:51:59-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:52:10-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:52:10-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:52:38-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:52:38-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:52:45-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 00:52:45-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 00:52:45-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.002351
+08.07 00:52:45-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 00:56:26-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:56:26-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:56:34-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:56:34-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 00:56:45-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 00:56:45-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 17:27:19-INFO : Action:  - Unauthorized Access Post_Item.php
+08.07 17:27:23-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 17:27:23-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+08.07 17:27:23-INFO :  - Timer: PostsDAO->getPosts() took 0.009755
+08.07 17:27:23-INFO :  - We are loading multiple (512 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 17:54:20-INFO : Action:  - 0127.0.0.1
+08.07 17:54:25-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 17:54:25-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 17:54:25-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004393
+08.07 17:54:25-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 17:56:37-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 17:56:37-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'Error creating image post - PostsDAO->createPost()' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:02:16-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:02:16-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:07:15-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:07:15-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('',
+                    '',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:08:51-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:08:51-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('',
+                    '',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:20:19-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:20:19-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('',
+                    '',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:21:10-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:21:10-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('',
+                    '',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:21:13-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:21:13-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('',
+                    '',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:40:02-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:40:02-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24\"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 18:42:32-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 18:42:32-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24\"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 19:41:54-INFO : Action:  - Unauthorized Access Post_Item.php
+08.07 19:41:58-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 19:41:58-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+08.07 19:41:58-INFO :  - Timer: PostsDAO->getPosts() took 0.002338
+08.07 19:41:58-INFO :  - We are loading multiple (512 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 19:42:03-INFO : Action:  - 0127.0.0.1
+08.07 19:42:07-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 19:42:07-ERROR: kaloidis@hartford.edu - Mysqli Query Error inserting 'Apple Macbook Retina 24\"
+08.07 19:42:07-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24\"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 19:42:17-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 19:42:17-ERROR: kaloidis@hartford.edu - Mysqli Query Error inserting 'Apple Macbook Retina 24\"
+08.07 19:42:17-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24\"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 19:43:01-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 19:43:01-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 19:43:01-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001706
+08.07 19:43:01-INFO : kaloidis@hartford.edu - We are loading multiple (116 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 19:43:09-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 19:43:09-ERROR: kaloidis@hartford.edu - Mysqli Query Error inserting 'Apple Macbook Retina 24\"
+08.07 19:43:09-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24\"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 19:45:01-INFO : kaloidis@hartford.edu - Created Post: 0
+08.07 19:45:01-ERROR: kaloidis@hartford.edu - Mysqli Query Error inserting 'Apple Macbook Retina 24\"
+08.07 19:45:01-ERROR: kaloidis@hartford.edu - 
+exception 'Exception' with message 'SQL Error creating image post - PostsDAO->createPost(), Post SQL: 
+                INSERT INTO posts
+                    (item,
+                    description,
+                    username,
+                    domain,
+                    price,
+                    hits,
+                    views,
+                    created,
+                    createdSince,
+                    modified,
+                    img)
+                VALUES
+                    ('Apple Macbook Retina 24\"',
+                    'Amazing Macbook real fast and great graphics',
+                    'kaloidis',
+                    'hartford.edu',
+                    '2999',
+                    '0', '0', NOW(), NOW(), NOW(),
+                    'ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg')' in /home/vasili/Documents/Sites/campusswap/modules/post_item.php:126
+Stack trace:
+#0 {main}
+08.07 19:52:58-INFO : Action:  - 0127.0.0.1
+08.07 19:53:12-INFO : kaloidis@hartford.edu - Created Post: 518
+08.07 19:53:15-INFO : Action:  - item created -'Apple Macbook Retina 24\"' - Amazing Macbook real fast and great graphics, 2999, ac5646607fe3a8d0e7b0257fb6cf61db71dcce88.jpg
+08.07 19:57:58-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 19:57:58-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 19:57:58-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.004280
+08.07 19:57:58-INFO : kaloidis@hartford.edu - We are loading multiple (117 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 22:55:25-INFO : Action:  - Unauthorized Access Post_Item.php
+08.07 22:55:32-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 22:55:32-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+08.07 22:55:32-INFO :  - Timer: PostsDAO->getPosts() took 0.002465
+08.07 22:55:32-INFO :  - We are loading multiple (513 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 22:56:34-INFO : Action:  - 0127.0.0.1
+08.07 22:56:36-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 22:56:36-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 22:56:36-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001725
+08.07 22:56:36-INFO : kaloidis@hartford.edu - We are loading multiple (117 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 23:12:04-INFO : kaloidis@hartford.edu - Created Post: 519
+08.07 23:12:04-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:12:59-INFO : kaloidis@hartford.edu - Created Post: 520
+08.07 23:12:59-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:13:14-INFO : kaloidis@hartford.edu - Created Post: 521
+08.07 23:13:14-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:13:58-INFO : kaloidis@hartford.edu - Created Post: 522
+08.07 23:13:58-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:14:11-INFO : kaloidis@hartford.edu - Created Post: 523
+08.07 23:14:11-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:14:19-INFO : kaloidis@hartford.edu - Created Post: 524
+08.07 23:14:19-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:14:52-INFO : kaloidis@hartford.edu - Created Post: 525
+08.07 23:14:52-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:15:04-INFO : kaloidis@hartford.edu - Created Post: 526
+08.07 23:15:04-INFO : Action:  - item created -'LG Tv' - Nice TV great quality!, 7,238, f0fd0f5bd016dc7e1e62faeef08c9c2e1d06f652.jpg
+08.07 23:15:27-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 23:15:27-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 23:15:27-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.003928
+08.07 23:15:27-INFO : kaloidis@hartford.edu - We are loading multiple (125 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 23:32:35-DEBUG:  - Debug SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 23:32:35-DEBUG:  - Attempting to create Posts Object from SELECT * FROM posts ORDER BY created DESC LIMIT 0, 40
+08.07 23:32:35-INFO :  - Timer: PostsDAO->getPosts() took 0.003519
+08.07 23:32:35-INFO :  - We are loading multiple (521 posts total) (40 posts on front-page) SQL: SELECT * FROM posts ORDER BY created DESC 
+08.07 23:32:43-INFO : Action:  - 0127.0.0.1
+08.07 23:32:45-DEBUG: kaloidis@hartford.edu - Debug SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 23:32:45-DEBUG: kaloidis@hartford.edu - Attempting to create Posts Object from SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC LIMIT 0, 40
+08.07 23:32:45-INFO : kaloidis@hartford.edu - Timer: PostsDAO->getPosts() took 0.001303
+08.07 23:32:45-INFO : kaloidis@hartford.edu - We are loading multiple (125 posts total) (40 posts on front-page) SQL: SELECT * FROM posts WHERE domain = 'hartford.edu' ORDER BY created DESC 
+08.07 23:33:32-INFO : kaloidis@hartford.edu - Created Post: 527
+08.07 23:33:32-INFO : Action:  - item created -'iPhone 7' - This is an un-released iPhone 7 prototype that nobody has yet!!! All the un-released features!, 1,299, false
+08.07 23:59:55-INFO : kaloidis@hartford.edu - Created Post: 528
+08.07 23:59:55-INFO : Action:  - item created -'iPhone 7' - This is an un-released iPhone 7 prototype that nobody has yet!!! All the un-released features!, 1,299, false
+09.07 00:05:35-INFO : kaloidis@hartford.edu - Created Post: 529
+09.07 00:05:35-INFO : Action:  - item created -'iPhone 7' - This is an un-released iPhone 7 prototype that nobody has yet!!! All the un-released features!, 1,299, false
+09.07 00:05:44-INFO : kaloidis@hartford.edu - Created Post: 530
+09.07 00:05:44-INFO : Action:  - item created -'iPhone 7' - This is an un-released iPhone 7 prototype that nobody has yet!!! All the un-released features!, 1,299, false
+09.07 00:05:52-INFO : kaloidis@hartford.edu - Created Post: 531
+09.07 00:05:52-INFO : Action:  - item created -'iPhone 7' - This is an un-released iPhone 7 prototype that nobody has yet!!! All the un-released features!, 1,299, false

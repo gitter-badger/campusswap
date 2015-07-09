@@ -8,11 +8,11 @@
 
 class AccessDAO {
 
-    public static $conn, $config, $count, $log;
+    public static $conn, $Config, $count, $log;
 
-    public function __construct($connection, $config, $log) {
-        self::$conn = $connection;
-        self::$config = $config;
+    public function __construct($Connection, $Config, $log) {
+        self::$conn = $Connection;
+        self::$Config = $Config;
         self::$log = $log;
         $dir = Config::get('dir');
         include $dir . 'lib/Objects/Access.php';
@@ -29,19 +29,18 @@ class AccessDAO {
         } else {
             $insert_query = "INSERT INTO access (ip, usernames, status, visits, failed_logins, datetime) VALUES ('$ip', '$username', 'ok', 1, 0, NOW())";
 
-            if(!mysqli_query(self::$conn, $insert_query)) {
-                self::$log->log($username, 'FATAL', 'Error inserting access record into access table');
-                self::$log->log($username, 'TRACE', 'GET SQL: ' . $sql);
-                self::$log->log($username, 'TRACE', 'INSERT SQL: ' . $insert_query);
+            if(!mysqli_query(self::$Conn, $insert_query)) {
+                self::$log->log($username, 'error', 'AccessDAO - Error inserting access record into access table');
+                // self::$log->log($username, 'DEBUG', 'GET SQL: ' . $sql);
+                // self::$log->log($username, 'DEBUG', 'INSERT SQL: ' . $insert_query);
             }
-
             return $this->createObject($sql);
         }
     }
 
     private function createObject($sql){
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         self::$count = mysqli_num_rows($result);
 

@@ -1,0 +1,13 @@
+.idea*
+.idea
+.tmproj
+*.tmproj
+config.ini
+log4php.xml
+etc/config.ini
+
+etc/log4php.xml
+
+etc/config.ini
+
+var/log/main.log

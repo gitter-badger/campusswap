@@ -4,10 +4,11 @@
 
 include('../../lib/Config.php');
 
-$config = new Config('../../etc/config.ini');
+$Config = new Config('../../etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
+$debug = Parser::isTrue(Config::get('debug'));
 
 include($dir . 'lib/DAO/PostsDAO.php');
 include($dir . 'lib/Util/Parser.php');
@@ -15,10 +16,16 @@ include($dir . 'lib/Util/LogUtil.php');
 include($dir . 'lib/Util/Helper.php');
 include($dir . 'lib/Database.php');
 include($dir . 'lib/DAO/AuthenticationDAO.php');
+include($dir . 'lib/DAO/UsersDAO.php');
+include($dir . 'lib/DAO/UsersDAO.php');
 
-$debug = Parser::isTrue(Config::get('debug'));
+$database = new Database();
+$Conn = $database->connection();
+$LogUtil = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
 
-$AuthenticationDAO = new AuthenticationDAO($config);
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $liDomain = $auth->getLiDomain();
@@ -26,11 +33,6 @@ $liId = $auth->getLiId();
 $liLevel = $auth->getLiLevel();
 $liFullName = $auth->getLiFullName();
 $isLi = $auth->getIsLi();
-
-$database = new Database();
-$conn = $database->connection();
-$LogUtil = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
 
 $simple = true; // TODO: This looks  - Define what this does + refactor global usage if needed
 $subpage = false; // TODO: This looks retarded also - its a variable set in the debug panel module

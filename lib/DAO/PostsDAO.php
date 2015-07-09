@@ -10,9 +10,12 @@
 class PostsDAO{
 
     public static $conn, $sql, $limit_sql, $total_count, $fp_count, $log, $dir;
+    
+    public $postSql;
+    public $error = false;
 
-    public function __construct($connection, $config, $log) {
-        self::$conn = $connection;
+    public function __construct($Connection, $Config, $log) {
+        self::$conn = $Connection;
         self::$log = $log;
 
 
@@ -26,7 +29,7 @@ class PostsDAO{
 
         $sql = "UPDATE posts SET " . $field . " = '" . $update . "' WHERE id = '" . $id . "' ";
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         if($result){
             return TRUE;
@@ -39,7 +42,7 @@ class PostsDAO{
     public function deleteItem($id){
         $sql = "DELETE FROM posts WHERE id='$id'";
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         if($result){
             return true;
@@ -50,10 +53,10 @@ class PostsDAO{
 
     public function likeItem($user_id, $id) {
 
-        $result = mysqli_query(self::$conn, "UPDATE posts SET hits = hits +1 WHERE id = '$id'");
+        $result = mysqli_query(self::$Conn, "UPDATE posts SET hits = hits +1 WHERE id = '$id'");
 
         $update = '/' . $id;
-        $result2 = mysqli_query(self::$conn, "UPDATE users SET likes = CONCAT(likes, '$update') WHERE id = '$user_id'");
+        $result2 = mysqli_query(self::$Conn, "UPDATE users SET likes = CONCAT(likes, '$update') WHERE id = '$user_id'");
 
         if($result && $result2) {
             self::$log->log($user_id, 'INFO', $user_id . ' liked item ' . $id);
@@ -75,20 +78,23 @@ class PostsDAO{
      * @param type $domain the domain of the author
      * @param type $price the price of the item
      * @param type $image the item's image, or FALSE for no image
-     * @param type $conn DB connection
+     * @param type $Conn DB connection
      * @return boolean return TRUE if created succesfully or false if there
      *  was a problem creating it
      */
     public function createPost(
-        $item,
-        $description,
+        $itemUnfiltered,
+        $descriptionUnfiltered,
         $username,
         $domain,
         $price,
         $image){
+        
+        $item = mysqli_real_escape_string(self::$Conn, $itemUnfiltered);
+        $description = mysqli_real_escape_string(self::$Conn, $descriptionUnfiltered);
 
         if(!$image){
-            $sql = "
+            $this->postSql = "
                 INSERT INTO posts
                     (item,
                     description,
@@ -113,7 +119,7 @@ class PostsDAO{
                    'FALSE')";
 
         } else {
-            $sql = "
+            $this->postSql = "
                 INSERT INTO posts
                     (item,
                     description,
@@ -123,7 +129,6 @@ class PostsDAO{
                     hits,
                     views,
                     created,
-                    createdSince,
                     modified,
                     img)
                 VALUES
@@ -132,24 +137,26 @@ class PostsDAO{
                     '$username',
                     '$domain',
                     '$price',
-                    '0', '0', NOW(), NOW(), NOW(),
+                    '0', '0', NOW(), NOW(),
                     '$image')";
         }
 
         //TODO: Sanitize data before insert query
         try {
-            $query = mysqli_query(self::$conn, $sql);
-            self::$log->log(AuthenticationDAO::liFullName(), "info", "Created Post: " . mysqli_insert_id(self::$conn), 'post create');
+            $query = mysqli_query(self::$Conn, $this->postSql);
+            self::$log->log(AuthenticationDAO::liFullName(), "info", "Created Post: " . mysqli_insert_id(self::$Conn), 'post create');
         } catch(mysqli_sql_exception $me) {
-            self::$log->log(AuthenticationDAO::liFullName(), "error", "Mysqli Query Error inserting '" . $item . "' - " . $me->getMessage());
+            self::$log->log(AuthenticationDAO::liFullName(), "error", "Mysqli Query Error inserting '" . $item, $me);
         } catch(Exception $e) {
-            self::$log->log(AuthenticationDAO::liFullName(), "error", "Error Creating Post: '" . $item . "' - " . $e->getMessage());
+            self::$log->log(AuthenticationDAO::liFullName(), "error", "Error Creating Post: ", $e);
         }
 
-
         if($query){
+            self::$log->log(AuthenticationDAO::liFullName(), "action", "item created -'" . $item . "' - " . $description . ", " . $price . ", " . $image);
             return TRUE;
         } else {
+            $this->error = mysqli_error(self::$Conn);
+            self::$log->log(AuthenticationDAO::liFullName(), "error", $this->error);
             return FALSE;
         }
 
@@ -172,7 +179,7 @@ class PostsDAO{
             if($college!='all'){
                 self::$sql .= "AND ";
             }
-            self::$sql .= "item LIKE '%" . mysqli_real_escape_string(self::$conn, $search) . "%' ";
+            self::$sql .= "item LIKE '%" . mysqli_real_escape_string(self::$Conn, $search) . "%' ";
         }
 
         if(!Parser::isFalse($sort)){
@@ -184,7 +191,7 @@ class PostsDAO{
     }
 
     public function getTotalRows($sql){
-        $query = mysqli_query(self::$conn, $sql);
+        $query = mysqli_query(self::$Conn, $sql);
         self::$total_count = mysqli_num_rows($query);
         return self::$total_count;
     }
@@ -284,7 +291,7 @@ class PostsDAO{
     public function createObject($sql){
         self::$log->log(AuthenticationDAO::liFullName(), "debug", "Attempting to create Posts Object from " . $sql);
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         self::$fp_count = mysqli_num_rows($result);
 

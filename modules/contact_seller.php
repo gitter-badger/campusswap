@@ -2,7 +2,7 @@
 
 include('../lib/Config.php');
 
-$config = new Config('../etc/config.ini');
+$Config = new Config('../etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
@@ -21,7 +21,14 @@ include($dir . 'lib/DAO/AuthenticationDAO.php');
 $debug = Parser::isTrue(Config::get('debug'));
 //Also add timer
 
-$AuthenticationDAO = new AuthenticationDAO($config);
+$database = new Database();
+$Conn = $database->connection();
+
+$LogUtil = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
+
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $isLi = $auth->getIsLi();
@@ -29,13 +36,6 @@ $liDomain = $auth->getLiDomain();
 $liId = $auth->getLiId();
 $liLevel = $auth->getLiLevel();
 $liFullName = $auth->getLiFullName();
-
-$database = new Database();
-$conn = $database->connection();
-
-$LogUtil = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
-$UsersDAO = new UsersDAO($conn, $config, $LogUtil);
 
 $simple = true;
 include $dir . 'interface/subpage_head.php';
@@ -76,7 +76,7 @@ if(isset($_GET['approach']) && $isLi){
     $items = $PostsDAO->getPost($id);
     $item = $items[0];
 
-    $LogUtil->log($liFullName, "ACTION", $liFullName . " contacted " . $email . " with message " . $contents, "user contact");
+    $LogUtil->log($liFullName, "action", "user contact - " . $liFullName . " CONTACTED " . $email . " MESSAGE:  " . $contents);
 
     $email_content = '<html><head>CampusSwap.Net</head></head><body><h1>Campus Swap</h1><h2>You have been contacted by <b>' . $liFullName . '</b></h2>';
     $email_content .= '<p>Message regarding item: <b>"' . $item->getItem() . '"</b></p>';
@@ -96,8 +96,8 @@ if(isset($_GET['approach']) && $isLi){
 
     Helper::close_lightwindow_button();
 } else {
-	echo '<div class="alert alert-danger">You do not have persmission to be on this page, your ip ' . LogUtil::getIp() . ' has been logged and you may be banned after repeated attempts.</div>';
-    $LogUtil->log("IP", "action", "unauthorized access to modify_item.php", "unauthorized access");
+    echo '<div class="alert alert-danger">You do not have persmission to be on this page, your ip ' . LogUtil::getIp() . ' has been logged, and it may be banned.</div>';
+    $LogUtil->log("IP", "action", "unauthorized access to modify_item.php");
 
 }
 

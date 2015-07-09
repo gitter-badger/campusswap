@@ -2,7 +2,7 @@
 
 include('../lib/Config.php');
 
-$config = new Config('../etc/config.ini');
+$Config = new Config('../etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
@@ -20,10 +20,10 @@ include($dir . 'lib/Database.php');
 $debug = Parser::isTrue(Config::get('debug'));
 
 $database = new Database();
-$conn = $database->connection();
-$log = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $log);
-$UsersDAO = new UsersDAO($conn, $config, $log);
+$Conn = $database->connection();
+$log = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $log);
+$UsersDAO = new UsersDAO($Conn, $Config, $log);
 
 $this_user = $UsersDAO->getUserFromId(AuthenticationDAO::liId());
 

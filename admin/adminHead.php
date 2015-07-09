@@ -2,7 +2,7 @@
 
 include('../lib/Config.php');
 
-$config = new Config('../etc/config.ini');
+$Config = new Config('../etc/config.ini');
 
 $dir = Config::get('dir');
 

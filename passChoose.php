@@ -4,7 +4,7 @@
 
 
 include('./lib/Config.php');
-$config = new Config('./etc/config.ini');
+$Config = new Config('./etc/config.ini');
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 $version = Config::get('version');
@@ -25,12 +25,12 @@ include($dir . 'lib/Database.php');
 include($dir . 'interface/subpage_head.php');
 
 $database = new Database();
-$conn = $database->connection();
-$log = new LogUtil($conn, $config);
+$Conn = $database->connection();
+$log = new LogUtil($Conn, $Config);
 
-$VersDAO = new VersDAO($conn, $config, $log);
+$VersDAO = new VersDAO($Conn, $Config, $log);
 
-$UsersDAO = new UsersDAO($conn, $config, $log);
+$UsersDAO = new UsersDAO($Conn, $Config, $log);
 
 if(isset($_GET['key'])){
 

@@ -122,9 +122,9 @@ class Access {
         $this->visits = $visits;
     }
 
-    public function addUsertoAccess($conn, $userInput) {
+    public function addUsertoAccess($Conn, $userInput) {
         $user = "/" . $userInput;
-        mysqli_query($conn, "UPDATE access SET usernames = CONCAT(usernames, '$user') WHERE (ip = '$this->ip' AND datetime = '$this->datetime')");
+        mysqli_query($Conn, "UPDATE access SET usernames = CONCAT(usernames, '$user') WHERE (ip = '$this->ip' AND datetime = '$this->datetime')");
     }
 
 }

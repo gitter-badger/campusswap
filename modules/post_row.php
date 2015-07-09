@@ -183,9 +183,10 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
             <li><i class="fa fa-link fa-lg"></i>&nbsp;<b>Direct Link:</b> <?= URL . '?item=' . $id ?></li>
         </ol>
 
-        <?php if($isLi){ ?>
+    <?php if($isLi) { ?>
             <div class="btn-group btn-group-justified">
                 <div class="btn-group">
+                    <?php //TODO: Fix contact-user button?>
                     <?php $contact_url = 'approach=' . urlencode("email") . '&sellerEmail=' . urlencode($full_name) . '&id=' . urlencode($id); ?>
                     <a class="btn btn-default lightwindow"
                        role="button"
@@ -197,6 +198,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                 </div>
 
                 <div class="btn-group">
+                    <?php //TODO: Fix like-button ?>
                     <div action="#" style="padding:none;margin:none;" name="likeButton<?= $id ?>" id="likeButton<?= $id ?>">
                         <form id="likeForm" onsubmit="return likeItem(<?= $id ?>); return false;">
                             <?php if($this_user->doesUserLike($id)){ ?>
@@ -217,23 +219,32 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                 </div>
 
                 <div class="btn-group">
+                    <?php //TODO: Fix LightWindow for Report Abuse ?>
+                     <!-- <a class="btn btn-default lightwindow"
+                       role="button"
+                       href="<?= URL ?>modules/contact_seller.php?<?= $contact_url ?>"
+                       params="lightwindow_type=external,lightwindow_width=527,lightwindow_height=573"></a> -->
                     <form id="abuseForm" action="<?= URL ?>modules/report_abuse.php" method="post">
                         <input type="hidden" name="abuser" value="<?= $username ?>@<?= $domain ?>">
                         <input type="hidden" name="reporter" value="<?= AuthenticationDAO::liFullName() ?>">
-                        <input type="hidden" name="post" value="<?= URL . '?item=' . $id ?>">
+                        <input type="hidden" name="post" value="<?= $id ?>">
                         <input type="hidden" name="abuse" value="abuse" />
                         <button type="submit" class="btn btn-default" role="button"><i class="fa fa-gavel fa-lg"></i>&nbsp;Report Abuse</button>
                     </form>
                 </div>
-
-            </div>
-
-            <?php } else { //Not logged in?>
-                    <br />
-                <form action="login.php">
-                    <button type="submit" class="btn">Log-in to contact User</button>
-                </form>
-            <?php } ?>
+                
+                <?php if(AuthenticationDAO::isLi() && AuthenticationDAO::isAdmin()) { ?>
+                <div class="btn-group">
+                     <button type="button" class="btn btn-danger">Admin Action - Delete Post</button>
+                </div>
+                <?php } ?>
+           </div>
+        <?php } else { //Not logged in ?>
+                <br />
+            <form action="login.php">
+                <button type="submit" class="btn">Log-in to contact User</button>
+            </form>
+        <?php } ?>
         </div>
   </div>
 

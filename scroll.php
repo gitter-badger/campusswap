@@ -1,6 +1,6 @@
 <?php
 include('./lib/Config.php');
-$config = new Config('./etc/config.ini');
+$Config = new Config('./etc/config.ini');
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 
@@ -20,9 +20,9 @@ include($dir . 'lib/Database.php');
 
 
 $database = new Database();
-$conn = $database->connection();
-$LogUtil = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
+$Conn = $database->connection();
+$LogUtil = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
 
 if(isset($_GET['college']) && isset($_GET['sort']) && isset($_GET['search']) && isset($_GET['first'])){
     

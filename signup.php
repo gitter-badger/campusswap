@@ -1,7 +1,7 @@
 <?php
 include('./lib/Config.php');
 
-$config = new Config('./etc/config.ini');
+$Config = new Config('./etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
@@ -21,13 +21,13 @@ include($dir . 'lib/DAO/VersDAO.php');
 $debug = Parser::isTrue(Config::get('debug'));
 
 $database = new Database();
-$conn = $database->connection();
-$LogUtil = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
-$DomainsDAO = new DomainsDAO($conn, $config, $LogUtil);
+$Conn = $database->connection();
+$LogUtil = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+$DomainsDAO = new DomainsDAO($Conn, $Config, $LogUtil);
 $all_domains = $DomainsDAO->getAllDomains();
-$UsersDAO = new UsersDAO($conn, $config, $LogUtil);
-$VersDAO = new VersDAO($conn, $config, $LogUtil);
+$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
+$VersDAO = new VersDAO($Conn, $Config, $LogUtil);
 
 //TODO: Cleanup the login and add failed attempt banner
 //TODO: Cleanup the security system while were at it, this page is a good start
@@ -43,12 +43,12 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
         $username = Parser::sanitize($_POST['username']);
         $domain = $_POST['domain'];
 
-        if(DomainsDAO::domainExists($domain, $conn)){ //CHECK IF DOMAIN EXISTS
+        if(DomainsDAO::domainExists($domain, $Conn)){ //CHECK IF DOMAIN EXISTS
 
-            if(!UsersDAO::userExists($username, $domain, $conn)){ //CHECK IF USER BANNED
+            if(!UsersDAO::userExists($username, $domain, $Conn)){ //CHECK IF USER BANNED
 
                 $fullName = $username . '@' . $domain;
-                $user = $UsersDAO->getUserFromName($username, $domain, $conn);
+                $user = $UsersDAO->getUserFromName($username, $domain, $Conn);
 
                 if($user['level'] != 'banned'){ //is banned?
 
@@ -58,7 +58,7 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 
                         echo '<div class="alert alert-warning">';
                         echo 'We have already sent you a verification email to ' . $fullName . ', we will send another one. Try checking your spam folder</div>';
-//                          $key = vers::getVerFromUser($user, $domain, $conn);
+//                          $key = vers::getVerFromUser($user, $domain, $Conn);
 
                     } else { //Create an account
 
@@ -98,7 +98,7 @@ if(isset($_POST['signup'])){ //SEE IF POST signup VAR SET
 
                 } else {
                     echo '<div class="alert alert-danger">Your email address ' . $fullName . ' has been banned from Campus Swap, your IP has been logged</div>';
-                    $log->log($_SERVER['REMOTE_ADDR'], "action", "Attempetd ban user signup " . $fullName, "attempted ban login" . $fullName);
+                    $log->log("IP", "action", "banned user - attempted login - " . $fullName);
                 }
 
             } else {

@@ -2,7 +2,7 @@
 
 include('./lib/Config.php');
 
-$config = new Config('./etc/config.ini');
+$Config = new Config('./etc/config.ini');
 
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
@@ -21,7 +21,7 @@ include($dir . 'lib/Database.php');
 
 $debug = Parser::isTrue(Config::get('debug'));
 
-$AuthenticationDAO = new AuthenticationDAO($config);
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $liDomain = $auth->getLiDomain();
@@ -31,14 +31,14 @@ $liFullName = $auth->getLiFullName();
 $isLi = $auth->getIsLi();
 
 $database = new Database();
-$conn = $database->connection();
+$Conn = $database->connection();
 
-$LogUtil = new LogUtil($conn, $config);
-$PostsDAO = new PostsDAO($conn, $config, $LogUtil);
-$UserDAO = new UsersDAO($conn, $config, $LogUtil);
-$DomainsDAO = new DomainsDAO($conn, $config, $LogUtil);
+$LogUtil = new LogUtil($Conn, $Config);
+$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+$UserDAO = new UsersDAO($Conn, $Config, $LogUtil);
+$DomainsDAO = new DomainsDAO($Conn, $Config, $LogUtil);
 $all_domains = $DomainsDAO->getAllDomains();
-$VersDAO = new VersDAO($conn, $config, $LogUtil);
+$VersDAO = new VersDAO($Conn, $Config, $LogUtil);
 
 
 include(DIR . 'interface/subpage_head.php');
@@ -53,7 +53,7 @@ if(isset($_POST['recover'])) {
 
 	$key = md5(uniqid(rand(), true));
 
-    if($UserDAO->userExists($username, $domain, $conn)) {
+    if($UserDAO->userExists($username, $domain, $Conn)) {
 
         if ($VersDAO->verSent($username, $domain, 'recover')) { //Var already sent
 

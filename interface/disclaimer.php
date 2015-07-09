@@ -1,7 +1,7 @@
 <?php
 
 include('../../lib/Config.php');
-$config = new Config('../../etc/config.ini');
+$Config = new Config('../../etc/config.ini');
 $dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
 $url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 

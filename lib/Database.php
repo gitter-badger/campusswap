@@ -26,7 +26,7 @@ class Database {
         if(class_exists('Config')){}
         else {
             include('./lib/Config.php');
-            $config = new Config('./etc/config.ini');
+            $Config = new Config('./etc/config.ini');
         }
         
         $server = Config::get('db_server');
@@ -37,6 +37,7 @@ class Database {
         self::$conn = mysqli_connect($server, $user, $password, $database);
 
         if (\mysqli_connect_error() || !self::$conn) {
+            echo 'CampuSwap Error trying to connect to DB<br>';
             die('Connect Error (' . mysqli_connect_errno(self::$conn) . ') '
                     . mysqli_connect_error(self::$conn));
         } else {

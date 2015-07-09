@@ -8,11 +8,11 @@
 //TODO: Implement the DAO interface here
 class UsersDAO {
 
-    public static $conn, $config, $count, $log;
+    public static $conn, $Config, $count, $log;
 
-    public function __construct($connection, $config, $log) {
-        self::$conn = $connection;
-        self::$config = $config;
+    public function __construct($Connection, $Config, $log) {
+        self::$conn = $Connection;
+        self::$Config = $Config;
         self::$log = $log;
         $dir = Config::get('dir');
         include $dir . 'lib/Objects/User.php';
@@ -20,7 +20,7 @@ class UsersDAO {
 
     public function createObject($sql){
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         self::$count = mysqli_num_rows($result);
 
@@ -58,7 +58,7 @@ class UsersDAO {
     public static function getUsername($id) {
         $sql = "SELECT * FROM users WHERE $id = '$id' ";
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         $count = mysqli_num_rows($result);
 
@@ -78,7 +78,7 @@ class UsersDAO {
                     VALUES
                         (NULL, '$user', SHA('$password'), '$domain', 'normal', NOW(), NOW())";
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         if($result){
             return TRUE;
@@ -109,15 +109,15 @@ class UsersDAO {
     public function updatePassword($username, $domain, $password) {
         $sql = "UPDATE users SET password = SHA('$password') WHERE username='$username' AND domain='$domain'";
 
-        $query = mysqli_query(self::$conn, $sql);
+        $query = mysqli_query(self::$Conn, $sql);
 
         return $query;
     }
 
     //SEE IF USER EXISTS ALREADY
-    public static function userExists($user, $domain, $conn){
+    public static function userExists($user, $domain, $Conn){
 
-        $result = mysqli_query($conn, "SELECT *
+        $result = mysqli_query($Conn, "SELECT *
 							FROM users
 							WHERE username = '" . $user . "' " .
                             " AND domain = '" . $domain . "' ");

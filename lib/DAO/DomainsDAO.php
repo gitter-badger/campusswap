@@ -8,11 +8,11 @@
 
 class DomainsDAO {
 
-    public static $conn, $config, $count;
+    public static $conn, $Config, $count;
 
-    public function __construct($connection, $config, $log) {
-        self::$conn = $connection;
-        self::$config = $config;
+    public function __construct($Connection, $Config, $log) {
+        self::$conn = $Connection;
+        self::$Config = $Config;
         $dir = Config::get('dir');
         include $dir . 'lib/Domain.php';
 
@@ -20,7 +20,7 @@ class DomainsDAO {
 
     private function createObject($sql){
 
-        $result = mysqli_query(self::$conn, $sql);
+        $result = mysqli_query(self::$Conn, $sql);
 
         self::$count = mysqli_num_rows($result);
 
@@ -60,9 +60,9 @@ class DomainsDAO {
         if($req == 'all'){
             return 'All';
         } else {
-            $conn = self::$conn;
+            $Conn = self::$Conn;
 
-            $nameQuery = mysqli_query($conn, "SELECT name FROM domains WHERE domain = '$req'");
+            $nameQuery = mysqli_query($Conn, "SELECT name FROM domains WHERE domain = '$req'");
 
             $nameQueryArray = mysqli_fetch_assoc($nameQuery);
 
@@ -72,10 +72,10 @@ class DomainsDAO {
         }
     }
 
-    public static function domainExists($domain, $conn){
+    public static function domainExists($domain, $Conn){
         $query = "SELECT * from domains WHERE domain = '" . $domain . "' ";
 
-        $results = mysqli_query($conn, $query);
+        $results = mysqli_query($Conn, $query);
 
         if(mysqli_num_rows($results) > 0){
             return TRUE;
