@@ -15,7 +15,7 @@ $img = $Post->getImg();
 $modified = $Post->getModified();
 $created = $Post->getCreated();
 
-if(Helper::getDevice()=='tablet'){
+if($Helper->getDevice()=='tablet'){
     $descriptionShort = substr($description, 0, 80); //SHORTEN DESCRIPTION
 } else {
     $descriptionShort = substr($description, 0, 150); //SHORTEN DESCRIPTION
@@ -51,7 +51,7 @@ echo '<div class="result box" id="result">';
     $today = new dateTime($todaysDate);
     $rightNow = new DateTime(date('Y-m-d H:i:s'));
 
-    echo ' - (created: ' . $date_created->format('Y-m-d H:i:s') . ') ';
+    if($debug) { echo ' - (created: ' . $date_created->format('Y-m-d H:i:s') . ') '; }
     // DELETE DATE
     $delete_date = new DateTime($created);
     $delete_date->modify("+120 day");
@@ -68,10 +68,13 @@ echo '<div class="result box" id="result">';
 
     $sinceDays = $created_since->format('%d');
 
-    //Print days since created (badge)
-    // TODO: Fix this this doesent work completly
-    echo ' (' . $created . ')';
-    echo ' - (since-days: ' . $sinceDays . ') '; //DEBUG-TESTING
+   if($debug) { 
+       echo ' (' . $created . ')'; 
+        echo ' - (since-days: ' . $sinceDays . ') '; 
+        
+   } //DEBUG-TESTING 
+   
+    //Print days since created (badge), todo - Fix this this doesent work completly
     if($sinceDays > 9) {
         echo '<span class="label label-danger">' . $sinceDays . ' days ago</span>';
     } else if($sinceDays > 5) {
@@ -100,29 +103,26 @@ echo '<div class="result box" id="result">';
 	}
 	
  	//ECHO SHORTER DESCRIPTION
-	if(Helper::getDevice()!='mobile') {
- 		if(!Parser::isFalse($img) || $img == null){
-			echo '&nbsp;<i class="fa fa-picture-o fa-lg"></i>';
-			$imgSet = true;
-        }
+	if($Helper->getDevice()!='mobile') {
+            if(!$Parser->isFalse($img) || $img == null){
+                echo '&nbsp;<i class="fa fa-picture-o fa-lg"></i>';
+                $imgSet = true;
+            }
 	}
 	?>
 </a>
 
     <?php
     //Obfuscate Username + Print
-    $obfuscated_username = Helper::obfuscate_username($username, $domain);
-    if(Helper::getDevice()!='mobile'){
+    $obfuscated_username = $Helper->obfuscate_username($username, $domain);
+    if($Helper->getDevice()!='mobile'){
         echo '<div class="post_title_name">';
         echo $obfuscated_username;
         echo '</div>';
     }
-    ?>
-</div>
-
-
-<?php
-//TODO: Finish if single item
+ echo '</div>';
+ 
+//TODO: Finish if single-post item
 if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,CHOOSE THIS
 	$postDisplay = '';
 } else {
@@ -136,7 +136,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
 
         <div class="post_description page-header"> <?PHP //TITLE ?>
             <h3>
-                <?php if(!Parser::isFalse($img)){ //IMAGE ?>
+                <?php if(!$Parser->isFalse($img)){ //IMAGE ?>
                     <a href="<?= URL ?>var/uploads/<?= $img?>"
                        class="lightwindow">
                         <img class="thumbnail post-img"
@@ -171,7 +171,7 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
             <?php $view_feature = false; //TODO: Write the VIEWS feature
             if($view_feature) { ?>
                 <li> <b>Views:</b> <?= $views ?> </li>
-            <?php } else if(Helper::getDevice()!='mobile'){ ?>
+            <?php } else if($Helper->getDevice()!='mobile'){ ?>
                 <li><i class="fa fa-user"></i>&nbsp;<b>User:</b> <?= $obfuscated_username ?>
             <?php } ?>
             <li><i class="fa fa-calendar-o fa-lg"></i>&nbsp;<b>Created:</b> <?= $date_created->format('Y-m-d H:i:s'); ?> </li>
@@ -226,14 +226,14 @@ if(isset($$total_count) && $total_count = 1){ //FINISH IF SINGLE ITEM SELECTED,C
                        params="lightwindow_type=external,lightwindow_width=527,lightwindow_height=573"></a> -->
                     <form id="abuseForm" action="<?= URL ?>modules/report_abuse.php" method="post">
                         <input type="hidden" name="abuser" value="<?= $username ?>@<?= $domain ?>">
-                        <input type="hidden" name="reporter" value="<?= AuthenticationDAO::liFullName() ?>">
+                        <input type="hidden" name="reporter" value="<?= $fullName ?>">
                         <input type="hidden" name="post" value="<?= $id ?>">
                         <input type="hidden" name="abuse" value="abuse" />
                         <button type="submit" class="btn btn-default" role="button"><i class="fa fa-gavel fa-lg"></i>&nbsp;Report Abuse</button>
                     </form>
                 </div>
                 
-                <?php if(AuthenticationDAO::isLi() && AuthenticationDAO::isAdmin()) { ?>
+                <?php if($isLi && $isAdmin) { ?>
                 <div class="btn-group">
                      <button type="button" class="btn btn-danger">Admin Action - Delete Post</button>
                 </div>

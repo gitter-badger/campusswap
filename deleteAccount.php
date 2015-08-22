@@ -13,7 +13,7 @@ include('functions.php');
 
 
 if(isset($_POST['delete']) && $_POST['delete']=='yes'){
-	$id = AuthenticationDAO::liId();
+	$id = $AuthenticationDAO->getLiId();
 	mysql_query("DELETE FROM users WHERE id = '$id'");
 	unset($_SESSION['user']);
 	unset($_SESSION['domain']);
@@ -28,7 +28,7 @@ if(isset($_POST['delete']) && $_POST['delete']=='yes'){
 	echo 'Are you sure you want to delete your account? You will <b>LOSE ALL YOUR POSTS, THEY ARE UNRECOVERABLE!</b>';
 	echo '<input type="submit" value="Yes, delete my account and all my posts" />';
 	echo '<input type="hidden" value="yes" name="delete" />';
-	echo '<a href="' . Config::get('url') . '">No do not delete it</a>';
+	echo '<a href="' . $Config->get('url') . '">No do not delete it</a>';
 	echo '</form>';
 }
 
@@ -37,6 +37,6 @@ if(isset($_POST['delete']) && $_POST['delete']=='yes'){
 
 </div>
 
-<a style="margin-left:48%;text-align:center;color:black" href="<?= Config::get('url'); ?>">Return Home</a>
+<a style="margin-left:48%;text-align:center;color:black" href="<?= $Config->get('url'); ?>">Return Home</a>
 
 </html>

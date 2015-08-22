@@ -1,16 +1,21 @@
-
 <?php
-include('adminHead.php');
 
-echo '<h1>Welcome Admin</h1>';
+include('./adminHead.php');
 
-echo '<form action="makePost.php" method="GET" />';
-echo '<input type="text" value="count" name="count" />';
-echo '<input type="submit" value="submit" />';
+if($isLi && $isAdmin) {
+
+    echo '<h1>Welcome Admin</h1>';
+
+    echo '<form action="makePost.php" method="GET" />';
+    echo '<input type="text" value="count" name="count" />';
+    echo '<input type="submit" value="submit" />';
 
 	
-	
-include('adminFoot.php');
+} else {
+    $AccessDAO->addIntrusion();
+    $LogUtil->log('IP', 'action', 'intrusion');
+}
+include('./adminFoot.php');
 
 
 

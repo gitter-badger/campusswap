@@ -1,10 +1,10 @@
 <div class="loginBar" name="loginbar"> <?PHP //LOGIN BAR ?>
     <?php
-    if($loggedIn){ ?>
+    if($isLi){ ?>
     <a href="<?= URL ?>interface/user_manager/user_posts.php" params="lightwindow_type=external"  class="lightwindow">
         <?php
         echo '<i class="fa fa-user fa-lg"></i>&nbsp;' . $liUser . '@' . $liDomain . '</a>';
-        if($liLevel=='admin'){
+        if($isAdmin){
             echo '<a href="admin/index.php"> / <i class="fa fa-flask fa-lg"></i>&nbsp; Admin';
         }
         echo ' / <a href="logout.php"><i class="fa fa-sign-out fa-lg"></i> &nbsp; Logout</a></b>';

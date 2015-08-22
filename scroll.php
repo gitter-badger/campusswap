@@ -1,40 +1,57 @@
 <?php
-include('./lib/Config.php');
+
+use Campusswap\Util\Config,
+        Campusswap\Util\Timer,
+        Campusswap\Util\Parser,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Database,
+        Campusswap\DAO\DomainsDAO,
+        Campusswap\DAO\UsersDAO,
+        Campusswap\DAO\PostsDAO;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+session_start();
+$Parser = new Parser();
 $Config = new Config('./etc/config.ini');
-$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
 
-include($dir . 'lib/Util/Timer.php');
-$Timer = new Timer(null);
-$Timer->start();
+//TODO: Before final deployment, replace includes with requires, to prevent 
 
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-include($dir . 'lib/DAO/PostsDAO.php');
+// Variables
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
+$version = $Config->get('version');
+$enviorment = $Config->get('enviorment');
+$debug = $Parser->isTrue($Config->get('debug'));
+$debug_location = $Parser->isTrue($Config->get('debug_location'));
 
-include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Util/LogUtil.php');
-include($dir . 'lib/Util/Helper.php');
+// DB
+try {
+    $database = new Database($Config);
+    $Conn = $database->connection();
+} catch (Exception $ex) {
+    $Helper->print_error("Could not establish a database connection");
+    //todo: make a simple logger by overloading the LogUtil constructor to run w/out a db connection to log this error
+    die('Could not establish a DB Connection');
+}
 
-
-include($dir . 'lib/Database.php');
-
-
-$database = new Database();
-$Conn = $database->connection();
-$LogUtil = new LogUtil($Conn, $Config);
-$PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+// DAO's and Log util
+$Log = new LogUtil($Conn, $Config, $Parser);
+$PostsDAO = new PostsDAO($Conn, $Config, $Log);
+$DomainsDAO = new DomainsDAO($Conn, $Config, $Log);
+$UsersDAO = new UsersDAO($Conn, $Config, $Log);
 
 if(isset($_GET['college']) && isset($_GET['sort']) && isset($_GET['search']) && isset($_GET['first'])){
     
-    $college = Parser::getBoolean($_GET['college']);
-    $sort = Parser::getBoolean($_GET['sort']);
-    $search = Parser::getBoolean($_GET['search']);
+    $college = $Parser->getBoolean($_GET['college']);
+    $sort = $Parser->getBoolean($_GET['sort']);
+    $search = $Parser->getBoolean($_GET['search']);
     $first = $_GET['first'];
 
     $posts = $PostsDAO->getPosts($college, $search, $sort, $first, 10);
 
-    if(Parser::isTrue(Config::get('debug'))) {
-        echo '<div style="margin:10px; color:black;border:1px solid black; padding:10px; text-align:center; width:100%"><B>SQL: </B>' . PostsDAO::$limit_sql . '</div>';
+    if($Parser->isTrue($Config->get('debug'))) {
+        echo '<div style="margin:10px; color:black;border:1px solid black; padding:10px; text-align:center; width:100%"><B>SQL: </B>' . $PostsDAO->limit_sql . '</div>';
     }
 
     $switch = "1"; 
@@ -47,6 +64,6 @@ if(isset($_GET['college']) && isset($_GET['sort']) && isset($_GET['search']) && 
 }
 
 $Timer->stop();
-$LogUtil->log(AuthenticationDAO::liFullName(), "info", "Scroll Timer: " . Timer::$last_time);
+$LogUtil->log('USER'. "info", "Scroll Timer: " . Timer::$last_time);
 ?>
 <script type="text/javascript"> console.log(<?= Timer::$last_time ?>); </script>

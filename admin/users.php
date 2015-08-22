@@ -26,7 +26,7 @@ if(isset($_POST['delete'])){
 	
 		echo '<td>' . $row['id'] . '</td>';
 	
-		echo '<td><a href="' . Config::get('url') . 'admin/user.php?user=' . $fullName . '">' . $fullName . '</a></td>';
+		echo '<td><a href="' . $Config->get('url') . 'admin/user.php?user=' . $fullName . '">' . $fullName . '</a></td>';
 	
 		echo '<td>' . $row['level'] . "</td><td>" . $row['created'] . "</td><td>" . $row['modified'] . "</td>";
 	

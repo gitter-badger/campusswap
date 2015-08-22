@@ -1,97 +1,109 @@
 <?php
 
+namespace Campusswap\Util;
+
 class LogUtil {
 
-    public static $log, $conn, $dir;
+    public $Log, $Conn, $dir, $Parser;
 
-    public function __construct($conn, $Config){
-        $dir = Config::get('dir');
-
-        include $dir . 'lib/log4php/Logger.php';
-        Logger::configure($dir . 'etc/log4php.xml');
-
-//        TODO: Implement ERROR Type enum with SplEnum
+    /**
+     * A Utility Class for logging User and System Logs and Actions
+     * @param type $Conn
+     * @param type $Config
+     */
+    public function __construct($Conn, $Config, $Parser){
+        $dir = $Config->get('dir');
+        $this->Parser = $Parser;
+        //TODO: re-configure log4php or go to composer alternative w. namespace
+        //include $dir . 'lib/log4php/Logger.php';
+        //Logger::configure($dir . 'etc/log4php.xml');
+        
+//        TODO: Implement ERROR Type enum with SplEnum (possibly)
 //        include $dir . 'enum/error.php';
 
-        self::$log = Logger::getLogger("main");
-        self::$dir = $dir;
-        self::$conn = $conn;
+        //$this->log = Logger::getLogger("main");
+        $this->dir = $dir;
+        $this->conn = $Conn;
     }
+    
 
 
     /**
      *
      * Log a username, level (or action), log-detail, and the exception_object so we can print the stack trace in the log
      *
-     * @param $user IP = IP address, or pass in the fullName OR AuthenticationDAO::liFullName() for the Logged-In user
+     * @param $user IP = IP address, or pass in the fullName OR $AuthenticationDAO->getLiFullName() for the Logged-In user
      * @param $level INFO, ACTION (Log to DB), WARN, ERROR (Logs Error Action to DB), FATAL (Logs Error Action to DB), 
      * DEBUG, TRACE action is logged as a site-action rather than a regular log
      * @param $details the details of the event logged
      * @param $exception_object = null The Exception object can be passed in so we can use the stack trace in the log
      */
-    public function log($user, $level, $details, $exception_object = null, $ip_intrusion = null){
+    public function log($user, $level, $details, $exception_object = null, $access = null){
         /*
-        if($userInput=='getLiUser'){
-            try {
-                $user = AuthenticationDAO::liFullName();
-
-                //TODO: Decision: Possiby remove this and add logging to Auth
-                // class instead and make the user just pass in the loggers username
-
-            } catch(Exception $e) {
-                echo 'You need to include the Authentication.php from the lib folder - ' . $e->getMessage();
-            }
-        } else {
-            $user = $userInput;
+        todo - refactor all log statements
+        todo - remove $user from param and get user from SESSION Vars
+        todo - plan out new log param structure
+        try {
+            $user = $this->getUser();
+        } catch(Exception $e) {
+            echo 'You need to include the Authentication.php from the lib folder - ' . $e->getMessage();
         }
         */
+        
+        if(strcasecmp($user, 'USER') == 0) {
+            $user = $this->getUser();
+        }
 
-        $level = strtoupper($level);
-        if($user == 'IP')
-        {
-            $user = LogUtil::getIp();
+        if(strcasecmp($user, 'IP') == 0){
+            $user = $this->getIp();
         }
         
-        $ip_intrusion = strtoupper($ip_intrusion);
-        if($ip_intrusion == 'IP') {
-            $ip_intrusion = LogUtil::getIp();
+        if($access != null) {
+            $access_msg = "Access: " . $access->getIp()
+                    . " " . $access->getStatus()
+                    . " failed_logins: " . $access->getFailedLogins()
+                    . " intrusions: " . $access->getIntrusions()
+                    . " " . $access->getDatetime();
         }
 
-        if(strtolower($level) == 'info')
+        if($this->Parser->isEqual($level, 'info'))
         {
-            self::$log->info($user . " - " . $details, $exception_object);
+            $details = $details . " " . $access_msg;
+            //$this->log->info($user . " - " . $details, $exception_object);
         } 
-        else if(strtolower($level) == 'warn')
+        else if($this->Parser->isEqual($level, 'warn'))
         {
-            self::$log->warn($user . " - " . $details, $exception_object);
+            //$this->log->warn($user . " - " . $details, $exception_object);
             self::logDb($user, $level, $details);
         } 
-        else if(strtolower($level) == 'error')
+        else if($this->Parser->isEqual($level, 'error'))
         {
-            self::$log->error($user . " - " . $details, $exception_object);
-            self::logDb($user, $level, $details, $details); //TODO: Add the exception column to the db schema
+            //$this->log->error($user . " - " . $details . " " . $access_msg, $exception_object);
+            self::logDb($user, $level, $details, $details, $access); //TODO: Add the exception column to the db schema
         }
-        else if(strtolower($level) == 'fatal')
+        else if($this->Parser->isEqual($level, 'fatal'))
         {
-            self::$log->fatal($user . " - " . $details, $exception_object);
-            self::logDb($user, $level, $details);
+            //$this->log->fatal($user . " - " . $details . " " . $access_msg, $exception_object);
+            self::logDb($user, $level, $details, $access);
         }
-        else if(strtolower($level) == 'debug')
+        else if($this->Parser->isEqual($level, 'debug'))
         {
-            self::$log->debug($user . " - " . $details, $exception_object, $exception_object);
+            $details = $details . " " . $access_msg;
+            //$this->log->debug($user . " - " . $details, $exception_object, $exception_object);
         } 
-        else if(strtolower($level) == 'action')
+        else if($this->Parser->isEqual($level, 'action'))
         {
-            self::$log->info("Action: " . $action . " - " . $details, $exception_object);
-            self::logDb($user, $level, $details, $action);
+            //$this->log->info("Action: " . $details . " " . $access_msg, $exception_object);
+            self::logDb($user, $level, $details, $access);
         }
-        else if(strtolower($level) == 'trace') 
+        else if($this->Parser->isEqual($level, 'trace') )
         {
-            self::$log->trace($user . " - $details", $exception_object);
+            $details = $details . " " . $access_msg;
+            //$this->log->trace($user . " - $details", $exception_object);
         } 
         else 
         {
-            self::$log->warn($user . " - " . $details, $exception_object);
+            //$this->log->warn($user . " - " . $details, $exception_object);
         }
     }
 
@@ -100,19 +112,27 @@ class LogUtil {
     //  an exception dump so we cna re-load thie exception with this
     //  info. TODO: Also, add more Exception types extending Exception
    
-    public function logDb($user, $level, $details, $action = null) { 
-        if($action == null){
+    public function logDb($user, $level, $details, $access = null) { 
+        if($access == null){
             $sql = "INSERT INTO log (user, level, details, date, time)
                 VALUES ('$user', '$level', '$details', NOW(), NOW())";
         } else {
-            $sql = "INSERT INTO log (user, level, details, action, date)
-                VALUES ('$user', '$level', '$details', $action, NOW())";
+            $sql = "INSERT INTO log (user, level, details, ccess, date)
+                VALUES ('$user', '$level', '$details', $access, NOW())";
         }
 
-        mysqli_query(self::$conn, $sql);
+        mysqli_query($this->conn, $sql);
+    }
+    
+    public function getUser() {
+        if(!empty($_SESSION['fullName'])) {
+            return $_SESSION['fullName'];
+        } else {
+            return self::getIp();
+        }
     }
 
-    public static function getIp() {
+    public function getIp() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])){   //Check if IP from shared internet
             $ip=$_SERVER['HTTP_CLIENT_IP'];
         }

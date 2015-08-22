@@ -12,9 +12,10 @@
     
     <appender name="file" class="LoggerAppenderFile">
         <layout class="LoggerLayoutPattern">
-            <param name="conversionPattern" value="%date{d.m H:i:s}-%-5level: %msg%n" />
+            <!-- Add Exception params to be printed for new custom Exceptions -->
+            <param name="conversionPattern" value="%date{d.m H:i:s}-%-5level: %message%newline%ex%newline%ex" />
         </layout>
-        <param name="file" value="/Users/vaskaloidis/Sites/campusswap/var/log/main.log" />
+        <param name="file" value="/home/vasili/Documents/Sites/campusswap/var/log/main.log" />
     </appender>
     
     <root>

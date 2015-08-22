@@ -1,26 +1,71 @@
 <?php 
 
-include('../lib/Config.php');
+//TODO: Install PhpING
+//TODO: Create OCEF - Open College Ecommerce Framework with PhpIng build tool + admin section
 
+session_start();
+
+use Campusswap\Util\Config,
+        Campusswap\Util\Parser,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Database,
+        Campusswap\DAO\PostsDAO,
+        Campusswap\DAO\DomainsDAO,
+        Campusswap\DAO\UsersDAO,
+        Campusswap\DAO\AccessDAO,
+        Campusswap\DAO\AuthenticationDAO;
+
+$Parser = new Parser();
 $Config = new Config('../etc/config.ini');
 
-$dir = Config::get('dir');
+// Variables
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
+$version = $Config->get('version');
+$enviorment = $Config->get('enviorment');
 
-include($dir . 'functions.php');
+// DB
+try {
+    $database = new Database($Config);
+    $Conn = $database->connection();
+} catch (Exception $ex) {
+    $Helper->print_error("Could not establish a database connection");
+    //todo: make a simple logger by overloading the LogUtil constructor to run w/out a db connection to log this error
+    die('Could not establish a DB Connection');
+}
+//Debug
+$debug = $Parser->isTrue($Config->get('debug'));
+$debug_location = $Parser->isTrue($Config->get('debug_location'));
+
+// DAO's and Log util
+
+$Log = new LogUtil($Conn, $Config, $Parser);
+$PostsDAO = new PostsDAO($Conn, $Config, $Log);
+$DomainsDAO = new DomainsDAO($Conn, $Config, $Log);
+$UsersDAO = new UsersDAO($Conn, $Config, $Log);
+$AccessDAO = new AccessDAO($Conn, $Config, $Log);
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO, $Parser);
+
+// Auth
+$auth = $AuthenticationDAO->getAuthObject();
+$liUser = $auth->getLiUser();
+$liDomain = $auth->getLiDomain();
+$liId = $auth->getLiId();
+$liLevel = $auth->getLiLevel();
+$liFullName = $auth->getLiFullName();
+$isLi = $auth->getIsLi();
+$isAdmin = $auth->isAdmin();
+$isModerator = $auth->isModerator();
 
 
-include($dir . 'lib/vers.php');
-include($dir . 'lib/Posts.php');
-include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-
+try {
 
 ?>
 
 <?php if($debug){ ?>
 	<div style="background-color:#d0ddcf;border: 1px solid #9CAA9C; margin-top:0px;">
 		<b>DEBUGGING PANEL:</b> - 
-		<?php echo liUser() . '@' . liDomain() . ' - ID(' . AuthenticationDAO::liId() . ')'; ?>
+		<?php echo liUser() . '@' . liDomain() . ' - ID(' . $AuthenticationDAO->getLiId() . ')'; ?>
 	</div>
 <?php } ?>
 <!DOCTYPE html>
@@ -63,19 +108,20 @@ include($dir . 'lib/DAO/AuthenticationDAO.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">College Hustler.com</a>
+          <a class="brand" href="#">Campus Swap</a>
           <div class="nav-collapse">
             <ul class="nav">
-                <li class="active"><a href="<?= Config::get('url') ?>admin/"><b>Home</b></a></li>
-				<li><a href="<?= Config::get('url') ?>"><b>MAIN SITE</b></a></li>
-				<li><a href="<?= Config::get('url') ?>admin/Users.php">Users</a></li> 
-				<li><a href="<?= Config::get('url') ?>admin/Posts.php">Posts</a></li>
-				<li><a href="<?= Config::get('url') ?>admin/log.php">Log</a></li>
-				<li><a href="<?= Config::get('url') ?>admin/vers.php">Vers</a></li>
-				<li><a href="<?= Config::get('url') ?>admin/domains.php">Domains</a></li>
-				<li><a href="<?= Config::get('url') ?>admin/ip.php">IP</a></li>
-				<li><a href="<?= Config::get('url') ?>admin/addUsers.php">Add Users</a></li>
-				<li><a href="<?= Config::get('url') ?>admin/addPosts.php">Add Posts</a></li>
+                <li class="active"><a href="<?= $url ?>admin/"><b>Home</b></a></li>
+                    <li><a href="<?= $url ?>"><b>MAIN SITE</b></a></li>
+                    <li><a href="<?= $url ?>admin/access.php">Access</a></li>
+                    <li><a href="<?= $url ?>admin/users.php">Users</a></li> 
+                    <li><a href="<?= $url ?>admin/posts.php">Posts</a></li>
+                    <li><a href="<?= $url ?>admin/log.php">Log</a></li>
+                    <li><a href="<?= $url ?>admin/vers.php">Vers</a></li>
+                    <li><a href="<?= $url ?>admin/domains.php">Domains</a></li>
+                    <li><a href="<?= $url ?>admin/ip.php">IP</a></li>
+                    <li><a href="<?= $url ?>admin/addUsers.php">Add Users</a></li>
+                    <li><a href="<?= $url ?>admin/addPosts.php">Add Posts</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -84,3 +130,28 @@ include($dir . 'lib/DAO/AuthenticationDAO.php');
 	<div style="margin-top:40px;margin-bottom:40px;margin-right:50px;margin-left:50px;">
     
 
+
+<?php 
+} catch(AuthException $ae) {
+    
+    $Helper->print_error($ae ->getInstruction());
+    die("Logic stopped because of an Authentication Error");
+    
+} catch(IntrusionException $ie) {
+    
+    $AccessDAO->addIntrusion();
+    if($Parser->isEqual($ie->getIntrusion(), 'failed-login')) {
+        $AccessDAO->addFailedLogin();
+    }
+    $LogUtil->log('IP', 'action', 'Admin Section Intrusion', $ie);
+    $Helper->print_error();
+    die("Logic stopped because of an Intrusion Detected");
+    
+} catch(Exception $e) {
+    
+    //todo - possibly log intrusion or failed login
+    $LogUtil->log('IP', 'error', 'login error', $e);
+    $Helper->print_error();
+    die("Logic stopped because of an error");
+} 
+?>

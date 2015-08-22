@@ -1,34 +1,30 @@
 <?php
+use Campusswap\Util\Config,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Parser,
+        Campusswap\Util\Database,
+        Campusswap\DAO\PostsDAO,
+        Campusswap\DAO\UsersDAO,
+        Campusswap\DAO\AuthenticationDAO;
 
-include('../lib/Config.php');
-
+$Parser = new Parser();
 $Config = new Config('../etc/config.ini');
 
-$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
 
-include($dir . 'lib/DAO/PostsDAO.php');
-include($dir . 'lib/DAO/DomainsDAO.php');
-include($dir . 'lib/DAO/UsersDAO.php');
 
-include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Util/Helper.php');
-include($dir . 'lib/Util/LogUtil.php');
-
-include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-
-$debug = Parser::isTrue(Config::get('debug'));
+$debug = $Parser->isTrue($Config->get('debug'));
 //Also add timer
 
-$database = new Database();
+$database = new Database($Config);
 $Conn = $database->connection();
 
-$LogUtil = new LogUtil($Conn, $Config);
+$LogUtil = new LogUtil($Conn, $Config, $Parser);
 $PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
 $UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
 
-$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO, $Parser);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $isLi = $auth->getIsLi();
@@ -44,9 +40,9 @@ include $dir . 'interface/subpage_head.php';
 <?php
 if(isset($_GET['approach']) && $isLi){
 
-    $approach = Parser::sanitize($_GET['approach']);
-	$seller_email = Parser::sanitize($_GET['sellerEmail']);
-	$post_id = Parser::sanitize($_GET['id']);
+    $approach = $Parser->sanitize($_GET['approach']);
+	$seller_email = $Parser->sanitize($_GET['sellerEmail']);
+	$post_id = $Parser->sanitize($_GET['id']);
 
     $seller = $UsersDAO->getUserFromId($post_id);
     $items = $PostsDAO->getPost($post_id);
@@ -54,7 +50,7 @@ if(isset($_GET['approach']) && $isLi){
 
     echo '<h1 class="center">Contact User</h1>';
 
-    echo '<div class="alert alert-success">To: ' . Helper::obfuscate_username($seller_email) . '</div>';
+    echo '<div class="alert alert-success">To: ' . $Helper->obfuscate_username($seller_email) . '</div>';
 	echo '<div class="alert alert-success">From: ' . $liUser . '@' . $liDomain . '</div>';
 	
 	echo '<div class="alert alert-info">Item: ' . $item->getitem() . '</div><br />';
@@ -67,11 +63,11 @@ if(isset($_GET['approach']) && $isLi){
 	echo '<input type="hidden" name="id" value="' . $post_id . '">';
 
     echo '<input class="btn btn-primary btn-md" type="submit" value="Contact User!" />';
-    Helper::close_lightwindow_button();
-} else if(isset($_POST['send_email']) && AuthenticationDAO::isLi()){
+    $Helper->close_lightwindow_button();
+} else if(isset($_POST['send_email']) && $AuthenticationDAO->isLi()){
     $email = $_POST['send_email'];
 	$id = $_POST['id'];
-    $contents = Parser::sanitize($_POST['contents']);
+    $contents = $Parser->sanitize($_POST['contents']);
 
     $items = $PostsDAO->getPost($id);
     $item = $items[0];
@@ -94,9 +90,9 @@ if(isset($_GET['approach']) && $isLi){
 	
 	mail($email, $subject, $email_content, $headers);
 
-    Helper::close_lightwindow_button();
+    $Helper->close_lightwindow_button();
 } else {
-    echo '<div class="alert alert-danger">You do not have persmission to be on this page, your ip ' . LogUtil::getIp() . ' has been logged, and it may be banned.</div>';
+    echo '<div class="alert alert-danger">You do not have persmission to be on this page, your ip ' . $Log->getIp() . ' has been logged, and it may be banned.</div>';
     $LogUtil->log("IP", "action", "unauthorized access to modify_item.php");
 
 }

@@ -1,0 +1,22 @@
+{
+    
+    "name": "My Repository",
+    
+    "homepage": "http://YOUR_IP",
+    
+    "repositories": [
+        { "type": "vcs", "url": "https://dependency.kaloidistech.com" }
+    ],
+    
+    "require-all": true,
+    
+    "autoload": {
+        "psr-4": {
+            "Campusswap\\": "lib"
+        }
+    },
+    
+    "require": {
+        "twbs/bootstrap": "^3.3"
+    }
+}

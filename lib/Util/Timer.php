@@ -1,8 +1,8 @@
 <?php
 
 # Vasilios C. Kaloidis
-# vas@isgsoftware.net
-# ISG Software Group
+
+namespace Campusswap\Util;
 
 class Timer
 {
@@ -37,7 +37,7 @@ class Timer
         $this->end_time = microtime(true);
 
 //      We need to fix the bug when logging from classes and modules before we can log in here
-//      $this->log->log(AuthenticationDAO::liFullName(), 'info', 'TimerUtil: ' . $timed_object . ' - ' . $this->result());
+//      $this->log->log('USER'. 'info', 'TimerUtil: ' . $timed_object . ' - ' . $this->result());
 
         self::$last_time =  sprintf('%f', ($this->end_time - $this->start_time));
         $this->clearTime();

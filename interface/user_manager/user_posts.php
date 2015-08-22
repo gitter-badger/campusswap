@@ -1,31 +1,29 @@
 <?php
 
 //TODO: htaccess
+use Campusswap\Util\Config,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Parser,
+        Campusswap\Util\Database,
+        Campusswap\DAO\PostsDAO,
+        Campusswap\DAO\UsersDAO,
+        Campusswap\DAO\AuthenticationDAO;
 
-include('../../lib/Config.php');
-
+$Parser = new Parser();
 $Config = new Config('../../etc/config.ini');
 
-$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
-$debug = Parser::isTrue(Config::get('debug'));
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
+$debug = $Parser->isTrue($Config->get('debug'));
 
-include($dir . 'lib/DAO/PostsDAO.php');
-include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Util/LogUtil.php');
-include($dir . 'lib/Util/Helper.php');
-include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-include($dir . 'lib/DAO/UsersDAO.php');
-include($dir . 'lib/DAO/UsersDAO.php');
 
-$database = new Database();
+$database = new Database($Config);
 $Conn = $database->connection();
-$LogUtil = new LogUtil($Conn, $Config);
+$LogUtil = new LogUtil($Conn, $Config, $Parser);
 $PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
 $UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
 
-$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO, $Parser);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $liDomain = $auth->getLiDomain();
@@ -38,13 +36,13 @@ $simple = true; // TODO: This looks  - Define what this does + refactor global u
 $subpage = false; // TODO: This looks retarded also - its a variable set in the debug panel module
 include $dir . 'interface/subpage_head.php';
 
-if(AuthenticationDAO::isLi()){
+if($AuthenticationDAO->isLi()){
     $posts = $PostsDAO->getPostsUser($liUser, $liDomain);
-    echo 'sql - ' . $PostsDAO::$sql;
-    echo 'count - ' . $PostsDAO::$fp_count;
+    echo 'sql - ' . $PostsDAO->sql;
+    echo 'count - ' . $PostsDAO->fp_count;
 ?>
     <table border="0" cellspacing="0" cellpadding="0" style=";font-size:1em;">
-        <div style="padding-left:2px;border-bottom:1px white solid"><h1><?= AuthenticationDAO::liUser() ?>@<?= AuthenticationDAO::liDomain() ?> Posts</h1>
+        <div style="padding-left:2px;border-bottom:1px white solid"><h1><?= $liFullName ?> Posts</h1>
             &nbsp;
             <a class="btn btn-default btn-sm" href="<?= URL ?>interface/contact.php?contact=bug" target="_top">Report a bug</a>
             &nbsp;

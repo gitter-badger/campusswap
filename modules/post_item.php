@@ -1,26 +1,36 @@
 <?php
 
-include('../lib/Config.php');
-
+use Campusswap\Util\Config,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Parser,
+        Campusswap\Util\Database,
+        Campusswap\DAO\PostsDAO,
+        Campusswap\DAO\UsersDAO,
+        Campusswap\DAO\AuthenticationDAO;
+$Parser = new Parser();
 $Config = new Config('../etc/config.ini');
 
-$dir = Config::get('dir');
+$dir = $Config->get('dir');
 if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url');
+$url = $Config->get('url');
 if(!defined('url')) { define ('URL', $url); }
-$enviorment = Config::get('enviorment');
+$enviorment = $Config->get('enviorment');
 
-include($dir . 'lib/DAO/PostsDAO.php');
-include($dir . 'lib/Util/LogUtil.php');
-include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Util/Helper.php');
-include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
 
-$database = new Database();
+$database = new Database($Config);
 $Conn = $database->connection();
-$LogUtil = new LogUtil($Conn, $Config);
+$LogUtil = new LogUtil($Conn, $Config, $Parser);
 $PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
+$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
+
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO, $Parser);
+$auth = $AuthenticationDAO->getAuthObject();
+$liUser = $auth->getLiUser();
+$isLi = $auth->getIsLi();
+$liDomain = $auth->getLiDomain();
+$liId = $auth->getLiId();
+$liLevel = $auth->getLiLevel();
+$liFullName = $auth->getLiFullName();
 
 $error = false;
 $image_created = false;
@@ -34,7 +44,7 @@ define('FileUploadLimit', 1.3); //File Upload Limit in MB
 
 include($dir . 'interface/subpage_head.php');
 
-if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
+if(isset($_POST['postItem']) && $AuthenticationDAO->isLi()){
     $item = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description']; 
@@ -69,7 +79,7 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
             if (($_FILES["file"]["size"] > (1*Megabyte)) && $image_resize_feature) { //TODO: Nail out resize
                 $img = $_FILES["file"]["size"];
 
-//                $imageResized = Helper::resizeImgage($img , $dest, 480, 400);
+//                $imageResized = $Helper->resizeImgage($img , $dest, 480, 400);
     //                if (!move_uploaded_file($_FILES['file']['tmp_name'], $new_file_name )) {
     //                    throw new RuntimeException('Failed to move uploaded file.'); //Could not move file
     //                $image = $_FILES["file"]["tmp_name"];
@@ -101,12 +111,12 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
             $extension = end($explode);
 
             //CORRECT EXTENSION
-            if((strcasecmp($_FILES["file"]["type"],"image/gif")) // TODO: Duplicate code of a ton of crap that can be done in a UITL
-                || strcasecmp($_FILES["file"]["type"] == "image/jpeg")
-                || strcasecmp($_FILES["file"]["type"] == "image/jpg")
-                || strcasecmp($_FILES["file"]["type"] == "image/pjpeg")
-                || strcasecmp($_FILES["file"]["type"] == "image/x-png")
-                || strcasecmp($_FILES["file"]["type"] == "image/png") 
+            if((strcasecmp($_FILES["file"]["type"],"image/gif") == 0) // TODO: Duplicate code of a ton of crap that can be done in a UITL
+                || strcasecmp($_FILES["file"]["type"], "image/jpeg")
+                || strcasecmp($_FILES["file"]["type"], "image/jpg")
+                || strcasecmp($_FILES["file"]["type"], "image/pjpeg")
+                || strcasecmp($_FILES["file"]["type"], "image/x-png")
+                || strcasecmp($_FILES["file"]["type"], "image/png") 
                 || in_array($extension, $allowedExts))
             {
 
@@ -127,9 +137,9 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
                         echo '<img align=center" href=' . URL . 'var/uploads/' . basename($new_file_name);
                         echo 'Your item has been created successfully!</div><br />';
                         echo '<b>' . $item . '</b> - ' . $description . '<i> - ' . $price . '</i><br /><br />';
-                        echo '<center><img width="200" src="' . Config::get('url') . 'var/uploads/' . basename($new_file_name) . '" /></center><br /><br />';
+                        echo '<center><img width="200" src="' . $Config->get('url') . 'var/uploads/' . basename($new_file_name) . '" /></center><br /><br />';
                         echo '</h5>';
-                        Helper::return_home_button();
+                        $Helper->return_home_button();
                     }
                 }
             } else {
@@ -140,19 +150,19 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
 
                 if($post_result){
                     //TODO: Finish these success and failure pages
-                    echo '<center>This' . Helper::print_message("Your item was posted succesfully</div>") . '</center>';
+                    echo '<center>This' . $Helper->print_message("Your item was posted succesfully</div>") . '</center>';
                 } else {
-                    $LogUtil->log(AuthenticationDAO::liFullName(), "error", "PostDAO Error creating Post");
-                    Helper::print_error("There was an error posting your item</div>");
+                    $LogUtil->log('USER'. "error", "PostDAO Error creating Post");
+                    $Helper->print_error("There was an error posting your item</div>");
                 }
-                Helper::return_home_button();
+                $Helper->return_home_button();
             } 
         } catch (Exception $e){
-            $LogUtil->log(AuthenticationDAO::liFullName(), "error", $e->getMessage, $e);
+            $LogUtil->log('USER'. "error", $e->getMessage, $e);
             if($enviorment != 'prod') {
-                Helper::print_error_dump($e);
+                $Helper->print_error_dump($e);
             } else {
-                Helper::print_error("<b>There was an error posting your item :</b>");
+                $Helper->print_error("<b>There was an error posting your item :</b>");
             }
         }
 } else if(isset($_POST['imageresize'])){
@@ -208,7 +218,7 @@ if(isset($_POST['postItem']) && AuthenticationDAO::isLi()){
         }
     } else {
         echo '<div class="alert alert-danger">Incorrect file type. Only JPG JPEG PNG and GIF images are allowed</div>';
-        Helper::return_home_button();
+        $Helper->return_home_button();
     }
 } else {
     echo 'You do not have permission to be on this page, your IP has been logged';

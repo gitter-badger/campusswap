@@ -1,5 +1,5 @@
 <?php
-
+$ConfigEnum;
 abstract class error {
     const info = "info";
     const warn = "warn";

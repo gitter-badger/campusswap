@@ -3,8 +3,8 @@
 use Parser;
 use Config;
 
-if(Parser::isTrue(Config::get('debug'))) {
-    if(Config::get('debug_location') === 'foot'){
+if($Parser->isTrue($Config->get('debug'))) {
+    if($Config->get('debug_location') === 'foot'){
         $subpage = true;
         include DIR . 'modules/debug.php';
     }

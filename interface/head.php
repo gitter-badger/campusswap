@@ -13,12 +13,12 @@ error_reporting(E_ALL);
     <title>Campus Swap </title> <?php //TODO: Add title ?>
 
     <script type="text/javascript">
-        var cswap_debug = <?= Parser::getBoolean($debug); ?>;
-        var cswap_pages = <?= Parser::getNumber($pages) ?>;
-        var cswap_total = <?= Parser::getNumber(PostsDAO::$total_count) ?>;
-        var cswap_college = '<?= Parser::getBoolean($college) ?>';
-        var cswap_sort = '<?= Parser::getBoolean($sort) ?>';
-        var cswap_search = '<?= Parser::getBoolean($search) ?>';
+        var cswap_debug = <?= $Parser->getBoolean($debug); ?>;
+        var cswap_pages = <?= $Parser->getNumber($pages) ?>;
+        var cswap_total = <?= $Parser->getNumber($PostsDAO->total_count) ?>;
+        var cswap_college = '<?= $Parser->getBoolean($college) ?>';
+        var cswap_sort = '<?= $Parser->getBoolean($sort) ?>';
+        var cswap_search = '<?= $Parser->getBoolean($search) ?>';
         var cswap_first = 40;
         var cswap_url = '<?= URL ?>';
     </script>
@@ -54,10 +54,10 @@ error_reporting(E_ALL);
 
 <?php	
 $display = 'display:none';
-if(!AuthenticationDAO::isLi()) { //COOKIE FIRST VISIT WELCOME MSG?>
+if(!$AuthenticationDAO->isLi()) { //COOKIE FIRST VISIT WELCOME MSG?>
     <?php if(isset($_COOKIE['firstVisit'])){} else {}  //TODO: If we can, then make this responsive
 }
-if(Helper::getDevice()=='mobile'){
+if($Helper->getDevice()=='mobile'){
 	$span2 = ' span2';
 } else {
 	$span2 = '';
@@ -71,7 +71,7 @@ if(Helper::getDevice()=='mobile'){
 	<a href="<?= URL ?>"><img src="<?= URL ?>interface/img/logo.png" /></a>
 	
 	<?php
-	if(Helper::getDevice()=='mobile'){
+	if($Helper->getDevice()=='mobile'){
         //TODO: Let's make this crap responsive
 		echo '<div class="top box span2"style="margin-bottom:10px">';
 	} else {

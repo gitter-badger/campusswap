@@ -7,7 +7,7 @@ $search = ''; $search_string = '';
 //URL Disection + Assignment
 if(!isset($_GET)){
     
-    if(AuthenticationDAO::isLi()){
+    if($AuthenticationDAO->isLi()){
         $college = $liDomain;
         $college_string = "false"; //Maybe this 'extra' 'string' version of the main variables
                                   // can be done better.. like a parser.. this is
@@ -37,7 +37,7 @@ if(!isset($_GET)){
     $item = false;
 
     if(isset($_GET['college'])){
-        $college = Parser::sanitize($_GET['college']);
+        $college = $Parser->sanitize($_GET['college']);
         $college_string = $college;
     } else {
         $college = 'all';
@@ -45,7 +45,7 @@ if(!isset($_GET)){
     }
     
     if(isset($_GET['search'])){
-        $search = Parser::sanitize($_GET['search']);
+        $search = $Parser->sanitize($_GET['search']);
         $search_string = $search;
     } else {
         $search = false;
@@ -57,7 +57,7 @@ if(!isset($_GET)){
             $sort = 'none';
             $sort_string = "None";
         } else {
-            $sort = Parser::sanitize($_GET['sort']);
+            $sort = $Parser->sanitize($_GET['sort']);
             $sort_string = $sort;
         }
     } else {
@@ -66,7 +66,7 @@ if(!isset($_GET)){
     }
 
 } else {
-    if(AuthenticationDAO::isLi()){
+    if($AuthenticationDAO->isLi()){
         $college = $liDomain;
         $college_string = $liDomain;
     } else {
@@ -83,7 +83,7 @@ if(!isset($_GET)){
 }
 
 //Sort by Date Descending by DEFAULT
-if(Parser::isFalse($sort)) {
+if($Parser->isFalse($sort)) {
     $sort = 'dateDesc';
 }
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Campusswap\DAO;;
 class VersDAO {
 	
 	public static $conn, $Config, $log, $count, $sql;
@@ -14,8 +14,8 @@ class VersDAO {
         self::$conn = $Connection;
         self::$Config = $Config;
         self::$log = $log;
-        $dir = Config::get('dir');
-        include $dir . 'lib/Objects/Vers.php';
+        $dir = $Config->get('dir');
+        include $dir . 'lib/Object/Vers.php';
     }
 
     private function createObject($sql){
@@ -28,7 +28,7 @@ class VersDAO {
 
         if(self::$count == 1){
             while($row = mysqli_fetch_array($result)){
-                $Vers = new Vers();
+                $Vers = new Campusswap\Object\Vers();
                 $Vers->setId($row['id']);
                 $Vers->setVer($row['ver']);
                 $Vers->setDomain($row['domain']);

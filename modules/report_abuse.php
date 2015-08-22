@@ -1,26 +1,25 @@
 <?php
-include('../lib/Config.php');
+use Campusswap\Util\Config,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Database,
+        Campusswap\Util\Parser,
+        Campusswap\DAO\PostsDAO,
+        Campusswap\DAO\UsersDAO,
+        Campusswap\DAO\AuthenticationDAO;
 
+$Parser = new Parser();
 $Config = new Config('../etc/config.ini');
 
-$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
 
-include($dir . 'lib/DAO/PostsDAO.php');
-include($dir . 'lib/DAO/$UsersDAO.php');
-include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Util/LogUtil.php');
-include($dir . 'lib/Util/Helper.php');
-include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-
-$database = new Database();
+$database = new Database($Config);
 $Conn = $database->connection();
-$LogUtil = new LogUtil($Conn, $Config);
+$LogUtil = new LogUtil($Conn, $Config, $Parser);
 $PostsDAO = new PostsDAO($Conn, $Config, $LogUtil);
 $UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
 
-$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO);
+$AuthenticationDAO = new AuthenticationDAO($Conn, $Config, $Log, $UsersDAO, $Parser);
 $auth = $AuthenticationDAO->getAuthObject();
 $liUser = $auth->getLiUser();
 $liDomain = $auth->getLiDomain();
@@ -41,7 +40,7 @@ if(isset($_POST['abuse'])){
 	
 	$LogUtil->log($reporter, 'action', 'report abuse - ' . $reporter . ' reported ' . $abuser . ' - Regarding Item: ' . $post . ' - ' . $reportedPostUrl);
 	
-	Helper::print_message('You <b>(' . AuthenticationDAO::liFullName() . ')</b> have reported <b>' . $abuser . ' - Regarding Item: <a href="' . $reportedPostUrl . '">' . $post . ' - ' . $reportedPostUrl. '</a>');
+	$Helper->print_message('You <b>(' . $AuthenticationDAO->getLiFullName() . ')</b> have reported <b>' . $abuser . ' - Regarding Item: <a href="' . $reportedPostUrl . '">' . $post . ' - ' . $reportedPostUrl. '</a>');
 }
 
 include(DIR . 'interface/subpage_foot'); 

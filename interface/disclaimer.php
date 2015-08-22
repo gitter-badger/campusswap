@@ -1,9 +1,9 @@
 <?php
 
-include('../../lib/Config.php');
+include('../../lib/Util/Config.php');
 $Config = new Config('../../etc/config.ini');
-$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
 
 include(DIR . 'lib/DAO/PostsDAO.php');
 include(DIR . 'lib/Util/Parser.php');
@@ -228,6 +228,6 @@ Any rights not expressly granted herein are reserved.
 </p>
 </font>
 </div>
-<?php Helper::return_home_button() ?>
+<?php $Helper->return_home_button() ?>
 </body>
 </html>

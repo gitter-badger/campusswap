@@ -1,13 +1,13 @@
 <?php
 
 
-include('./lib/Config.php');
+include('./lib/Util/Config.php');
 
 $Config = new Config('./etc/config.ini');
 
-$dir = Config::get('dir');
+$dir = $Config->get('dir');
 if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url');
+$url = $Config->get('url');
 if(!defined('url')) { define ('URL', $url); }
 
 include $dir . 'lib/Util/Helper.php';
@@ -28,6 +28,6 @@ session_unset();
 <br />
 
     <div class="alert alert-success">You have successfully logged out!</div>
-     <?php Helper::return_home_button(); ?>
+     <?php $Helper->return_home_button(); ?>
 
 <?php include('./interface/subpage_foot.php'); ?>

@@ -6,14 +6,14 @@ echo '<br><div class="alert alert-warning">';
 
 echo '<b>DEBUG</b>';
 //if(isset($PostsDAO) && !isset($subpage)) {
-//    echo '<b>SQL:</b> ' . $PostsDAO::$sql;
+//    echo '<b>SQL:</b> ' . $PostsDAO->sql;
 //
-//    echo "<br /><b> FP Rows: </b>" . Parser::getNumber(PostsDAO::$fp_count) . " ";
-//    echo "<b>Total Rows: </b>" . Parser::getNumber(PostsDAO::$total_count) . " ";
+//    echo "<br /><b> FP Rows: </b>" . $Parser->getNumber($PostsDAO->fp_count) . " ";
+//    echo "<b>Total Rows: </b>" . $Parser->getNumber($PostsDAO->total_count) . " ";
 //
-//    echo "<b>Search:</b> " . Parser::getBoolean($search) . " <b>College:</b> " . Parser::getBoolean($college) . " <b>Sort</b> " . Parser::getBoolean($sort) . " ";
+//    echo "<b>Search:</b> " . $Parser->getBoolean($search) . " <b>College:</b> " . $Parser->getBoolean($college) . " <b>Sort</b> " . $Parser->getBoolean($sort) . " ";
 //
-//    echo "<b>Pages:</b> " . Parser::getNumber($pages);
+//    echo "<b>Pages:</b> " . $Parser->getNumber($pages);
 //}
 
 if($_POST != null) {
@@ -60,11 +60,11 @@ if(isset($VersDAO)) {
     echo '<br>';
 }
 
-//echo '<b>PostsDAO Status:</b> ' . Parser::getBoolean($PostsDAO) . ' ';
+//echo '<b>PostsDAO Status:</b> ' . $Parser->getBoolean($PostsDAO) . ' ';
 
 if(isset($subpage)) {
     if($subpage != FALSE) {
-        echo '<b>Subpage Status:</b> ' . Parser::getBoolean($subpage) . ' ';
+        echo '<b>Subpage Status:</b> ' . $Parser->getBoolean($subpage) . ' ';
     } else {
         echo '<b>Subpage Status:</b> Not False (TRUE)';
     }
@@ -77,13 +77,13 @@ if(isset($PostsDAO)) {
     if($PostsDAO != FALSE) {
         if($subpage != TRUE) {
             echo '<b><u>PostsDAO TRUE</u> - </b> ';
-            echo '<b>Front Page Rows: </b>' . $PostsDAO::$fp_count . ' ';
+            echo '<b>Front Page Rows: </b>' . $PostsDAO->fp_count . ' ';
             echo '<br>';
-            echo '<b>Full SQL: </b>' . $PostsDAO::$sql . '<br> ';
-            echo '<b>Limit SQL: </b>' . $PostsDAO::$limit_sql . '<br> ';
-            echo "<b>Total Rows: </b>" . Parser::getNumber(PostsDAO::$total_count) . " ";
-            echo "<b>Search:</b> " . Parser::getBoolean($search) . " <b>College:</b> " . Parser::getBoolean($college) . " <b>Sort</b> " . Parser::getBoolean($sort) . " ";
-            echo "<b>Pages:</b> " . Parser::getNumber($pages);
+            echo '<b>Full SQL: </b>' . $PostsDAO->sql . '<br> ';
+            echo '<b>Limit SQL: </b>' . $PostsDAO->limit_sql . '<br> ';
+            echo "<b>Total Rows: </b>" . $Parser->getNumber($PostsDAO->total_count) . " ";
+            echo "<b>Search:</b> " . $Parser->getBoolean($search) . " <b>College:</b> " . $Parser->getBoolean($college) . " <b>Sort</b> " . $Parser->getBoolean($sort) . " ";
+            echo "<b>Pages:</b> " . $Parser->getNumber($pages);
         } else {
             echo '<b>Subpage Status:</b> True ';
         }

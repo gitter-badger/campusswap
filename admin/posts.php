@@ -46,7 +46,7 @@ include('adminHead.php');
 	
 	while($row = mysql_fetch_assoc($query)){
 		
-		$description = substr($row['description'], 0, 250) . Config::get('url') . '?item=' . $row['id'];
+		$description = substr($row['description'], 0, 250) . $Config->get('url') . '?item=' . $row['id'];
 		echo '<tr>';
 		
 		echo '<td>' . $row['id'] . '</td><td>' . $row['item'] . '</td><td>' . $description . '</td>';
@@ -65,8 +65,8 @@ include('adminHead.php');
 	
 	echo '<h2>';
 	for($i = 1; $i <= $pageCount; $i++){
-		if($i == $page){ echo '<i><a href="' . Config::get('url') . 'admin/Posts.php?page=' . $i . '">' . $i . ' - </a></i>'; }
-		else { echo '<a href="' . Config::get('url') . 'admin/Posts.php?page=' . $i . '">' . $i . ' - </a>';}
+		if($i == $page){ echo '<i><a href="' . $Config->get('url') . 'admin/Posts.php?page=' . $i . '">' . $i . ' - </a></i>'; }
+		else { echo '<a href="' . $Config->get('url') . 'admin/Posts.php?page=' . $i . '">' . $i . ' - </a>';}
 		
 	}
 	echo '</h2>';

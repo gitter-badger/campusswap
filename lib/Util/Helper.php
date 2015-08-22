@@ -1,9 +1,10 @@
 <?php
+namespace Campusswap\Util;
 
 class Helper {
 
     /* http://stackoverflow.com/questions/25800310/reduce-image-size-while-uploading-using-the-following-php-code-used-to-upload-im */
-    public static function resizeImgage($img, $source, $dest, $maxw, $maxh ) {      
+    public function resizeImgage($img, $source, $dest, $maxw, $maxh ) {      
 
         if( $img ) {
             list( $width, $height  ) = getimagesize( $jpg ); //$type will return the type of the image
@@ -32,7 +33,7 @@ class Helper {
         imagedestroy( $source );
     }
     
-    public static function obfuscate_username($username, $domain = null) {
+    public function obfuscate_username($username, $domain = null) {
         if($domain == null) {
             $explode = explode("@", $username);
             $domain = $explode[1];
@@ -52,19 +53,19 @@ class Helper {
         return $return;
     }
     
-    public static function print_error_dump($e) {
-        Helper::print_error("<b>Message:</b><br>" . $e->getMessage()); 
+    public function print_error_dump($e) {
+        $Helper->print_error("<b>Message:</b><br>" . $e->getMessage()); 
         echo "<br>";
-        //Helper::print_error("<b>File - Line</b><br>" . $e->getFile() . " - " . + $e->getLine());
+        //$Helper->print_error("<b>File - Line</b><br>" . $e->getFile() . " - " . + $e->getLine());
         //echo "<br>";
-        //Helper::print_error("<b>Trace</b><br>" . $e->getTrace());
+        //$Helper->print_error("<b>Trace</b><br>" . $e->getTrace());
         //echo "<br>";
-        //Helper::print_error("<b>Trace (String)</b><br>" . $e->getTraceAsString());
+        //$Helper->print_error("<b>Trace (String)</b><br>" . $e->getTraceAsString());
         //echo "<br>";
-        //Helper::print_error("<b>Trace (String)</b><br>" . $e->getCode());
+        //$Helper->print_error("<b>Trace (String)</b><br>" . $e->getCode());
     }
     
-    public static function print_alert($alert, $message) {
+    public function print_alert($alert, $message) {
         if($alert == 'danger') {
             echo '<div class="alert alert-danger">';
         } else if($alert =='warning') {
@@ -86,8 +87,13 @@ class Helper {
      * 
      * @param type $message message to print in red error box
      */
-    public static function print_error($message) {
-        self::print_alert("danger", $message);
+    public function print_error($message = false) {
+        if($message) {
+            self::print_alert("danger", $message);
+        } else {
+            $message = "There was an error loading this page, we apoligize for the inconvenience and are working quickly to fix this problem";
+            self::print_alert ($alert, $message);
+        }
     }
     
     /**
@@ -95,7 +101,7 @@ class Helper {
      * 
      * @param type $message message to print in yellow warning box
      */
-    public static function print_warning($message) {
+    public function print_warning($message) {
          self::print_alert("warning", $message);
     }
     
@@ -104,7 +110,7 @@ class Helper {
      * 
      * @param type $message to output in Info message box
      */
-    public static function print_info($message) {
+    public function print_info($message) {
          self::print_alert("danger", $message);
     }
     
@@ -113,22 +119,22 @@ class Helper {
      * 
      * @param type $message to print in the green message box
      */
-    public static function print_message($message) {
+    public function print_message($message) {
         self::print_alert("success", $message);
     }
 
-    public static function close_lightwindow_button() {
+    public function close_lightwindow_button() {
         echo '<a href="#" id="lw_close_button_override lightwindow_title_bar_close_link" class="btn btn-success">Close!</a>';
     }
 
-    public static function contact_support_button($center = null){
+    public function contact_support_button($center = null){
         echo '<a class="center" href="' . URL . 'contact.php">';
             echo '<button type="button" class="btn btn-success">Contact</button>';
         echo '</a>';
     }
 
-    public static function return_home_button($text = null, $size = null){
-        echo '<br><a class="center" href="' . Config::get("url") . '">';
+    public function return_home_button($text = null, $size = null){
+        echo '<br><a class="center" href="' . $Config->get("url") . '">';
 
         if($size != null){
             echo '<button class="btn btn-lg btn-success btn-block" type="submit">';
@@ -145,7 +151,7 @@ class Helper {
         echo '</a>';
     }
 
-    public static function getDevice(){
+    public function getDevice(){
        // TODO: Break this stuff out to its own mobile helper class
 
 //      $detect = new Mobile_Detect();

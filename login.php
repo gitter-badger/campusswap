@@ -1,35 +1,30 @@
 <?php
-//session_start();
 
-include('./lib/Config.php');
+use Campusswap\Util\Config,
+        Campusswap\Util\Parser,
+        Campusswap\Util\LogUtil,
+        Campusswap\Util\Database,
+        Campusswap\DAO\DomainsDAO,
+        Campusswap\DAO\AccessDAO;
 
+session_start();
+
+$Parser = new Parser();
 $Config = new Config('./etc/config.ini');
 
-$dir = Config::get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
-$url = Config::get('url'); if(!defined('url')) { define ('URL', $url); }
-$version = Config::get('version');
+$dir = $Config->get('dir'); if(!defined('dir')) { define ('DIR', $dir); }
+$url = $Config->get('url'); if(!defined('url')) { define ('URL', $url); }
+$version = $Config->get('version');
 
-include($dir . 'lib/DAO/DomainsDAO.php');
-include($dir . 'lib/DAO/AccessDAO.php');
-include($dir . 'lib/DAO/UsersDAO.php');
+$debug = $Parser->isTrue($Config->get('debug'));
 
-
-include($dir . 'lib/Util/Parser.php');
-include($dir . 'lib/Util/Helper.php');
-include($dir . 'lib/Util/LogUtil.php');
-
-include($dir . 'lib/Database.php');
-include($dir . 'lib/DAO/AuthenticationDAO.php');
-
-$debug = Parser::isTrue(Config::get('debug'));
-
-$database = new Database();
+$database = new Database($Config);
 $Conn = $database->connection();
 
-$LogUtil = new LogUtil($Conn, $Config);
+$LogUtil = new LogUtil($Conn, $Config, $Parser);
 $DomainsDAO = new DomainsDAO($Conn, $Config, $LogUtil);
 $AccessDAO = new AccessDAO($Conn, $Config, $LogUtil);
-$UsersDAO = new UsersDAO($Conn, $Config, $LogUtil);
+$UsersDAO = new sersDAO($Conn, $Config, $LogUtil);
 
 $all_domains = $DomainsDAO->getAllDomains();
 
@@ -41,81 +36,96 @@ include(DIR . 'interface/subpage_head.php');
 
 
 if(isset($_POST['loginSubmitted'])){
-	
-	$errors = array();
-	
-	if(!isset($_POST['username'])){
-		$errors[] = 'You did not enter a username!';
-	} else {
-		$username = $_POST['username'];
-	}
+    try {
+        $errors = array();
 
-    $domain = $_POST['domain'];
-	
-	if(!isset($_POST['password'])){
-		$errors[] = 'You did not enter a password';
-	} else {
-		$password = $_POST['password'];
-	}
-	
-	$fullName = $username . '$' . $domain;
-	
-	if(empty($errors)){
-		
-            date_default_timezone_set('America/New_York');
-            $today = date("y-m-d");
+        if(empty($_POST['username'])){
+            throw new AuthException("Username field is empty", "Please enter a username");
+        } else {
+            $username = $_POST['username'];
+        }
+        
+        if(empty($_POST['domain'])){
+            throw new AuthException("Domain field is empty", "Please Select a Domain");
+        } else {
+            $domain = $_POST['domain'];
+        }
 
-            $check = false;
-		
-            $user_authenticated = $UsersDAO->authenticateUser($username, $domain, $password);
-            $access = $AccessDAO->getAccessToday(LogUtil::getIp(), $fullName);
+        if(empty($_POST['password'])){
+            throw new AuthException("Password field is empty", "Please enter a password");
+        } else {
+            $password = $_POST['password'];
+        }
 
+        $fullName = $username . '$' . $domain;
+
+        date_default_timezone_set('America/New_York');
+        $today = date("y-m-d");
+        $check = false;
+        
+        $user_authenticated = $UsersDAO->authenticateUser($username, $domain, $password);
+        $access = $AccessDAO->getAccess(); 
+        if($access) {
+            $intrusions = $access->getIntrusions();
             $failed_logins = $access->getFailedLogins();
+        } else {
+            $access = $AccessDAO->addAccess();
+        }
+        //TODO: Add an Auth check, if the user is banned, or too many intrusions then permenantly ban username
+        
+        if($user_authenticated){ //If user + password good
+            if($failed_logins > 5 || $user_authenticated == 'banned' || $intrusions > 5){ //If Banned or Too many Login attempts
+                if($failed_logins > 5) {
+                    throw new IntrusionException($full_name, 'Login Attempt blocked - too many failed logins');
+                }
+                if(strcasecmp($user_authenticated, 'banned') == 0) {
+                    throw new IntrusionException($full_name, 'Login Attempt blocked - username is banned');
+                }
+                if($intrusions > 5) {
+                    throw new IntrusionException($full_name, 'Login Attempt blocked - too many intrusions');
+                }
+            } else { //Login successful
+                //todo - add a Hash Key to DB and delete after they logout + R&D
+                $_SESSION['user'] = $user_authenticated->getUsername();
+                $_SESSION['domain'] = $user_authenticated->getDomain();
+                $_SESSION['userId'] = $user_authenticated->getId();
+                $_SESSION['level'] = $user_authenticated->getLevel();
+                $fullName = $user_authenticated->getFullName();
+                $_SESSOPM['fullName'] = $fullName;
 
-		if($user_authenticated){ //If user + password good
-			
-			if($failed_logins > 5 || $user_authenticated == 'banned'){ //If Banned or Too many Login attempts
-
-				echo 'You have been banned or you have more than 5 failed login attempts in the past 24 hours, your IP has been logged.';
-				if($failed_logins > 5){
-                                    $alert = 'Your IP has been temporarily banned becase your IP has failed more than 5 logon attempts today. If you beleive this is incorrect - please contact support.';
-                                    Helper::print_alert("danger", $alert);
-                                    $LogUtil->log("IP", "ACTION", $username . "@" . $domain . " failed to enter correctly password more than 5 times. Failed login attempt #" . $failed_logins);
-                                }
-
-                        if($user_authenticated == 'banned') {
-                            $LogUtil->log("IP", "ACTION", $username . "@" . $domain . "Banned User attempted login", "banned user login attempt");
-                            Helper::print_alert("warning", "Your username has been banned, you cannot log in. If you think this has been done in error, contact support");
-                        }
-
-			} else { //Login successful
-				$_SESSION['user'] = $user_authenticated->getUsername();
-				$_SESSION['domain'] = $user_authenticated->getDomain();
-				$_SESSION['userId'] = $user_authenticated->getId();
-				$_SESSION['level'] = $user_authenticated->getLevel();
-				
-                            $access_usernames = explode("/", $access->getUsernames());
-                            if(!in_array($fullName, $access_usernames)){
-                                $access->addUsertoAccess($Conn, $fullName); //Might to include the file at the top and redlecare
-                            }
-
-                            $LogUtil->log($fullName, 'action', 'login - ' . $fullName - ' . IP: ' . LogUtil::getIp());
-                            echo '<div class="alert alert-success">You have successfully logged in</div>';
-			}
-				
-		} else {
-                    echo '<div class="alert alert-warning">Could not find the username or password. If you repeatedly login incorrectly your IP address will be banned.</div><br />';
-                    echo '<a href="' . $url . 'login.php"><button class="btn btn-primary">Try Login Again</button></a>';
-                    $LogUtil->log('IP', 'action' , ' failed login - ' . $username . '@' . $domain);
-		}
-	} else {
-		
-		foreach($errors as $msg){
-            $LogUtil->log('IP', 'ACTION' , ' failed login error: ' . $msg, 'failed login');
-            echo '<div class="alert alert-danger"><a href="login.php">' . $msg . '</a></div>';
-		}
-        Helper::return_home_button();
-	}
+                if($access) {
+                    if(!$access->hasUser($Conn, $fullName)) {
+                        $access->addUser($Conn, $fullName);
+                    }
+                } else {
+                    throw new Exception("impossible result - access object is not created on login.php, when it should have been");
+                }
+                
+                $LogUtil->log($fullName, 'action', 'login - ' . $fullName - ' . IP: ' . $LogUtil->getIp());
+                echo '<div class="alert alert-success">You have successfully logged in</div>';
+            }
+        } else {
+            echo '<div class="alert alert-warning">Could not find the username or password. If you repeatedly login incorrectly your IP address will be banned.</div><br />';
+            echo '<a href="' . $url . 'login.php"><button class="btn btn-primary">Try Login Again</button></a>';
+            
+            throw new IntrusionException("failed-login");
+        }
+    } catch(AuthException $ae) { //INCORRECT CREDENTIALS AuthException
+        $Helper->print_error($ae->getMessage() . " - " . $ae ->getInstruction());
+        $LogUtil->log('IP', 'action' , ' failed login - ' . $username . '@' . $domain, $ae);
+        $AccessDAO->addFailedLogin();
+    } catch(IntrusionException $ie) {
+        $AccessDAO->addIntrusion(); //INTRUSION EXCEPTION
+        if($Parser->isEqual($ie->getIntrusion(), 'failed-login')) {
+            $AccessDAO->addFailedLogin();
+        }
+        $LogUtil->log('IP', 'action', 'intrusion - ' . $ie->getMessage(), $ie);
+    } catch(Exception $e) { //ERROR EXCEPTION
+        //todo - possibly log intrusion or failed login
+        $LogUtil->log('IP', 'error', 'login error', $e);
+    } finally {
+        $Helper->return_home_button();
+    }
 } else {
 
 //TODO: Finish Login Page UI
@@ -140,7 +150,7 @@ if(isset($_POST['loginSubmitted'])){
     <input class="tall_text_box form-control input-lg" type="password" size="30" name="password" value="password" /><br />
     <input type="hidden" name="loginSubmitted" value="TRUE">
     <input type="submit" class="btn btn-primary btn-large btn-block" value="Login" />
-    <a href="<?= Config::get('url'); ?>recoverPassword.php">Recover Password</a>
+    <a href="<?= $Config->get('url'); ?>recoverPassword.php">Recover Password</a>
 </form>
 
 <h2>Register<small>Available Upon Release</small></h2>
@@ -156,12 +166,12 @@ if(isset($_POST['loginSubmitted'])){
     </select><br />
     <input type="hidden" name="signup" value="TRUE">
     <input type="submit" class="btn btn-primary btn-large btn-block" value="Signup!" />
-
+     $Helper->return_home_button();
 </form>
 
 <?php } 
 
- Helper::return_home_button();
+
 
 include(DIR . 'interface/subpage_foot.php');
 
