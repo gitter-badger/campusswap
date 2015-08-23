@@ -1,6 +1,8 @@
 # Campus Swap College Student Marketplace
 ==========
 
+[![Join the chat at https://gitter.im/vaskaloidis/campusswap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vaskaloidis/campusswap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Deploy
 * Create a database in MySQL, then import the latest SQL dump from /var/sql/latest_date.sql
 ```
